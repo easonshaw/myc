@@ -1,8 +1,6 @@
 import fetch from '../config/fetch'
 import {getStore} from '../config/mUtils'
 
-
-
 /**
  * 墨月城-获取验证码
  */
@@ -165,9 +163,9 @@ export const createUser = (userName, accountType, rebatePointSSC, rebatePointFFC
     quota3:quota3,
 }, 'POST', 'fetch', 'json', true);
 
-
-
-
+/**
+ * 墨月城-
+ */
 
 
 
