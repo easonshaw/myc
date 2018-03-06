@@ -164,14 +164,18 @@ export const createUser = (userName, accountType, rebatePointSSC, rebatePointFFC
 }, 'POST', 'fetch', 'json', true);
 
 /**
- * 墨月城-
+ * 墨月城-获取登录用户有效游戏列表
  */
+export const gamesList = () => fetch('/fore/lottery/games', {}, 'GET');
 
+/**
+ * 墨月城-获取登录用户有效游戏类型
+ */
+export const gamesType = () => fetch('/fore/lottery/plays', {}, 'GET');
 
-
-
-
-
-
+/**
+ * 墨月城-获取投注记录(游戏记录)
+ */
+export const betList = (page = 1, size, type) => fetch('/fore/bet-record/list', { page: page, size: size, type: type }, 'POST', 'fetch', 'json', true);
 
 

@@ -25,7 +25,8 @@ const user = r => require.ensure([], () => r(require('../page/team/user')), 'use
 const userlist = r => require.ensure([], () => r(require('../page/team/user/list')), 'userlist')
 const createuser  = r => require.ensure([], () => r(require('../page/team/user/createuser')), 'createuser')
 const updateuser  = r => require.ensure([], () => r(require('../page/team/user/updateuser')), 'updateuser')
-
+const bets = r => require.ensure([], () => r(require('../page/bets/bets')), 'bets')
+const gamerecord = r => require.ensure([], () => r(require('../page/bets/gamerecord')), 'gamerecord')
 
 
 
@@ -152,6 +153,16 @@ export default [{
                     name: 'updateuser',
                     component: updateuser,
                 },]
+            }]
+        },
+        //订单报表
+        {
+            path: '/bets',
+            component: bets,
+            children: [{
+                path: 'gamerecord', //团队总览
+                name: 'gamerecord',
+                component: gamerecord,
             }]
         },
     ]

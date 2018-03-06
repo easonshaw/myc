@@ -29,7 +29,7 @@
                 <li :class="activeNav == 'account' ? 'active' : ''"><router-link :to="{ name: 'updateNickname' }"><i class="iconfont icon-wodezhanghu"></i> <p>我的账户</p></router-link></li>
                 <li :class="activeNav == 'team' ? 'active' : ''"><router-link :to="{ name: 'teamsummary' }"><i class="iconfont icon-dailiguanli"></i> <p>代理管理</p></router-link></li>
                 <li :class="activeNav == 'cashflow' ? 'active' : ''"><router-link :to="{ name: 'cashflow' }"><i class="iconfont icon-cuntijilu"></i> <p>存提记录</p></router-link></li>
-                <li :class="activeNav == 'bets' ? 'active' : ''"><router-link :to="{ name: 'bets' }"><i class="iconfont icon-dingdanbaobiao"></i> <p>订单报表</p></router-link></li>
+                <li :class="activeNav == 'bets' ? 'active' : ''"><router-link :to="{ name: 'gamerecord' }"><i class="iconfont icon-dingdanbaobiao"></i> <p>订单报表</p></router-link></li>
                 <li :class="activeNav == 'finance' ? 'active' : ''"><router-link :to="{ name: 'finance' }"><i class="iconfont icon-caiwuguanli"></i> <p>财务管理</p></router-link></li>
                 <li :class="activeNav == 'activity' ? 'active' : ''"><router-link :to="{ name: 'activity' }"><i class="iconfont icon-youhuihuodong"></i> <p>优惠活动</p></router-link></li>
             </ul>
