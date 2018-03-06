@@ -39,16 +39,31 @@
                 <el-col :span="4"><div class="grid-content"><span>六十日未登入</span><b>{{analysisData.day60NotLogin}}</b></div></el-col>
                 <el-col :span="4"></el-col>
             </el-row>
+            <div class="analysistitle">金额走势图
+                <el-radio-group v-model="chatstype" class="chatsSwitch" @change="changecharts">
+                    <el-radio-button label="line" value="">折线图</el-radio-button>
+                    <el-radio-button label="bar" value="bar">柱状图</el-radio-button>
+                </el-radio-group>
+            </div>
+            <el-row class="summaryCharts">
+                <el-col :span="2">&nbsp;</el-col>
+                <el-col :span="20">
+                    <div id="chatsDiv" style="width: 100%; height: 400px;"></div>
+                </el-col>
+                <el-col :span="2">&nbsp;</el-col>
+            </el-row>
         </div>
     </div>
 </template>
 
 <script>
     import {getTeamAnalysis} from '../../service/getData'
-
+    import echarts from 'echarts'
     export default {
+        name: '',
         data(){
             return{
+                chatstype: 'line',
                 loadfiterdata: false,
                 filterform: {
                     start: null,
@@ -71,6 +86,7 @@
             }
         },
         mounted(){
+
         },
         components:{
         },
@@ -80,8 +96,75 @@
         computed:{
 
         },
-
         methods:{
+            drawPie(id, chartstype){
+                var that = this;
+                var chartsdata = {
+                    bet: [],
+                    rebate: [],
+                    recharge: [],
+                    withdraw: [],
+                    datelabel: [],
+                };
+                var analysisData = this.analysisData.report;
+                for(var i in analysisData){
+                    chartsdata['bet'].push(analysisData[i].betTotal);
+                    chartsdata['rebate'].push(analysisData[i].rebateTotal);
+                    chartsdata['recharge'].push(analysisData[i].rechargeTotal);
+                    chartsdata['withdraw'].push(analysisData[i].withdrawTotal);
+                    chartsdata['datelabel'].push(analysisData[i].reportDate);
+                }
+                var chartsoption = {
+                    tooltip : {
+                        trigger: 'axis',
+                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    legend: {
+                        data:['充值量','提现量','投注量','返点量']
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            data : chartsdata['datelabel']
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'充值量',
+                            type: chartstype,
+                            data: chartsdata['recharge']
+                        },
+                        {
+                            name:'提现量',
+                            type: chartstype,
+                            data: chartsdata['withdraw']
+                        },
+                        {
+                            name:'投注量',
+                            type: chartstype,
+                            data: chartsdata['bet']
+                        },
+                        {
+                            name:'返点量',
+                            type: chartstype,
+                            data: chartsdata['rebate']
+                        }
+                    ]
+                };
+                this.charts = echarts.init(document.getElementById(id))
+                this.charts.setOption(chartsoption);
+            },
+            changecharts(val){
+                console.log(val);
+                this.drawPie('chatsDiv', val);
+            },
             initdate() {
                 var nowdate = new Date();
                 var oneweekdate = new Date(nowdate-7*24*3600*1000);
@@ -111,13 +194,16 @@
             async onFilterSubmit() {
                 if(this.filterform.start != '' && this.filterform.end != ''){
                     let filterData = await getTeamAnalysis(
-                        this.filterform.start+" 00:00",
-                        this.filterform.end+" 00:00"
+                        this.filterform.start+"",
+                        this.filterform.end+""
                     );
                     console.log(filterData)
                     if(filterData.code == 0){
                         this.analysisData = filterData.result;
                         this.loadfiterdata = true;
+                        this.$nextTick(function() {
+                            this.drawPie('chatsDiv', 'line');
+                        })
                     }
                 }
             },

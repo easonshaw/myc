@@ -900,6 +900,21 @@ body{
     font-size: 18px;
     border-left: 4px solid #ff7f4b;
 }
+.wapper .teamAnalysis .chatsSwitch{
+    padding: 0 10px;
+}
+.wapper .teamAnalysis .chatsSwitch .el-radio-button__orig-radio:checked+.el-radio-button__inner{
+    background-color: #ff7f4b;
+    border-color: #ff7f4b;
+    -webkit-box-shadow: -1px 0 0 0 #ff7f4b;
+    box-shadow: -1px 0 0 0 #ff7f4b;
+}
+.wapper .teamAnalysis .chatsSwitch .el-radio-button__inner:hover{
+    color: #ff7f4b;
+}
+.wapper .teamAnalysis .chatsSwitch .el-radio-button__orig-radio:checked + .el-radio-button__inner{
+    color: #FFF;
+}
 .wapper .teamAnalysis .summaryGrid{
     margin-bottom: 20px;
 }
@@ -964,4 +979,57 @@ body{
     padding-left: 10px;
     font-size: 18px;
     border-left: 4px solid #ff7f4b;
+}
+.fastSetPoint .el-slider__input{
+    float: left;
+}
+.fastSetPoint  .el-slider__runway.show-input{
+    margin-left: 150px;
+}
+.fastSetPoint .el-slider__bar{
+
+}
+.fastSetPoint .el-slider__button{
+
+}
+.wapper .createUser .editForm .el-input__inner,
+.wapper .updateUser .editForm .el-input__inner{
+    text-align: center;
+    width: 130px;
+}
+.wapper .createUser .editForm .pointText,
+.wapper .updateUser .editForm .pointText{
+    color: #bb1b21;
+}
+.wapper .createUser .editForm .userSubmit ,
+.wapper .updateUser .editForm .userSubmit {
+    text-align: center;
+}
+
+.wapper .spreadlist{
+    padding: 30px 0;
+}
+.wapper .spreadlist .header-row th{
+    background: #ff6666;
+    color: #FFF;
+    text-align: center;
+}
+.wapper .spreadlist .el-table__row td{
+    text-align: center;
+}
+.wapper .spreadlist .sort-caret.descending{
+    border-top-color: #FFF;
+}
+.wapper .spreadlist .sort-caret.ascending{
+    border-bottom-color: #FFF;
+}
+.wapper .spreadlist .ascending .sort-caret.ascending{
+    border-bottom-color: #7d7d7d;
+}
+.wapper .spreadlist .descending .sort-caret.descending{
+    border-top-color: #7d7d7d;
+}
+.wapper .spreadPagination{
+    padding: 20px;
+    text-align:center;
 }

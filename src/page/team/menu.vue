@@ -9,8 +9,7 @@
                 <li :class="activeMenu == 'index' ? 'active' : ''"><router-link :to="{ name: 'teamsummary' }">团队总览</router-link></li>
                 <li :class="activeMenu == 'createuser' ? 'active' : ''"><router-link :to="{ name: 'createuser' }">开户中心</router-link></li>
                 <li :class="activeMenu == 'user' ? 'active' : ''"><router-link :to="{ name: 'userlist' }">会员管理</router-link></li>
-                <li :class="activeMenu == 'lotterys' ? 'active' : ''"><router-link :to="{ name: 'accountLotterys' }">推广设定</router-link></li>
-                <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">微信推广</router-link></li>
+                <li :class="activeMenu == 'spread' ? 'active' : ''"><router-link :to="{ name: 'spread' }">推广设定</router-link></li>
                 <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">团队投注</router-link></li>
                 <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">团队追号</router-link></li>
                 <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">团队报表</router-link></li>

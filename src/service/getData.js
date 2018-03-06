@@ -124,15 +124,15 @@ export const getTeamMemberList = (page=1, size, field='', direction='', userName
 /**
  * 墨月城-修改会员信息
  */
-export const updateUser = (userName, accountType, rebatePointSSC, rebatePointFFC, rebatePointMMC, rebatePointFTC, rebatePoint11X5, rebatePointFF11X5, rebatePointBJSC, rebatePointK3, rebatePointBLYZ, rebatePointZRSX, quota1, quota2, quota3) => fetch('/fore/team/update', {
-    userName:userName,
+export const updateUser = (id, accountType, rebatePointSSC, rebatePointLFFFC, rebatePointMMC, rebatePointFTC, rebatePoint11X5, rebatePointLF11X5, rebatePointBJSC, rebatePointK3, rebatePointBLYZ, rebatePointZRSX, quota1 = 0, quota2 = 0, quota3 = 0) => fetch('/fore/team/update', {
+    id:id,
     accountType:accountType,
     rebatePointSSC:rebatePointSSC,
-    rebatePointFFC:rebatePointFFC,
+    rebatePointLFFFC:rebatePointLFFFC,
     rebatePointMMC:rebatePointMMC,
     rebatePointFTC:rebatePointFTC,
     rebatePoint11X5:rebatePoint11X5,
-    rebatePointFF11X5:rebatePointFF11X5,
+    rebatePointLF11X5:rebatePointLF11X5,
     rebatePointBJSC:rebatePointBJSC,
     rebatePointK3:rebatePointK3,
     rebatePointBLYZ:rebatePointBLYZ,
@@ -145,15 +145,15 @@ export const updateUser = (userName, accountType, rebatePointSSC, rebatePointFFC
 /**
  * 墨月城-创建会员信息
  */
-export const createUser = (userName, accountType, rebatePointSSC, rebatePointFFC, rebatePointMMC, rebatePointFTC, rebatePoint11X5, rebatePointFF11X5, rebatePointBJSC, rebatePointK3, rebatePointBLYZ, rebatePointZRSX, quota1, quota2, quota3) => fetch('/fore/team/create', {
+export const createUser = (userName, accountType, rebatePointSSC, rebatePointLFFFC, rebatePointMMC, rebatePointFTC, rebatePoint11X5, rebatePointLF11X5, rebatePointBJSC, rebatePointK3, rebatePointBLYZ, rebatePointZRSX, quota1 = 0, quota2 = 0, quota3 = 0) => fetch('/fore/team/create', {
     userName:userName,
     accountType:accountType,
     rebatePointSSC:rebatePointSSC,
-    rebatePointFFC:rebatePointFFC,
+    rebatePointLFFFC:rebatePointLFFFC,
     rebatePointMMC:rebatePointMMC,
     rebatePointFTC:rebatePointFTC,
     rebatePoint11X5:rebatePoint11X5,
-    rebatePointFF11X5:rebatePointFF11X5,
+    rebatePointLF11X5:rebatePointLF11X5,
     rebatePointBJSC:rebatePointBJSC,
     rebatePointK3:rebatePointK3,
     rebatePointBLYZ:rebatePointBLYZ,
@@ -164,8 +164,39 @@ export const createUser = (userName, accountType, rebatePointSSC, rebatePointFFC
 }, 'POST', 'fetch', 'json', true);
 
 /**
- * 墨月城-
+ * 墨月城-当前登录用户玩法列表
  */
+export const getPlays = (gameId, pFrom = '', version = '') => fetch('/fore/lottery/plays/'+gameId+'?pFrom='+pFrom+'&version='+version, {}, 'GET');
+
+/**
+ * 墨月城-修改返点前初始化数据
+ */
+export const getUserbeforeUpdate = (userId) => fetch('/fore/team/beforeUpdate', {userId:userId}, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-创建推广链接
+ */
+export const createSpread = (remark, accountType, rebatePointSSC, rebatePointLFFFC, rebatePointMMC, rebatePointFTC, rebatePoint11X5, rebatePointLF11X5, rebatePointBJSC, rebatePointK3, rebatePointBLYZ, rebatePointZRSX) => fetch('/fore/spread/create', {
+    remark:remark,
+    accountType:accountType,
+    bonusSSC:rebatePointSSC,
+    rebatePointSSC:rebatePointSSC,
+    rebatePointLFFFC:rebatePointLFFFC,
+    rebatePointMMC:rebatePointMMC,
+    rebatePointFTC:rebatePointFTC,
+    rebatePoint11X5:rebatePoint11X5,
+    rebatePointFF11X5:rebatePointLF11X5,
+    rebatePointBJSC:rebatePointBJSC,
+    rebatePointK3:rebatePointK3,
+    rebatePointBLYZ:rebatePointBLYZ,
+    rebatePointZRSX:rebatePointZRSX,
+}, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-获取推广链接列表
+ */
+export const getSpreadList = (page = 1, size = 10) =>  fetch('/fore/spread/list?page='+page+'&size='+size, {}, 'GET');
+
 
 
 
