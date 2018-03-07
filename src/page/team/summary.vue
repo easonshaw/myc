@@ -181,12 +181,11 @@
                 this.istoday = type;
                 var nowdate = new Date();
                 if(type == 1){
-                    var beforedate = new Date(nowdate-1*24*3600*1000);
+                    var beforedate = new Date(new Date().getTime() - 1*24*3600*1000);
                     this.filterform.start = beforedate.getFullYear()+'-'+(beforedate.getMonth()+1)+'-'+beforedate.getDate();
                     this.filterform.end = nowdate.getFullYear()+'-'+(nowdate.getMonth()+1)+'-'+nowdate.getDate();
                 } else {
-
-                    var afterdate = new Date(nowdate+24*60*60*1000);
+                    var afterdate = new Date(new Date().getTime() + 1* 24*60*60*1000);
                     this.filterform.start = nowdate.getFullYear()+'-'+(nowdate.getMonth()+1)+'-'+nowdate.getDate();
                     this.filterform.end = afterdate.getFullYear()+'-'+(afterdate.getMonth()+1)+'-'+afterdate.getDate();
                 }
