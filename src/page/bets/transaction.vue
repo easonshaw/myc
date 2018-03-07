@@ -32,7 +32,7 @@
          <div class="teamList">
             <el-table :data="listData" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                  <el-table-column
-                        prop="betTime"
+                        prop="transactionTime"
                         label="时间"
                         width="155px"
                         sortable>
@@ -43,27 +43,27 @@
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="gameName"
+                        prop="billNo"
                         label="注单编号"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="betTotal"
+                        prop="transactionType"
                         label="类型"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="winAmount"
+                        prop="transactionAmount"
                         label="变动金额"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="issue"
+                        prop="currentBalance"
                         label="余额"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="issue"
+                        prop="transactionSubclass"
                         label="备注"
                         sortable>
                 </el-table-column>

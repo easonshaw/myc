@@ -17,19 +17,19 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="游戏名称">
+                <el-form-item label="游戏名称" v-show="show">
                     <el-select v-model="filterform.gameId"  placeholder="所有游戏">
                         <el-option v-for="item in filterform.names"  :key="item.id" :label="item.name" :value="item.id">
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="注单编号">
+                <el-form-item label="注单编号" v-show="billNoShow">
                     <el-input v-model="filterform.billNo" placeholder="请输入内容"></el-input>
                 </el-form-item>
-                <el-form-item label="期号">
+                <el-form-item label="期号" v-show="show">
                     <el-input v-model="filterform.issue" placeholder="请输入内容"></el-input>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item style="margin-left:40px;">
                     <el-button :class="[istoday == 0 ? 'el-button--danger' : '']" @click="dateSel(0)">今天</el-button>
                     <el-button :class="[istoday == 1 ? 'el-button--danger' : '']" @click="dateSel(1)">昨天</el-button>
                 </el-form-item>
@@ -122,6 +122,8 @@
                 },
                 istoday: 2,
                 listData: null,
+                show:true,
+                billNoShow:true,
             }
         },
         created() {
@@ -194,7 +196,16 @@
                 }
             },
             typeChange(type){
-                // alert(type);
+                if (type==1) {
+                    this.show = true;
+                    this.billNoShow = true;
+                }else if(type == 2){
+                    this.show = false;
+                    this.billNoShow = false;
+                }else if (type==3){
+                    this.show = false;
+                    this.billNoShow = true;
+                }
             },
             handleSizeChange(val) {
                 this.filterform.size = val;
