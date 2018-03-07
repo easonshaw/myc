@@ -7,11 +7,11 @@
         <div class="menuMain">
             <ul>
                 <li :class="activeMenu == 'gamerecord' ? 'active' : ''"><router-link :to="{ name: 'gamerecord' }">游戏记录</router-link></li>
-                <li :class="activeMenu == 'createuser' ? 'active' : ''"><router-link :to="{ name: 'createuser' }">真人电子投注</router-link></li>
-                <li :class="activeMenu == 'user' ? 'active' : ''"><router-link :to="{ name: 'userlist' }">追号记录</router-link></li>
-                <li :class="activeMenu == 'lotterys' ? 'active' : ''"><router-link :to="{ name: 'accountLotterys' }">账变记录</router-link></li>
-                <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">盈亏报表</router-link></li>
-                <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">真人电子报表</router-link></li>
+                <li :class="activeMenu == 'agrecord' ? 'active' : ''"><router-link :to="{ name: 'agrecord' }">真人电子投注</router-link></li>
+                <li :class="activeMenu == 'chaserecord' ? 'active' : ''"><router-link :to="{ name: 'chaserecord' }">追号记录</router-link></li>
+                <li :class="activeMenu == 'transaction' ? 'active' : ''"><router-link :to="{ name: 'transaction' }">账变记录</router-link></li>
+                <li :class="activeMenu == 'reportlist' ? 'active' : ''"><router-link :to="{ name: 'reportlist' }">盈亏报表</router-link></li>
+                <li :class="activeMenu == 'agreport' ? 'active' : ''"><router-link :to="{ name: 'agreport' }">真人电子报表</router-link></li>
      
 
             </ul>
