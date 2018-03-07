@@ -11,6 +11,12 @@
                         <el-date-picker type="date" placeholder="选择日期" value-format="yyyy-MM-dd" v-model="filterform.end" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
+                 <el-form-item label="游戏">
+                    <el-select v-model="filterform.type" placeholder="全部">
+                        <el-option v-for="item in filterform.types"  :key="item.value" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
                 <el-form-item>
                     <el-button :class="[istoday == 0 ? 'el-button--danger' : '']" @click="dateSel(0)">今天</el-button>
                     <el-button :class="[istoday == 1 ? 'el-button--danger' : '']" @click="dateSel(1)">昨天</el-button>
@@ -31,28 +37,12 @@
                         label="总消费派奖">
                 </el-table-column>
                 <el-table-column
-                        prop="gameName"
-                        label="总返点">
-                </el-table-column>
-                <el-table-column
                         prop="betTotal"
                         label="总活动">
                 </el-table-column>
                 <el-table-column
                         prop="winAmount"
                         label="总盈亏">
-                </el-table-column>
-                <el-table-column
-                        prop="issue"
-                        label="总充值">
-                </el-table-column>
-                <el-table-column
-                        prop="issue"
-                        label="总提款">
-                </el-table-column>
-                <el-table-column
-                        prop="issue"
-                        label="总红利/其他">
                 </el-table-column>
                  <el-table-column
                         prop="issue"

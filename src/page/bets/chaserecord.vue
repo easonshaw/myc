@@ -117,7 +117,7 @@
                     issue:'', //期号
                     billNo:'', //注单编号
                     page: 1,
-                    size: 20,
+                    size: 10,
                     total: 0,
                     pagetotals: 0,
                 },
