@@ -80,7 +80,7 @@
 </template>
 
 <script>
-    import {transaction} from '../../service/getData'
+    import {betList} from '../../service/getData'
 
     export default {
         data(){
@@ -88,42 +88,11 @@
                 filterform: {
                     start: null,
                     end: null,
-                    type:'',
-                    types:[{ value: '', label: '全部'}, {
-                        value: '0',
-                        label: '充值'
-                    },{
-                        value: '1',
-                        label: '提款'
-                    },{
-                        value: '2',
-                        label: '消费'
-                    },{
-                        value: '3',
-                        label: '派奖'
-                    },{
-                        value: '4',
-                        label: '返点'
-                    },{
-                        value: '5',
-                        label: '活动'
-                    },{
-                        value: '6',
-                        label: '红利其他'
-                    },{
-                        value: '7',
-                        label: '撤单'
-                    },{
-                        value: '8',
-                        label: '转入'
-                    },{
-                        value: '9',
-                        label: '转出'
-                    },{
-                        value:'10',
-                        label:'其他'
+                    type:2,
+                    types:[{
+                        value: 2,
+                        label: 'AG'
                     }],
-                    billNo:'', //注单编号
                     page: 1,
                     size: 20,
                     total: 0,
@@ -165,10 +134,12 @@
             async onFilterSubmit() {
                 if(this.filterform.start != '' && this.filterform.end != ''){
                     //接口请求数据
-                    let filterData = await transaction(
+                     let filterData = await betList(
                         this.filterform.start+' 00:00',
                         this.filterform.end+' 23:59',
-                        this.filterform.billNo,
+                        '',
+                        '',
+                        '',
                         this.filterform.page,
                         this.filterform.size,
                         this.filterform.type,
