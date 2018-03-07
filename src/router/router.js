@@ -25,10 +25,15 @@ const user = r => require.ensure([], () => r(require('../page/team/user')), 'use
 const userlist = r => require.ensure([], () => r(require('../page/team/user/list')), 'userlist')
 const createuser  = r => require.ensure([], () => r(require('../page/team/user/createuser')), 'createuser')
 const updateuser  = r => require.ensure([], () => r(require('../page/team/user/updateuser')), 'updateuser')
-
+//订单报表
 const bets = r => require.ensure([], () => r(require('../page/bets/bets')), 'bets')
 const gamerecord = r => require.ensure([], () => r(require('../page/bets/gamerecord')), 'gamerecord')
-
+const chaserecord = r => require.ensure([], () => r(require('../page/bets/chaserecord')), 'chaserecord')
+const transaction = r => require.ensure([], () => r(require('../page/bets/transaction')), 'transaction')
+const reportlist = r => require.ensure([], () => r(require('../page/bets/reportlist')), 'reportlist')
+const agrecord = r => require.ensure([], () => r(require('../page/bets/agrecord')), 'agrecord')
+const agreport = r => require.ensure([], () => r(require('../page/bets/agreport')), 'agreport')
+//订单报表
 const spread = r => require.ensure([], () => r(require('../page/team/spread')), 'spread')
 
 
@@ -165,9 +170,33 @@ export default [{
             path: '/bets',
             component: bets,
             children: [{
-                path: 'gamerecord', //团队总览
+                path: 'gamerecord', //游戏记录
                 name: 'gamerecord',
                 component: gamerecord,
+            }, {
+                path:'agrecord',//真人电子投注
+                name: 'agrecord',
+                component: agrecord,
+            },{
+                path:'chaserecord',//追号记录
+                name: 'chaserecord',
+                component: chaserecord,
+            },{
+                path:'chaserecord',//追号记录
+                name: 'chaserecord',
+                component: chaserecord,
+            },{
+                path: 'transaction',//账变记录
+                name: 'transaction',
+                component: transaction,
+            },{
+                path: 'reportlist', //盈亏报表
+                name: 'reportlist',
+                component: reportlist,
+            },{
+                path:'agreport',//真人电子报表
+                name:'agreport',
+                components: agreport
             }]
         },
 

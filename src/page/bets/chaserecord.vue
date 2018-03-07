@@ -11,23 +11,11 @@
                         <el-date-picker type="date" placeholder="选择日期" value-format="yyyy-MM-dd" v-model="filterform.end" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="游戏类型">
-                    <el-select  :change="typeChange(filterform.type)" v-model="filterform.type" placeholder="彩票">
-                        <el-option v-for="item in filterform.types"  :key="item.value" :label="item.label" :value="item.value">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
                 <el-form-item label="游戏名称">
                     <el-select v-model="filterform.gameId"  placeholder="所有游戏">
                         <el-option v-for="item in filterform.names"  :key="item.id" :label="item.name" :value="item.id">
                         </el-option>
                     </el-select>
-                </el-form-item>
-                <el-form-item label="注单编号">
-                    <el-input v-model="filterform.billNo" placeholder="请输入内容"></el-input>
-                </el-form-item>
-                <el-form-item label="期号">
-                    <el-input v-model="filterform.issue" placeholder="请输入内容"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button :class="[istoday == 0 ? 'el-button--danger' : '']" @click="dateSel(0)">今天</el-button>
@@ -48,7 +36,6 @@
                  <el-table-column
                         prop="betTime"
                         label="投注时间"
-                        width="155px"
                         sortable>
                 </el-table-column>
                 <el-table-column
@@ -57,18 +44,43 @@
                         sortable>
                 </el-table-column>
                 <el-table-column
+                        prop="startIssue"
+                        label="开始期数"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="playName"
+                        label="玩法"
+                        sortable>
+                </el-table-column>
+                 <el-table-column
+                        prop="betNumber"
+                        label="投注号码"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="planTotal"
+                        label="追号总金额"
+                        sortable>
+                </el-table-column>
+                <el-table-column
                         prop="betTotal"
-                        label="投注金额"
+                        label="完成金额"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="winAmount"
-                        label="奖金"
+                        prop="cancelTotal"
+                        label="取消金额"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="issue"
-                        label="期号"
+                        prop="winStop"
+                        label="中奖后终止"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="status"
+                        label="状态"
                         sortable>
                 </el-table-column>
             </el-table>
@@ -92,7 +104,7 @@
 </template>
 
 <script>
-    import {getGames,betList} from '../../service/getData'
+    import {getGames,chaseRecord} from '../../service/getData'
 
     export default {
         data(){
@@ -100,23 +112,12 @@
                 filterform: {
                     start: null,
                     end: null,
-                    type:'1',
-                    types:[{
-                        value: '1',
-                        label: '彩票'
-                        }, {
-                        value: '2',
-                        label: 'AG'
-                    }, {
-                        value: '3',
-                        label: 'VR真人视讯'
-                    }],//游戏类型
                     names:[],//游戏名称
                     gameId:'',
                     issue:'', //期号
                     billNo:'', //注单编号
                     page: 1,
-                    size: 10,
+                    size: 20,
                     total: 0,
                     pagetotals: 0,
                 },
@@ -169,16 +170,14 @@
             async onFilterSubmit() {
                 if(this.filterform.start != '' && this.filterform.end != ''){
                     //接口请求数据
-                    let filterData = await betList(
+                    let filterData = await chaseRecord(
                         this.filterform.start+' 00:00',
                         this.filterform.end+' 23:59',
                         this.filterform.gameId,
-                        this.filterform.issue,
-                        this.filterform.billNo,
                         this.filterform.page,
                         this.filterform.size,
-                        this.filterform.type,
                     );
+                    console.log(filterData);
                     //查询错误给出提示
                     if (filterData.code!=0) {
                         this.$alert(filterData.msg, '提示信息', {
@@ -192,9 +191,6 @@
                         this.filterform.pagetotals = filterData.result.totalPages;
                     }
                 }
-            },
-            typeChange(type){
-                // alert(type);
             },
             handleSizeChange(val) {
                 this.filterform.size = val;
