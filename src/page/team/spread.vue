@@ -1,18 +1,20 @@
 <template>
-    <div class="updateUser" >
+    <div class="createUser">
         <el-form :model="userForm" inline-message :rules="userFormRules" ref="userForm" label-width="120px" class="editForm">
-            <div class="title">修改用户</div>
+            <div class="title">新增推广</div>
             <el-row :gutter="20">
                 <el-col :span="12">
                     <el-form-item label="用户类型">
                         <el-radio-group v-model="userForm.accountType" size="medium">
-                            <el-radio v-if="userForm.accountTypeInit == 4" border label="4">代理</el-radio>
-                            <el-radio border label="5">会员</el-radio>
+                            <el-radio border label='4'>代理</el-radio>
+                            <el-radio border label='5'>会员</el-radio>
                         </el-radio-group>
                     </el-form-item>
-                    <el-form-item label="用户名" prop="userName">
-                        <el-input disabled v-model="userForm.userName"></el-input>
+                    <el-form-item label="备注" prop="">
+                        <el-input v-model="userForm.remark" type="textarea"
+                                  :rows="2"></el-input>
                     </el-form-item>
+
                 </el-col>
                 <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
             </el-row>
@@ -43,29 +45,67 @@
                 </el-col>
             </el-col>
             <el-col :span="24" class="userSubmit">
-                    <el-button type="danger" @click="submitForm('userForm')">确认修改</el-button>
+                <el-button type="danger" @click="submitForm('userForm')">确认新增</el-button>
             </el-col>
             <div class="clear"></div>
         </el-form>
+        <div class="spreadlist">
+            <el-table :data="spreadlistData" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
+                <el-table-column
+                        prop="accountType"
+                        label="类型">
+                    <template slot-scope="scope">
+                        <div slot="reference">
+                            <span v-if="scope.row.accountType == 1">平台</span>
+                            <span v-if="scope.row.accountType == 2">招商</span>
+                            <span v-if="scope.row.accountType == 3">直属</span>
+                            <span v-if="scope.row.accountType == 4">代理</span>
+                            <span v-if="scope.row.accountType == 5">会员</span>
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="bonusSSC"
+                        label="时时彩奖金"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="accountBalance"
+                        label="注册人数"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="teamBalance"
+                        label="短域名"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="onlineStatus"
+                        label="备注">
+                </el-table-column>
+                <el-table-column
+                        prop="cbStatus"
+                        label="操作"
+                        width="200px">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <span class="opstatus_detail"><router-link :to="{path:''}">详情</router-link></span>
+                            <span class="opstatus_fdset"><router-link :to="{name: 'updateuser', params: {uid: scope.row.id}}">返点设定</router-link></span>
+                            <span class="opstatus_betsrecord"><router-link :to="{path: ''}">投注记录</router-link></span>
+                            <span class="opstatus_qy" v-if="scope.row.cbStatus != 0"><router-link :to="{path: ''}">契约</router-link></span>
+                        </div>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
     </div>
 </template>
 
 <script>
     import {mapState, mapActions, mapMutations} from 'vuex'
-    import {getPlays, getUserbeforeUpdate, updateUser} from '../../../service/getData'
+    import {createSpread, getSpreadList} from '../../service/getData'
     export default {
         data(){
-            var validateuserName = (rule, value, callback) => {
-                console.log(value)
-                if (!value) {
-                    return callback(new Error('用户名不能为空'));
-                }
-                var patrn=/^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){4,14}$/;
-                if (!patrn.exec(value)) {
-                    return callback(new Error('请输入5至15个字符组成'));
-                }
-                callback();
-            };
             var validaterebatePoint = (rule, value, callback) => {
                 if (!value) {
                     console.log(value)
@@ -77,18 +117,16 @@
                 callback();
             };
             return{
-                loading: null,
                 userForm: {
-                    accountType: "",
-                    accountTypeInit: "",
-                    userName: '',
-                    passwd: 'sky888',
+                    accountType: '4',
+                    remark: '',
                     fastPoint: 0,
                     fastPointMin: 0,
                     fastPointMax: 12.8,
                     fastPointMinLABEL: 1700,
                     fastPointMaxLABEL: 1956,
                 },
+                spreadlistData:[],
                 rebate: {
                     rebatePointSSC: {
                         VALUE: 0, //时时彩返点
@@ -103,7 +141,7 @@
                     rebatePointMMC: {
                         VALUE: 0, //秒秒彩返点
                         TEXT: 1700,
-                        LABEL: '秒秒彩',
+                        LABEL: '时时彩',
                     },
                     rebatePointFTC: {
                         VALUE: 0, //福体彩返点
@@ -142,9 +180,6 @@
                     },
                 },
                 userFormRules: {
-                    userName: [
-                        { validator: validateuserName, trigger: 'blur' }
-                    ],
                 },
             }
         },
@@ -155,7 +190,6 @@
         components:{
         },
         created() {
-
         },
         watch: {
             "$store.state.userInfo": function(n, o) {
@@ -176,22 +210,8 @@
                     this.userForm.fastPointMax = this.userInfo.rebatePointSSC * 1;
                     this.loading.close();
                 }
-                let updateUserData = await getUserbeforeUpdate(this.$route.params.uid);
-                if(updateUserData.code == 0){
-                    this.userForm.fastPoint =  updateUserData.result.rebatePointSSC;
-                    this.userForm.userName = updateUserData.result.userName;
-                    this.userForm.accountType = updateUserData.result.accountType+"";
-                    this.userForm.accountTypeInit = updateUserData.result.accountType+"";
-                    let rabetkey;
-                    for(rabetkey in this.rebate){
-                        let val = updateUserData.result[rabetkey];
-                        this.rebate[rabetkey].VALUE = val;
-                        this.rebate[rabetkey].TEXT =  this.calUserPointNO(val);
-                    }
-                } else {
-                    this.$message.error(updateUserData.msg);
-                    this.$router.go(-1);
-                }
+                let getSpreadListData = await getSpreadList();
+                console.log(getSpreadListData);
             },
             fastPointhandleChange(val) {
                 let fastPoint = this.calUserPointNO(val);
@@ -205,40 +225,36 @@
             },
             async submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        this.updateUserFunc();
-                    } else {
-                        return false;
-                    }
+                        if (valid) {
+                            this.createSpread();
+                        } else {
+                            return false;
+                        }
                 });
             },
-            async updateUserFunc() {
-                let updateData = await updateUser(
-                    this.$route.params.uid,
-                    this.userForm.accountType,
-                    this.rebate.rebatePointSSC.VALUE,
-                    this.rebate.rebatePointLFFFC.VALUE,
-                    this.rebate.rebatePointMMC.VALUE,
-                    this.rebate.rebatePointFTC.VALUE,
-                    this.rebate.rebatePoint11X5.VALUE,
-                    this.rebate.rebatePointLF11X5.VALUE,
-                    this.rebate.rebatePointBJSC.VALUE,
-                    this.rebate.rebatePointK3.VALUE,
-                    this.rebate.rebatePointBLYZ.VALUE,
-                    this.rebate.rebatePointZRSX.VALUE,
-                    '0',
-                    '0',
-                    '0'
+            async createSpread() {
+                let createDatas = await createSpread(
+                    this.userForm.remark,
+                    this.userForm.accountType * 1,
+                    this.rebate.rebatePointSSC.VALUE * 1,
+                    this.rebate.rebatePointLFFFC.VALUE * 1,
+                    this.rebate.rebatePointMMC.VALUE * 1,
+                    this.rebate.rebatePointFTC.VALUE * 1,
+                    this.rebate.rebatePoint11X5.VALUE * 1,
+                    this.rebate.rebatePointLF11X5.VALUE * 1,
+                    this.rebate.rebatePointBJSC.VALUE * 1,
+                    this.rebate.rebatePointK3.VALUE * 1,
+                    this.rebate.rebatePointBLYZ.VALUE * 1,
+                    this.rebate.rebatePointZRSX.VALUE* 1
                 );
-                if(updateData.code == 0) {
+                if(createDatas.code == 0) {
                     this.$router.push({'name': 'userlist'});
                 } else {
-                    this.$message.error(updateData.msg);
+                    this.$message.error(createDatas.msg);
                 }
-                console.log(updateData)
+                console.log(createDatas)
             },
-            resetForm(formName) {
-            },
+
             calUserPointNORate(val) {
                 //返点=100%*（奖励号-最低赔率）/2000
                 return (val-1700)*100/2000;
@@ -248,9 +264,15 @@
             },
             validaterebatePoint(v){
                 //console.log(v)
-            }
-    },
-}
+            },
+            tableRowClassName({row, rowIndex}) {
+                if (rowIndex === 0) {
+                    return 'header-row';
+                }
+                return 'body-row';
+            },
+        },
+    }
 </script>
 
 <style lang="scss" scoped>

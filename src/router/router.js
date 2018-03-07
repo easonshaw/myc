@@ -25,8 +25,12 @@ const user = r => require.ensure([], () => r(require('../page/team/user')), 'use
 const userlist = r => require.ensure([], () => r(require('../page/team/user/list')), 'userlist')
 const createuser  = r => require.ensure([], () => r(require('../page/team/user/createuser')), 'createuser')
 const updateuser  = r => require.ensure([], () => r(require('../page/team/user/updateuser')), 'updateuser')
+
 const bets = r => require.ensure([], () => r(require('../page/bets/bets')), 'bets')
 const gamerecord = r => require.ensure([], () => r(require('../page/bets/gamerecord')), 'gamerecord')
+
+const spread = r => require.ensure([], () => r(require('../page/team/spread')), 'spread')
+
 
 
 
@@ -34,20 +38,17 @@ export default [{
     path: '/',
     component: App, //顶层路由，对应index.html
     children: [ //二级路由。对应App.vue
-        //地址为空时跳转home页面
         {
-            path: '',
+            path: '', //地址为空时跳转home页面
             redirect: '/home'
         },
-        //首页城市列表页
         {
-            path: '/home',
+            path: '/home', //首页城市列表页
             name: 'home',
             component: home
         },
-        //登录注册页
         {
-            path: '/login',
+            path: '/login', //登录注册页
             name: 'login',
             component: login
         },
@@ -153,6 +154,10 @@ export default [{
                     name: 'updateuser',
                     component: updateuser,
                 },]
+            },{
+                path: 'spread', //推广管理
+                name: 'spread',
+                component: spread,
             }]
         },
         //订单报表
@@ -165,5 +170,6 @@ export default [{
                 component: gamerecord,
             }]
         },
+
     ]
 }]

@@ -18,6 +18,19 @@
                         sortable>
                 </el-table-column>
                 <el-table-column
+                        prop="accountType"
+                        label="类型">
+                    <template slot-scope="scope">
+                        <div slot="reference">
+                            <span v-if="scope.row.accountType == 1">平台</span>
+                            <span v-if="scope.row.accountType == 2">招商</span>
+                            <span v-if="scope.row.accountType == 3">直属</span>
+                            <span v-if="scope.row.accountType == 4">代理</span>
+                            <span v-if="scope.row.accountType == 5">会员</span>
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
                         prop="directChildsCount"
                         label="下级"
                         sortable>
@@ -55,11 +68,11 @@
                 <el-table-column
                         prop="cbStatus"
                         label="功能"
-                        width="300px">
+                        width="200px">
                     <template slot-scope="scope">
                         <div slot="reference" class="name-wrapper">
-                            <span class="opstatus_detail"><router-link :to="{name: 'updateuser', params: {uid: scope.row.id}}">详情</router-link></span>
-                            <span class="opstatus_fdset"><router-link :to="{path: ''}">返点设定</router-link></span>
+                            <span class="opstatus_detail"><router-link :to="{path:''}">详情</router-link></span>
+                            <span class="opstatus_fdset"><router-link :to="{name: 'updateuser', params: {uid: scope.row.id}}">返点设定</router-link></span>
                             <span class="opstatus_betsrecord"><router-link :to="{path: ''}">投注记录</router-link></span>
                             <span class="opstatus_qy" v-if="scope.row.cbStatus != 0"><router-link :to="{path: ''}">契约</router-link></span>
                         </div>
