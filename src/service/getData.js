@@ -185,7 +185,7 @@ export const createSpread = (remark, accountType, rebatePointSSC, rebatePointLFF
     rebatePointMMC:rebatePointMMC,
     rebatePointFTC:rebatePointFTC,
     rebatePoint11X5:rebatePoint11X5,
-    rebatePointFF11X5:rebatePointLF11X5,
+    rebatePointLF11X5:rebatePointLF11X5,
     rebatePointBJSC:rebatePointBJSC,
     rebatePointK3:rebatePointK3,
     rebatePointBLYZ:rebatePointBLYZ,
@@ -195,17 +195,24 @@ export const createSpread = (remark, accountType, rebatePointSSC, rebatePointLFF
 /**
  * 墨月城-获取推广链接列表
  */
-export const getSpreadList = (page = 1, size = 10) =>  fetch('/fore/spread/list?page='+page+'&size='+size, {}, 'GET');
-
+export const getSpreadList = (page = 1, size = 10, field = '', direction = '') =>  fetch('/fore/spread/list?page='+page+'&size='+size+'&field='+field+'&direction='+direction+'&rd='+Math.random(), {}, 'GET');
 
 /**
- * 墨月城-获取登录用户有效游戏类型
+ * 墨月城-获取推广链接详情
  */
-export const gamesType = () => fetch('/fore/lottery/plays', {}, 'GET');
+export const getSpreadDetail = (id) =>  fetch('/fore/spread/detail?id='+id+'&rd='+Math.random(), {}, 'GET');
+
+/**
+ * 墨月城-删除推广链接
+ */
+export const delSpread = (id) => fetch('/fore/spread/delete', {id:id}, 'POST', 'fetch', 'json', true);
 
 /**
  * 墨月城-获取投注记录(游戏记录)
  */
 export const betList = (page = 1, size, type) => fetch('/fore/bet-record/list', { page: page, size: size, type: type }, 'POST', 'fetch', 'json', true);
 
-
+/**
+ * 墨月城-获取团队投注记录(游戏记录)
+ */
+export const getTeamBetList = (page = 1, size, type) => fetch('/fore/bet-record-team/list', { page: page, size: size, type: type }, 'POST', 'fetch', 'json', true);

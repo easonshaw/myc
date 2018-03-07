@@ -30,6 +30,7 @@ const bets = r => require.ensure([], () => r(require('../page/bets/bets')), 'bet
 const gamerecord = r => require.ensure([], () => r(require('../page/bets/gamerecord')), 'gamerecord')
 
 const spread = r => require.ensure([], () => r(require('../page/team/spread')), 'spread')
+const teambets = r => require.ensure([], () => r(require('../page/team/bets')), 'teambets')
 
 
 
@@ -158,6 +159,10 @@ export default [{
                 path: 'spread', //推广管理
                 name: 'spread',
                 component: spread,
+            },{
+                path: 'bets', //推广管理
+                name: 'teambets',
+                component: teambets,
             }]
         },
         //订单报表
