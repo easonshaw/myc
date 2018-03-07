@@ -201,7 +201,7 @@ export default [{
             },{
                 path:'agreport',//真人电子报表
                 name:'agreport',
-                components: agreport
+                component:agreport,
             }]
         },
 
