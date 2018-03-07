@@ -1,6 +1,6 @@
 <template>
     <div class="createUser">
-        <el-form :model="userForm" inline-message :rules="userFormRules" ref="userForm" label-width="120px" class="editForm">
+        <el-form :model="userForm" inline-message   ref="userForm" label-width="120px" class="editForm">
             <div class="title">新增推广</div>
             <el-row :gutter="20">
                 <el-col :span="12">
@@ -70,17 +70,35 @@
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="accountBalance"
+                        prop="registerNum"
                         label="注册人数"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="teamBalance"
+                        prop="url"
                         label="短域名"
+                        width="300px"
                         sortable>
+                    <template slot-scope="scope">
+                        <div slot="reference" class="urlqrcode">
+                            <el-input  placeholder="" v-model="scope.row.url" :disabled="true"></el-input>
+                            <div class="buttons">
+                                <span class="buttonDiv" > <el-button size="mini" type="text" v-clipboard:copy="scope.row.url" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</el-button> </span>
+                                <span class="buttonDiv">
+                                 <el-popover trigger="hover" placement="right">
+                                     <vue-q-art :config="scope.row.qrcodecf"></vue-q-art>
+                                    <div slot="reference" class="name-wrapper">
+                                        <el-button size="mini" type="text">二维码</el-button>
+                                    </div>
+                                </el-popover>
+                                </span>
+                            </div>
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="onlineStatus"
+                        prop="remark"
+                        width="200px"
                         label="备注">
                 </el-table-column>
                 <el-table-column
@@ -88,22 +106,64 @@
                         label="操作"
                         width="200px">
                     <template slot-scope="scope">
-                        <div slot="reference" class="name-wrapper">
-                            <span class="opstatus_detail"><router-link :to="{path:''}">详情</router-link></span>
-                            <span class="opstatus_fdset"><router-link :to="{name: 'updateuser', params: {uid: scope.row.id}}">返点设定</router-link></span>
-                            <span class="opstatus_betsrecord"><router-link :to="{path: ''}">投注记录</router-link></span>
-                            <span class="opstatus_qy" v-if="scope.row.cbStatus != 0"><router-link :to="{path: ''}">契约</router-link></span>
+                        <div slot="reference" class="opreate">
+                            <span class="op_detail"><a @click="spreadDetailFunc(scope.row.id)" href="javascript:;">详情</a></span>
+                            <span class="op_delete"><a @click="spreadDeleteFunc(scope.row.id)" href="javascript:;">删除</a></span>
                         </div>
                     </template>
                 </el-table-column>
             </el-table>
+            <div class="teamPagination">
+                <div class="block">
+                    <el-pagination
+                            background
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="spreadListPager.page"
+                            :page-size="spreadListPager.size"
+                            :page-sizes="[5, 10, 20, 50, 100]"
+                            :page-count="spreadListPager.pagetotals"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="spreadListPager.total">
+                    </el-pagination>
+                </div>
+            </div>
         </div>
+
+        <el-dialog title="推广详情" :visible.sync="spreadDetaildialogVisible" width="60%" >
+            <div class="spreadDetailTableBlock">
+                <table class="spreadDetailTable" width="100%">
+                    <thead>
+                    <tr><th width="180">类型</th><th colspan="2">{{spreadDetail.accountType}}</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr class=""><td>注册人数</td><td colspan="2">{{spreadDetail.accountType}}</td></tr>
+                    <tr class=""><td>短域名</td><td colspan="2">{{spreadDetail.url}}</td></tr>
+                    <tr class=""><td>备注</td><td colspan="2">{{spreadDetail.remark}}</td></tr>
+                    <tr class=""><td>时时彩</td><td>返点：{{spreadDetail.rebatePointSSC}}</td><td>奖金：{{spreadDetail.bonusSSC}}</td></tr>
+                    <tr class=""><td>两分分分彩</td><td>返点：{{spreadDetail.rebatePointLFFFC}}</td><td>奖金：{{spreadDetail.bonusLFFFC}}</td></tr>
+                    <tr class=""><td>秒秒彩</td><td>返点：{{spreadDetail.rebatePointMMC}}</td><td>奖金：{{spreadDetail.bonusMMC}}</td></tr>
+                    <tr class=""><td>福体彩</td><td>返点：{{spreadDetail.rebatePointFTC}}</td><td>奖金：{{spreadDetail.bonusFTC}}</td></tr>
+                    <tr class=""><td>11选5</td><td>返点：{{spreadDetail.rebatePoint11X5}}</td><td>奖金：{{spreadDetail.bonus11X5}}</td></tr>
+                    <tr class=""><td>两分11选5</td><td>返点：{{spreadDetail.rebatePointLF11X5}}</td><td>奖金：{{spreadDetail.bonusLF11X5}}</td></tr>
+                    <tr class=""><td>北京赛车</td><td>返点：{{spreadDetail.rebatePointBJSC}}</td><td>奖金：{{spreadDetail.bonusBJSC}}</td></tr>
+                    <tr class=""><td>快三</td><td>返点：{{spreadDetail.rebatePointK3}}</td><td>奖金：{{spreadDetail.bonusK3}}</td></tr>
+                    <tr class=""><td>霸来运转</td><td>返点：{{spreadDetail.rebatePointBLYZ}}</td><td>奖金：{{spreadDetail.bonusBLYZ}}</td></tr>
+                    <tr class=""><td>真人视讯</td><td colspan="2">返点：{{spreadDetail.rebatePointZRSX}}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
 <script>
+    import Vue from 'vue'
     import {mapState, mapActions, mapMutations} from 'vuex'
-    import {createSpread, getSpreadList} from '../../service/getData'
+    import VueClipboard from 'vue-clipboard2'
+    import {createSpread, getSpreadList, getSpreadDetail, delSpread} from '../../service/getData'
+    import VueQArt from 'vue-qart'
+    Vue.use(VueClipboard);
     export default {
         data(){
             var validaterebatePoint = (rule, value, callback) => {
@@ -117,6 +177,8 @@
                 callback();
             };
             return{
+                spreadDetaildialogVisible: false,
+                spreadDetail: [],
                 userForm: {
                     accountType: '4',
                     remark: '',
@@ -179,16 +241,22 @@
                         LABEL: '真人视讯',
                     },
                 },
-                userFormRules: {
+                spreadListPager: {
+                    page: 1,
+                    size: 5,
+                    total: 0,
+                    pagetotals: 0,
+                    field: '',
+                    direction: '',
                 },
+                popover: null,
             }
         },
         mounted(){
             this.loading = this.$loading({ fullscreen: true });
             this.initData();
         },
-        components:{
-        },
+        components: {VueQArt},
         created() {
         },
         watch: {
@@ -205,13 +273,46 @@
             ...mapMutations([
                 'RECORD_USERINFO',
             ]),
+            arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+                if (rowIndex % 2 === 0) {
+                    if (columnIndex === 0) {
+                        return [1, 2];
+                    } else if (columnIndex === 1) {
+                        return [0, 0];
+                    }
+                }
+            },
             async initData() {
                 if(this.userInfo != null && this.userInfo.bonusSSC != undefined) {
                     this.userForm.fastPointMax = this.userInfo.rebatePointSSC * 1;
                     this.loading.close();
+                    this.loadSpreadList();
                 }
-                let getSpreadListData = await getSpreadList();
-                console.log(getSpreadListData);
+            },
+            async loadSpreadList() {
+                let getSpreadListData = await getSpreadList(this.spreadListPager.page, this.spreadListPager.size);
+                if(getSpreadListData.code == 0){
+                    this.spreadlistData = getSpreadListData.result.rows;
+                    for(var i in this.spreadlistData){
+                        this.spreadlistData[i].qrcodecf = {
+                            value: this.spreadlistData[i].url,
+                            imagePath: './static/img/logo.png',
+                            version: 20,
+                            fillType: 'scale_to_fit',
+                            filter: 'threshold'
+                        }
+                    }
+                    this.spreadListPager.total = getSpreadListData.result.total;
+                }
+            },
+            handleSizeChange(val) {
+                this.spreadListPager.page = 1;
+                this.spreadListPager.size = val;
+                this.loadSpreadList();
+            },
+            handleCurrentChange(val) {
+                this.spreadListPager.page = val;
+                this.loadSpreadList();
             },
             fastPointhandleChange(val) {
                 let fastPoint = this.calUserPointNO(val);
@@ -248,13 +349,41 @@
                     this.rebate.rebatePointZRSX.VALUE* 1
                 );
                 if(createDatas.code == 0) {
-                    this.$router.push({'name': 'userlist'});
+                    let that = this;
+                    this.$message({
+                        showClose: true,
+                        message: '添加推广链接成功',
+                        type: 'success',
+                        onClose: function() {
+                            that.loadSpreadList();
+                        }
+                    });
                 } else {
                     this.$message.error(createDatas.msg);
                 }
                 console.log(createDatas)
             },
-
+            async spreadDetailFunc(id) {
+                let detailData  = await getSpreadDetail(id);
+                if(detailData.code == 0) {
+                    this.spreadDetail = detailData.result;
+                    this.spreadDetaildialogVisible = true;
+                }
+            },
+            async spreadDeleteFunc(id) {
+                let delData = await delSpread(id);
+                if(delData.code == 0) {
+                    let that = this;
+                    this.$message({
+                        showClose: true,
+                        message: '推广链接删除成功',
+                        type: 'success',
+                        onClose: function() {
+                            that.loadSpreadList();
+                        }
+                    });
+                }
+            },
             calUserPointNORate(val) {
                 //返点=100%*（奖励号-最低赔率）/2000
                 return (val-1700)*100/2000;
@@ -270,6 +399,18 @@
                     return 'header-row';
                 }
                 return 'body-row';
+            },
+            spreadDetailhandleClose(){
+
+            },
+            onCopy (){
+                this.$message({
+                    message: '地址复制成功',
+                    type: 'success'
+                });
+            },
+            onError () {
+                this.$message.error('地址复制失败,请手动复制.');
             },
         },
     }

@@ -52,7 +52,7 @@
 
 <script>
     import {mapState, mapActions, mapMutations} from 'vuex'
-    import {getPlays, getUserbeforeUpdate, updateUser} from '../../../service/getData'
+    import {getUserbeforeUpdate, updateUser} from '../../../service/getData'
     export default {
         data(){
             var validateuserName = (rule, value, callback) => {

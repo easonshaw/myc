@@ -856,18 +856,30 @@ body{
 }
 .wapper .teamsummary{
 }
+.wapper .teamPage .fiterForm,
 .wapper .teamsummary .fiterForm{
     padding:20px 0px;
 }
+.wapper .teamPage .fiterForm .el-input__icon,
 .wapper .teamsummary .fiterForm .el-input__icon{
     left: 0;
 }
+.wapper .teamPage .fiterForm .el-input__suffix,
+.wapper .teamsummary .fiterForm .el-input__suffix{
+    right: 25px;
+}
+.wapper .teamPage .fiterForm .floatright,
 .wapper .teamsummary .fiterForm .floatright{
     float: right;
     width: 150px;
 }
+.wapper .teamPage .fiterForm .floatright .el-button,
 .wapper .teamsummary .fiterForm .floatright .el-button{
     width: 120px;
+}
+.el-select-dropdown__item.selected.hover,
+.el-select-dropdown__item.selected{
+    color: #FFF;
 }
 .wapper .teamAnalysis {
     width: 95%;
@@ -926,46 +938,65 @@ body{
     color: #FFF;
     text-align: center;
 }
-.wapper .teamList .el-table__row td{
+.wapper .teamlist .el-table__row td{
     text-align: center;
 }
-.wapper .teamList .sort-caret.descending{
+.wapper .teamlist .sort-caret.descending{
     border-top-color: #FFF;
 }
 .wapper .teamList .sort-caret.ascending{
     border-bottom-color: #FFF;
 }
-.wapper .teamList .ascending .sort-caret.ascending{
+.wapper .teamlist .ascending .sort-caret.ascending{
     border-bottom-color: #7d7d7d;
 }
-.wapper .teamList .descending .sort-caret.descending{
+.wapper .teamlist .descending .sort-caret.descending{
     border-top-color: #7d7d7d;
 }
 .wapper .teamPagination{
     padding: 20px;
     text-align:center;
 }
-.wapper .teamList  .name-wrapper .online{
+.wapper .teamlist  .name-wrapper .online{
      color: #56d176;
 }
-.wapper .teamList  .name-wrapper .offline{
+.wapper .teamlist  .name-wrapper .offline{
     color: #bb1b21;
 }
-.wapper .teamList  .name-wrapper .opstatus_detail a{
+.wapper .teamlist  .name-wrapper .opstatus_detail a{
     color: #ea8914;
     margin: 0 5px;
 }
-.wapper .teamList  .name-wrapper .opstatus_fdset a{
+.wapper .teamlist  .name-wrapper .opstatus_fdset a{
     color: #3eb6b9;
     margin: 0 5px;
 }
-.wapper .teamList  .name-wrapper .opstatus_betsrecord a{
+.wapper .teamlist  .name-wrapper .opstatus_betsrecord a{
     color: #3eb71f;
     margin: 0 5px;
 }
-.wapper .teamList  .name-wrapper .opstatus_qy a{
+.wapper .teamlist  .name-wrapper .opstatus_qy a{
     color: #bb1b21;
     margin: 0 5px;
+}
+.wapper .teamlist .userDetail{
+    padding: 50px 0;
+}
+.wapper .teamlist .userDetailTable{
+    width: 40%;
+    margin: 20px auto;
+    text-align: center;
+}
+.wapper .teamlist .userDetail .returnuserlist{
+    text-align: center;
+    margin: 20px auto;
+}
+.wapper .teamlist .userDetailTable tr td{
+    text-align: left;
+    padding: 3px 10px;
+}
+.wapper .teamlist .userDetailTable tr td:first-child{
+    text-align: right;
 }
 .wapper .createUser,
 .wapper .updateUser{
@@ -1028,6 +1059,67 @@ body{
 }
 .wapper .spreadlist .descending .sort-caret.descending{
     border-top-color: #7d7d7d;
+}
+.wapper .spreadlist .urlqrcode .buttons{
+    width: 50%;
+    margin: 0 auto;
+}
+.wapper .spreadlist .urlqrcode .buttons .buttonDiv{
+    width: 50%;
+    float: left;
+}
+.wapper .spreadlist .urlqrcode .buttons .buttonDiv .el-button--text{
+color:#3ebcd1;
+}
+.wapper .spreadlist .urlqrcode .buttons .buttonDiv:first-child .el-button--text{
+    color:#b6bd1f;
+}
+.wapper .spreadlist .opreate span {
+    padding: 0 10px;
+    color: #bb1b21;
+}
+.wapper .spreadlist .opreate span.op_detail a{
+    color: #f39800;
+}
+.wapper .spreadlist .opreate span.op_delete a{
+    color: #d7000f;
+}
+.wapper .spreadDetailTableBlock{
+    height: 400px;
+    overflow-y: scroll;
+}
+.wapper .spreadDetailTable{
+    width: 100%;
+}
+.wapper .spreadDetailTable{
+    table-layout:fixed;
+    empty-cells:show;
+    border-collapse: collapse;
+    margin:0 auto;
+}
+.wapper .spreadDetailTable th,
+.wapper .spreadDetailTable td{
+    height:40px;
+    color: #333;
+}
+.wapper .spreadDetailTable tr th:first-child,
+.wapper .spreadDetailTable tr td:first-child{
+    text-align: right;
+}
+.wapper .spreadDetailTable{
+    border:1px solid #cad9ea;
+    color:#666;
+}
+.wapper .spreadDetailTable th {
+    background-repeat:repeat-x;
+    height:40px;
+}
+.wapper .spreadDetailTable td,.wapper .spreadDetailTable th{
+    border:1px solid #ccc;
+    padding:0 2em 0;
+}
+.wapper .spreadDetailTable tr.alter{
+    background-color:#f5fafe;
 }
 .wapper .spreadPagination{
     padding: 20px;

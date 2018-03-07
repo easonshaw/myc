@@ -55,7 +55,8 @@
 </template>
 
 <script>
-    import {getPlays, createUser} from '../../../service/getData'
+    import {mapState, mapActions, mapMutations} from 'vuex'
+    import {createUser} from '../../../service/getData'
     export default {
         data(){
             var validateuserName = (rule, value, callback) => {
@@ -150,6 +151,7 @@
             }
         },
         mounted(){
+            this.loading = this.$loading({ fullscreen: true });
             this.initData();
         },
         components:{
@@ -157,67 +159,84 @@
         created() {
         },
         computed:{
-
+            ...mapState([
+                'userInfo',
+            ]),
+        },
+        watch: {
+            "$store.state.userInfo": function(n, o) {
+                this.initData();
+            }
         },
         methods:{
+            ...mapMutations([
+                'RECORD_USERINFO',
+            ]),
             async initData() {
-        let playData = await getPlays(3);
-        if(playData.code == 0) {
-            this.userForm.fastPointMax = playData.result.rebatePoint;
-        }
-    },
-    fastPointhandleChange(val) {
-        let fastPoint = this.calUserPointNO(val);
-        this.fastPoint = val;
-        let rabetkey;
-        for(rabetkey in this.rebate){
-            this.rebate[rabetkey].VALUE = val;
-            this.rebate[rabetkey].TEXT = fastPoint;
-        }
-        console.log(val, fastPoint)
-    },
-    async submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-            if (valid) {
-                this.createUser();
-            } else {
-                return false;
-    }
-    });
-    },
-    async createUser() {
-        let createDatas = await createUser(
-            this.userForm.userName,
-            this.userForm.accountType,
-            this.rebate.rebatePointSSC.VALUE,
-            this.rebate.rebatePointLFFFC.VALUE,
-            this.rebate.rebatePointMMC.VALUE,
-            this.rebate.rebatePointFTC.VALUE,
-            this.rebate.rebatePoint11X5.VALUE,
-            this.rebate.rebatePointLF11X5.VALUE,
-            this.rebate.rebatePointBJSC.VALUE,
-            this.rebate.rebatePointK3.VALUE,
-            this.rebate.rebatePointBLYZ.VALUE,
-            this.rebate.rebatePointZRSX.VALUE
-        );
-        if(createDatas.code == 0) {
-            this.$router.push({'name': 'userlist'});
-        } else {
-            this.$message.error(createDatas.msg);
-        }
-        console.log(createDatas)
-    },
-    calUserPointNORate(val) {
-        //返点=100%*（奖励号-最低赔率）/2000
-        return (val-1700)*100/2000;
-    },
-    calUserPointNO(val) {
-        return 1700 + ((2000-1700)/15) * val;
-    },
-    validaterebatePoint(v){
-        //console.log(v)
-    }
-    },
+                if(this.userInfo != null && this.userInfo.bonusSSC != undefined) {
+                    this.userForm.fastPointMax = this.userInfo.rebatePointSSC * 1;
+                    this.loading.close();
+                }
+            },
+            fastPointhandleChange(val) {
+                let fastPoint = this.calUserPointNO(val);
+                this.fastPoint = val;
+                let rabetkey;
+                for(rabetkey in this.rebate){
+                    this.rebate[rabetkey].VALUE = val;
+                    this.rebate[rabetkey].TEXT = fastPoint;
+                }
+            },
+            async submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.createUser();
+                    } else {
+                        return false;
+                    }
+                });
+            },
+            async createUser() {
+                let createDatas = await createUser(
+                    this.userForm.userName,
+                    this.userForm.accountType,
+                    this.rebate.rebatePointSSC.VALUE,
+                    this.rebate.rebatePointLFFFC.VALUE,
+                    this.rebate.rebatePointMMC.VALUE,
+                    this.rebate.rebatePointFTC.VALUE,
+                    this.rebate.rebatePoint11X5.VALUE,
+                    this.rebate.rebatePointLF11X5.VALUE,
+                    this.rebate.rebatePointBJSC.VALUE,
+                    this.rebate.rebatePointK3.VALUE,
+                    this.rebate.rebatePointBLYZ.VALUE,
+                    this.rebate.rebatePointZRSX.VALUE
+                );
+                if(createDatas.code == 0) {
+                    let that = this;
+                    this.$message({
+                        showClose: true,
+                        message: '添加下级用户成功',
+                        type: 'success',
+                        onClose: function() {
+                            that.$router.push({'name': 'userlist'});
+                        }
+                    });
+                } else {
+                    this.$message.error(createDatas.msg);
+                }
+                console.log(createDatas)
+            },
+            calUserPointNORate(val) {
+                //返点=100%*（奖励号-最低赔率）/2000
+                return (val-1700)*100/2000;
+            },
+            calUserPointNO(val) {
+                return 1700 + ((2000-1700)/15) * val;
+            },
+            validaterebatePoint(v){
+                //console.log(v)
+            }
+        },
     }
 </script>
 

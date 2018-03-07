@@ -210,9 +210,19 @@ export const delSpread = (id) => fetch('/fore/spread/delete', {id:id}, 'POST', '
 /**
  * 墨月城-获取投注记录(游戏记录)
  */
-export const betList = (page = 1, size, type) => fetch('/fore/bet-record/list', { page: page, size: size, type: type }, 'POST', 'fetch', 'json', true);
+export const betList = (startTime, endTime, gameId, issue, billNo, page = 1, size, type) => fetch('/fore/bet-record/list', { startTime: startTime, endTime: endTime, gameId: gameId, issue: issue, billNo:billNo,page: page, size: size, type: type }, 'POST', 'fetch', 'json', true);
 
 /**
+ * 当前登录用户的追号记录
+ */
+export const chaseRecord = (startTime, endTime, gameId, page = 1, size) => fetch('/fore/chase-record/list', { startTime: startTime, endTime: endTime, gameId: gameId, page: page, size: size }, 'POST', 'fetch', 'json', true);
+
+/**
+ * 我的帐变明细记录查询
+ */
+export const transaction = (startTime, endTime, billNo, page = 1, size, type) => fetch('/fore/transaction/list', { startTime: startTime, endTime: endTime, billNo:billNo,page: page, size: size, type: type}, 'POST', 'fetch', 'json', true);
+
+/*
  * 墨月城-获取团队投注记录(游戏记录)
  */
 export const getTeamBetList = (page = 1, size, type) => fetch('/fore/bet-record-team/list', { page: page, size: size, type: type }, 'POST', 'fetch', 'json', true);

@@ -112,7 +112,7 @@
             return {
 
                 loginForm: {
-                    username: 'test001zhis1',
+                    username: 'huiy1',
                     password: 'sky888',
                     vcode: '1111'
                 },

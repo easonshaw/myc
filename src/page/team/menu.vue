@@ -10,7 +10,7 @@
                 <li :class="activeMenu == 'createuser' ? 'active' : ''"><router-link :to="{ name: 'createuser' }">开户中心</router-link></li>
                 <li :class="activeMenu == 'user' ? 'active' : ''"><router-link :to="{ name: 'userlist' }">会员管理</router-link></li>
                 <li :class="activeMenu == 'spread' ? 'active' : ''"><router-link :to="{ name: 'spread' }">推广设定</router-link></li>
-                <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">团队投注</router-link></li>
+                <li :class="activeMenu == 'bets' ? 'active' : ''"><router-link :to="{ name: 'teambets' }">团队投注</router-link></li>
                 <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">团队追号</router-link></li>
                 <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">团队报表</router-link></li>
                 <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">团队充提</router-link></li>
