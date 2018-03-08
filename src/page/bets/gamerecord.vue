@@ -4,11 +4,11 @@
             <el-form ref="form" :inline="true" :model="filterform" label-width="80px">
                 <el-form-item label="时间">
                     <el-col :span="11">
-                        <el-date-picker type="date" placeholder="选择日期" value-format="yyyy-MM-dd" v-model="filterform.start" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="datetime" placeholder="选择日期" format="yyyy-MM-dd HH:mm" v-model="filterform.start" style="width: 100%;"></el-date-picker>
                     </el-col>
                     <el-col class="line" :span="2">&nbsp;</el-col>
                     <el-col :span="11">
-                        <el-date-picker type="date" placeholder="选择日期" value-format="yyyy-MM-dd" v-model="filterform.end" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="datetime" placeholder="选择日期" format="yyyy-MM-dd HH:mm" v-model="filterform.end" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="游戏类型">
@@ -18,7 +18,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="游戏名称" v-show="show">
-                    <el-select v-model="filterform.gameId"  placeholder="所有游戏">
+                    <el-select :change="gameChange(filterform.gameId)" v-model="filterform.gameId"  placeholder="所有游戏">
                         <el-option v-for="item in filterform.names"  :key="item.id" :label="item.name" :value="item.id">
                         </el-option>
                     </el-select>
@@ -27,7 +27,7 @@
                     <el-input v-model="filterform.billNo" placeholder="请输入内容"></el-input>
                 </el-form-item>
                 <el-form-item label="期号" v-show="show">
-                    <el-input v-model="filterform.issue" placeholder="请输入内容"></el-input>
+                    <el-input v-model="filterform.issue" :disabled="disabled" placeholder="请输入内容"></el-input>
                 </el-form-item>
                 <el-form-item style="margin-left:40px;">
                     <el-button :class="[istoday == 0 ? 'el-button--danger' : '']" @click="dateSel(0)">今天</el-button>
@@ -38,7 +38,7 @@
                 </el-form-item>
             </el-form>
         </div>
-         <div class="teamList">
+         <div class="teamList paddinglf" v-show="listDataShow">
             <el-table :data="listData" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="userName"
@@ -73,7 +73,7 @@
                 </el-table-column>
             </el-table>
         </div>
-        <div class="teamPagination">
+        <div class="teamPagination" v-show="listDataShow">
             <div class="block">
                 <el-pagination
                         background
@@ -111,7 +111,7 @@
                         value: '3',
                         label: 'VR真人视讯'
                     }],//游戏类型
-                    names:[],//游戏名称
+                    names:[{id: '', name: '全部游戏'}],//游戏名称
                     gameId:'',
                     issue:'', //期号
                     billNo:'', //注单编号
@@ -122,8 +122,10 @@
                 },
                 istoday: 2,
                 listData: null,
+                listDataShow:false,
                 show:true,
                 billNoShow:true,
+                disabled:false,
             }
         },
         created() {
@@ -134,16 +136,19 @@
         },
         methods:{
             initdate() {
-                var nowdate = new Date();
+                var nowdate = new Date(new Date().setHours(3,0,0,0));
                 var oneweekdate = new Date(nowdate-7*24*3600*1000);
-                var y = oneweekdate.getFullYear();
-                var m = oneweekdate.getMonth()+1;
-                var d = oneweekdate.getDate();
-                var yn = nowdate.getFullYear();
-                var mn = nowdate.getMonth()+1;
-                var dn = nowdate.getDate();
-                this.filterform.start = y+'-'+m+'-'+d;
-                this.filterform.end = yn+'-'+mn+'-'+dn;
+                this.filterform.start = oneweekdate;
+                this.filterform.end = nowdate;
+            },
+            dateToStr(time){
+                var time = new Date(time);
+                var y = time.getFullYear();//年
+                var m = time.getMonth() + 1;//月
+                var d = time.getDate();//日
+                var h = time.getHours();//时
+                var mm = time.getMinutes();//分
+                return y+"-"+m+"-"+d+" "+h+":"+mm;
             },
             async getGameList() {
                 let dataList = await getGames();
@@ -157,23 +162,23 @@
             },
             dateSel(type) {
                 this.istoday = type;
-                var nowdate = new Date();
+                var nowdate = new Date(new Date().setHours(3,0,0,0));
                 if(type == 1){
-                    var beforedate = new Date(new Date().getTime() - 1*24*3600*1000);
-                    this.filterform.start = beforedate.getFullYear()+'-'+(beforedate.getMonth()+1)+'-'+beforedate.getDate();
-                    this.filterform.end = nowdate.getFullYear()+'-'+(nowdate.getMonth()+1)+'-'+nowdate.getDate();
+                    var beforedate = new Date(nowdate.getTime() - 1*24*3600*1000);
+                    this.filterform.start = beforedate;
+                    this.filterform.end = nowdate;
                 } else {
-                    var afterdate = new Date(new Date().getTime() + 1* 24*60*60*1000);
-                    this.filterform.start = nowdate.getFullYear()+'-'+(nowdate.getMonth()+1)+'-'+nowdate.getDate();
-                    this.filterform.end = afterdate.getFullYear()+'-'+(afterdate.getMonth()+1)+'-'+afterdate.getDate();
+                    var afterdate = new Date(nowdate.getTime() + 1* 24*60*60*1000);
+                    this.filterform.start = nowdate;
+                    this.filterform.end = afterdate;
                 }
             },
             async onFilterSubmit() {
                 if(this.filterform.start != '' && this.filterform.end != ''){
                     //接口请求数据
                     let filterData = await betList(
-                        this.filterform.start+' 00:00',
-                        this.filterform.end+' 23:59',
+                        this.dateToStr(this.filterform.start),
+                        this.dateToStr(this.filterform.end),
                         this.filterform.gameId,
                         this.filterform.issue,
                         this.filterform.billNo,
@@ -183,18 +188,21 @@
                     );
                     //查询错误给出提示
                     if (filterData.code!=0) {
+                        this.listDataShow = false;
                         this.$alert(filterData.msg, '提示信息', {
                             confirmButtonText: '确定',
                         });
                     }
                     //查询到数据
                     if(filterData.code == 0){
+                        this.listDataShow = true;
                         this.listData = filterData.result.rows;
                         this.filterform.total = filterData.result.total;
                         this.filterform.pagetotals = filterData.result.totalPages;
                     }
                 }
             },
+            //监听游戏类型
             typeChange(type){
                 if (type==1) {
                     this.show = true;
@@ -207,8 +215,14 @@
                     this.billNoShow = true;
                 }
             },
+            //监听游戏名称
+            gameChange(gameId){
+                this.disabled = gameId=='' ? true :false;
+            },
             handleSizeChange(val) {
+                this.filterform.page = 1;
                 this.filterform.size = val;
+                this.onFilterSubmit();
             },
             handleCurrentChange(val) {
                 this.filterform.page = val;
