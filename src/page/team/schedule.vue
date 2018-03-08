@@ -17,36 +17,20 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="游戏类型">
-                            <el-select v-model="filterform.type" placeholder="请选择" change="changeGametype">
-                                <el-option v-for="item in filterform.types"  :key="item.value" :label="item.label" :value="item.value">
-                                </el-option>
-                            </el-select>
+                        <el-form-item label="用户名">
+                            <el-input :disabled="!isgroup" v-model="filterform.userName" placeholder="请输入用户名"></el-input>
                         </el-form-item>
                     </el-col>
+
                     <el-col :span="6">
-                        <el-form-item label="游戏名称">
-                            <el-select v-model="filterform.gtype" placeholder="所有游戏">
+                        <el-form-item label="彩种">
+                            <el-select v-model="filterform.gtype" placeholder="所有彩种">
                                 <el-option v-for="item in filterform.gtypes"  :key="item.id" :label="item.name" :value="item.id">
                                 </el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="6">
-                        <el-form-item label="用户名">
-                            <el-input :disabled="!isgroup" v-model="filterform.userName" placeholder="请输入用户名"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="6">
-                        <el-form-item label="订单号">
-                            <el-input v-model="filterform.billNo" placeholder="请输入内容"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="期数">
-                            <el-input :disabled="filterform.allowIssue" v-model="filterform.issue" placeholder="请输入内容"></el-input>
-                        </el-form-item>
-                    </el-col>
+
 
                     <el-col :span="6">
                         <el-form-item label=" " class="">
@@ -61,13 +45,13 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12" class="searchTeamBets">
-                            <el-button class="" type="danger" @click="onFilterSubmit">查询</el-button>
+                        <el-button class="" type="danger" @click="onFilterSubmit">查询</el-button>
                     </el-col>
                 </el-row>
 
             </el-form>
         </div>
-        <div class="teamlist" v-if="betsTableVisabel">
+        <div class="teamlist" v-if="scheduleTableVisabel">
             <el-table :data="teambetslistData" v-loading="betstableloading" @sort-change="teambetssortchange" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="userName"
@@ -75,22 +59,17 @@
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="betTime"
-                        label="投注时间"
+                        prop="userName"
+                        label="追号时间"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="billNo"
-                        label="订单号"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="gameName"
+                        prop="gameId"
                         label="彩种"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="issue"
+                        prop="chaseIssue"
                         label="期号"
                         sortable>
                 </el-table-column>
@@ -101,12 +80,22 @@
                 </el-table-column>
                 <el-table-column
                         prop="betNumber"
-                        label="投注内容"
+                        label="追号内容"
                         sortable>
                 </el-table-column>
                 <el-table-column
                         prop="betTotal"
-                        label="投注金额"
+                        label="追号总金额"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="betTotal"
+                        label="完成金额"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="winStop"
+                        label="中奖后终止"
                         sortable>
                 </el-table-column>
                 <el-table-column
@@ -144,34 +133,20 @@
 </template>
 
 <script>
-    import {getGames, getTeamBetList} from '../../service/getData'
+    import {getGames, getTeamScheduleList} from '../../service/getData'
     export default {
         data(){
             return{
                 TIMERULE: ' 03:00',
                 teambetslistData: [],
                 betstableloading: true,
-                betsTableVisabel: false,
+                scheduleTableVisabel: false,
                 filterform: {
                     start: null,
                     end: null,
                     userName: '',
-                    type: '1',
-                    issue: '',
-                    types:[{
-                        value: '1',
-                        label: '彩票'
-                    }, {
-                        value: '2',
-                        label: 'AG'
-                    }, {
-                        value: '3',
-                        label: 'VR真人视讯'
-                    }],//平台类型
                     gtype: '',
-                    gtypes: [{id: '', name: '全部游戏'}],
-                    billNo: '',
-                    allowIssue: true,
+                    gtypes: [{id: '', name: '全部彩种'}],
                     page: 1,
                     size: 10,
                     total: 0,
@@ -246,26 +221,23 @@
                 }
             },
             async onFilterSubmit() {
-                let betsData = await getTeamBetList(
+                let scheduleData = await getTeamScheduleList(
                     this.filterform.page,
                     this.filterform.size,
                     this.filterform.field,
                     this.filterform.direction,
                     this.filterform.start,
                     this.filterform.end,
-                    this.filterform.type,
                     this.filterform.userName,
                     this.filterform.gtype,
-                    this.filterform.issue,
-                    this.filterform.billNo
                 );
-                if(betsData.code == 0){
-                    this.filterform.total = betsData.result.total;
-                    this.teambetslistData = betsData.result.rows;
+                if(scheduleData.code == 0){
+                    this.filterform.total = scheduleData.result.total;
+                    this.teambetslistData = scheduleData.result.rows;
                     this.betstableloading = false;
-                    this.betsTableVisabel = true;
+                    this.scheduleTableVisabel = true;
                 }
-                console.log(betsData);
+                console.log(scheduleData);
             },
             handleSizeChange(val) {
                 this.betstableloading = true;

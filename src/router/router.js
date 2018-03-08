@@ -33,9 +33,11 @@ const transaction = r => require.ensure([], () => r(require('../page/bets/transa
 const reportlist = r => require.ensure([], () => r(require('../page/bets/reportlist')), 'reportlist')
 const agrecord = r => require.ensure([], () => r(require('../page/bets/agrecord')), 'agrecord')
 const agreport = r => require.ensure([], () => r(require('../page/bets/agreport')), 'agreport')
-//订单报表
+//代理管理
 const spread = r => require.ensure([], () => r(require('../page/team/spread')), 'spread')
 const teambets = r => require.ensure([], () => r(require('../page/team/bets')), 'teambets')
+const teamschedule = r => require.ensure([], () => r(require('../page/team/schedule')), 'teamschedule')
+const teamreports = r => require.ensure([], () => r(require('../page/team/reports')), 'teamreports')
 
 
 
@@ -165,9 +167,17 @@ export default [{
                 name: 'spread',
                 component: spread,
             },{
-                path: 'bets', //推广管理
+                path: 'bets', //团队投注
                 name: 'teambets',
                 component: teambets,
+            },{
+                path: 'schedule', //团队追号
+                name: 'teamschedule',
+                component: teamschedule,
+            },{
+                path: 'reports', //团队报表
+                name: 'teamreports',
+                component: teamreports,
             }]
         },
         //订单报表

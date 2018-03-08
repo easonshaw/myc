@@ -11,8 +11,8 @@
                 <li :class="activeMenu == 'user' ? 'active' : ''"><router-link :to="{ name: 'userlist' }">会员管理</router-link></li>
                 <li :class="activeMenu == 'spread' ? 'active' : ''"><router-link :to="{ name: 'spread' }">推广设定</router-link></li>
                 <li :class="activeMenu == 'bets' ? 'active' : ''"><router-link :to="{ name: 'teambets' }">团队投注</router-link></li>
-                <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">团队追号</router-link></li>
-                <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">团队报表</router-link></li>
+                <li :class="activeMenu == 'schedule' ? 'active' : ''"><router-link :to="{ name: 'teamschedule' }">团队追号</router-link></li>
+                <li :class="activeMenu == 'reports' ? 'active' : ''"><router-link :to="{ name: 'teamreports' }">团队报表</router-link></li>
                 <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">团队充提</router-link></li>
                 <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">团队帐变</router-link></li>
                 <li :class="activeMenu == 'contract' ? 'active' : ''"><router-link :to="{ name: 'accountContract' }">真人电子团队报表</router-link></li>

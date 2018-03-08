@@ -229,4 +229,46 @@ export const transaction = (startTime, endTime, billNo, page = 1, size, type) =>
 /**
  * 墨月城-获取团队投注记录(游戏记录)
  */
-export const getTeamBetList = (page = 1, size, type) => fetch('/fore/bet-record-team/list', { page: page, size: size, type: type }, 'POST', 'fetch', 'json', true);
+export const getTeamBetList = (page = 1, size,  field, direction , startTime, endTime, type, userName = '', gameId, issue, billNo) => fetch('/fore/bet-record-team/list', {
+    page:page,
+    size:size,
+    field:field,
+    direction:direction,
+    startTime:startTime,
+    endTime:endTime,
+    type:type,
+    userName:userName,
+    gameId:gameId,
+    issue:issue,
+    billNo:billNo
+}, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-获取团队追号记录
+ */
+export const getTeamScheduleList = (page = 1, size,  field, direction , startTime, endTime, userName = '', gameId) => fetch('/fore/chase-record-team/list', {
+    page:page,
+    size:size,
+    field:field,
+    direction:direction,
+    startTime:startTime,
+    endTime:endTime,
+    userName:userName,
+    gameId:gameId,
+}, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-获取团队报表记录
+ */
+export const getTeamReportsList = (page = 1, size,  field, direction , startTime, endTime, userName = '', type, floor = '') => fetch('/fore/report-team/list', {
+    page:page,
+    size:size,
+    field:field,
+    direction:direction,
+    startTime:startTime,
+    endTime:endTime,
+    userName:userName,
+    type:type,
+    floor:floor,
+}, 'POST', 'fetch', 'json', true);
+

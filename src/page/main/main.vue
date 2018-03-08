@@ -2,6 +2,9 @@
   	<div class="">
         <head-top activeNav='game'>
         </head-top>
+        <div class="wapper">
+
+        </div>
     </div>
 </template>
 

@@ -510,7 +510,7 @@ body{
     width: 1270px;
     margin: 0 auto;
     background: #FFF;
-    min-height: 400px;
+    min-height: 800px;
     color: #282828;
 }
 .wapper .accountMenu{
@@ -933,7 +933,7 @@ body{
 .wapper .teamlist{
     padding: 20px;
 }
-.wapper .teamList .header-row th{
+.wapper .teamlist .header-row th{
     background: #ff6666;
     color: #FFF;
     text-align: center;
@@ -944,7 +944,7 @@ body{
 .wapper .teamlist .sort-caret.descending{
     border-top-color: #FFF;
 }
-.wapper .teamList .sort-caret.ascending{
+.wapper .teamlist .sort-caret.ascending{
     border-bottom-color: #FFF;
 }
 .wapper .teamlist .ascending .sort-caret.ascending{
@@ -1132,4 +1132,91 @@ color:#3ebcd1;
 .wapper .searchTeamBets .el-button{
     margin-right: 10px;
     width: 180px;
+}
+.wapper .status_success{
+    color: #67C23A;
+}
+.wapper .status_warning{
+    color: #E6A23C;
+}
+.wapper .status_danger{
+    color: #F56C6C;
+}
+.wapper .status_info{
+    color: #909399;
+}
+.wapper .status_primary{
+    color: #409EFF;
+}
+.gameTypeDiv{
+  width: 260px;
+  min-height: 600px;
+  background: #FFF;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  z-index: 10;
+  padding: 0px;
+  margin: 0;
+  background-color: #f0f0f0;
+  border: 0px solid #ebeef5;
+  border-radius:0px;
+  box-shadow: 0 5px 20px 12px rgba(0, 0, 0, 0.1);
+}
+.gameTypeDiv .arrowTop{
+  width: 100%;
+  height: 0px;
+  position: relative;
+}
+.gameTypeDiv .arrowTop .el-icon-caret-top{
+    position: absolute;
+    top: -30px;
+    font-size: 50px;
+    left: 110px;
+    color: #fff;
+    z-index: 9;
+}
+.gameTypeDiv .gamegroup{
+    padding: 10px 20px;
+    padding-bottom: 0;
+    margin-bottom: 0px;
+}
+.gameTypeDiv .gamegroup:nth-child(even){
+    background: url("./images/menu_odd_bg.png") repeat-y center;
+}
+.gameTypeDiv .gamegroup:nth-child(odd){
+}
+.gameTypeDiv .gamegroup dl dt{
+    width: 100%;
+    height: 45px;
+    line-height: 40px;
+    color: #ff6666;
+    font-size: 16px;
+}
+.gameTypeDiv .gamegroup dl{
+    /*background: url("./images/menu_li_bg.png") repeat-y center bottom;*/
+}
+.gameTypeDiv .gamegroup dl dt,
+.gameTypeDiv .gamegroup dl dd:nth-child(even){
+    background: url("./images/menu_dl_bg.png") no-repeat left bottom;
+}
+.gameTypeDiv .gamegroup dl dd:nth-child(odd){
+    background: url("./images/menu_dl_bg.png") no-repeat right bottom;
+}
+.gameTypeDiv .gamegroup dl dt img{
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+    float: left;
+}
+.gameTypeDiv .gamegroup dl dd{
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    width: 50%;
+}
+.gameTypeDiv .gamegroup dl dd a{
+    color: #6e7276;
+    font-size: 14px;
 }

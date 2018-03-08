@@ -24,7 +24,8 @@
         <div class="container container-menu">
             <router-link :to="{ path: 'main' }" class="logo"><img src="../../images/logo.png" /> </router-link>
             <ul class="menu-list">
-                <li :class="activeNav == '' || activeNav == 'game' ? 'active' : ''"><router-link :to="{ name: 'main' }"><i class="iconfont icon-youxidating"></i> <p>游戏大厅</p></router-link></li>
+                <li id="GameMenu" v-on:mouseenter="disGameMenu" v-on:mouseleave="hideGameMenu" :class="activeNav == '' || activeNav == 'game' ? 'active' : ''"><router-link :to="{ name: 'main' }"><i class="iconfont icon-youxidating"></i> <p>游戏大厅</p></router-link>
+                </li>
                 <li :class="activeNav == 'externalgame' ? 'active' : ''"><router-link :to="{ name: 'externalgame' }"><i class="iconfont icon-zhenrentingshi"></i> <p>真人厅室</p></router-link></li>
                 <li :class="activeNav == 'account' ? 'active' : ''"><router-link :to="{ name: 'updateNickname' }"><i class="iconfont icon-wodezhanghu"></i> <p>我的账户</p></router-link></li>
                 <li :class="activeNav == 'team' ? 'active' : ''"><router-link :to="{ name: 'teamsummary' }"><i class="iconfont icon-dailiguanli"></i> <p>代理管理</p></router-link></li>
@@ -39,6 +40,8 @@
                 <a href="javascript:;" class="button button-transfer">快速转账</a>
             </div>
         </div>
+
+
 
         <dialogDownApp :downAppdialogVisible="downAppdialogVisible" @on-downapp-result-change="ondownAppResultChange"></dialogDownApp>
         <dialogTestSpeed :testspeeddialogVisible="testSpeeddialogVisible" @on-testspeed-result-change="ontestspeedResultChange"></dialogTestSpeed>
@@ -66,13 +69,24 @@
             <a href="javascript:;" @click="downAppdialogVisible = true"><i class="iconfont icon-xiazai"></i>下<br/>载<br/>中<br/>心</a>
             <a href="javascript:;" @click="testSpeeddialogVisible = true"><i class="iconfont icon-cesu"></i>重<br/>新<br/>测<br/>速</a>
         </div>
+
+        <div id="gameTypeDiv" v-on:mouseenter="disGameMenu" v-on:mouseleave="hideGameMenu" ref="gameTypeDiv" v-show="menuActive" v-bind:style="{left: menuPos.left + 'px', top: menuPos.top + 'px' }" class="gameTypeDiv">
+            <div class="arrowTop"><i class="el-icon-caret-top"></i></div>
+            <div class="gamegroup" v-for="item in menuData">
+                <dl class="">
+                    <dt><img :src="item.gamethumb" />{{item.groupName}}</dt>
+                    <dd v-for="gitem in item.gamePermission"><a href="javascript:;" >{{gitem.name}}</a></dd>
+                    <span class="clear"></span>
+                </dl>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     import {localapi, proapi, imgBaseUrl} from 'src/config/env'
     import {mapState, mapActions, mapMutations} from 'vuex'
-    import {signout, getUser, getBalance, getNotice} from '../../service/getData'
+    import {signout, getUser, getBalance, getNotice, getGames} from '../../service/getData'
     import dialogDownApp from 'src/components/common/dialogDownApp.vue'
     import dialogTestSpeed from 'src/components/common/dialogTestSpeed.vue'
      export default {
@@ -92,6 +106,9 @@
                 notice_size: 10,
                 notice_currentPage: 1,
                 notice_total: 0,
+                menuPos: {left: 0, top: 0},
+                menuActive: false,
+                menuData: {},
             }
         },
         mounted(){
@@ -140,6 +157,17 @@
                 let noticeData = await getNotice(1, this.notice_currentPage, this.notice_size);
                 if(noticeData.code == 0){
                     this.noticeScrollHtml = noticeData.result.rows[0].content;
+                }
+                //加载菜单游戏数据
+                let gamesData = await getGames();
+                if(gamesData.code == 0){
+                    this.menuData = gamesData.result.map(item => {
+                        return {
+                            gamethumb: require('../../images/g-'+item.id+'.png'),
+                            groupName: item.groupName,
+                            gamePermission: item.gamePermission
+                        }
+                    });
                 }
             },
             async logout() {
@@ -195,6 +223,17 @@
             },
             ontestspeedResultChange(val) {
                 this.testSpeeddialogVisible = val;
+            },
+            disGameMenu(e){
+                console.log(e);
+                this.menuActive = true;
+                var Menu = document.getElementById("GameMenu");
+                this.menuPos.left = Menu.clientLeft+140;
+                this.menuPos.top = Menu.clientTop+170;
+                console.log(this.menuPos);
+            },
+            hideGameMenu(){
+                this.menuActive = false;
             },
         },
 

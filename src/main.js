@@ -7,8 +7,7 @@ import ElementUI from 'element-ui'
 import './config/rem'
 import FastClick from 'fastclick'
 import VueAreaLinkage from 'vue-area-linkage';
-
-
+import 'babel-polyfill'
 
 if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {

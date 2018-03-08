@@ -16,112 +16,80 @@
                             </el-row>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="6">
-                        <el-form-item label="游戏类型">
-                            <el-select v-model="filterform.type" placeholder="请选择" change="changeGametype">
-                                <el-option v-for="item in filterform.types"  :key="item.value" :label="item.label" :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="6">
-                        <el-form-item label="游戏名称">
-                            <el-select v-model="filterform.gtype" placeholder="所有游戏">
-                                <el-option v-for="item in filterform.gtypes"  :key="item.id" :label="item.name" :value="item.id">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="6">
-                        <el-form-item label="用户名">
-                            <el-input :disabled="!isgroup" v-model="filterform.userName" placeholder="请输入用户名"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="6">
-                        <el-form-item label="订单号">
-                            <el-input v-model="filterform.billNo" placeholder="请输入内容"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="期数">
-                            <el-input :disabled="filterform.allowIssue" v-model="filterform.issue" placeholder="请输入内容"></el-input>
-                        </el-form-item>
-                    </el-col>
 
-                    <el-col :span="6">
+                    <el-col :span="12">
                         <el-form-item label=" " class="">
                             <el-button :class="[istoday == 0 ? 'el-button--danger' : '']" @click="dateSel(0)">今天</el-button>
                             <el-button :class="[istoday == 1 ? 'el-button--danger' : '']" @click="dateSel(1)">昨天</el-button>
                         </el-form-item>
                     </el-col>
+                </el-row>
+                <el-row :gutter="20">
                     <el-col :span="6">
-                        <el-form-item label=" " class="uytpes">
-                            <el-button :class="[isgroup == 0 ? 'el-button--danger' : '']" @click="utypeSel(0)">个人</el-button>
-                            <el-button :class="[isgroup == 1 ? 'el-button--danger' : '']" @click="utypeSel(1)">团队</el-button>
+                        <el-form-item label="用户名">
+                            <el-input  v-model="filterform.userName" placeholder="请输入用户名"></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="12" class="searchTeamBets">
-                            <el-button class="" type="danger" @click="onFilterSubmit">查询</el-button>
+
+
+                    <el-col :span="18" class="">
+                        <div class="searchTeamBets"><el-button class="" type="danger" @click="onFilterSubmit">查询</el-button></div>
                     </el-col>
                 </el-row>
 
             </el-form>
         </div>
-        <div class="teamlist" v-if="betsTableVisabel">
-            <el-table :data="teambetslistData" v-loading="betstableloading" @sort-change="teambetssortchange" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
+        <div class="teamlist" >
+            <el-table :data="teamreportsData" v-loading="reportstableloading" @sort-change="teambetssortchange" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="userName"
-                        label="用户名"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="betTime"
-                        label="投注时间"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="billNo"
-                        label="订单号"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="gameName"
-                        label="彩种"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="issue"
-                        label="期号"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="playName"
-                        label="玩法"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="betNumber"
-                        label="投注内容"
+                        label="帐号"
                         sortable>
                 </el-table-column>
                 <el-table-column
                         prop="betTotal"
-                        label="投注金额"
+                        label="总消费"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="orderStatus"
-                        label="状态">
-                    <template slot-scope="scope">
-                        <div slot="reference" class="">
-                            <span class="" v-if="scope.row.orderStatus == 0">未开奖</span>
-                            <span class="status_warning" v-if="scope.row.orderStatus == 1">已封盘</span>
-                            <span class="status_warning" v-if="scope.row.orderStatus == 2">已撤单</span>
-                            <span class="status_success" v-if="scope.row.orderStatus == 3">已中奖</span>
-                            <span class="" v-if="scope.row.orderStatus == 4">未中奖</span>
-                            <span class="status_warning" v-if="scope.row.orderStatus == 5">系统撤单</span>
-                        </div>
-                    </template>
+                        prop="winTotal"
+                        label="总消费派奖"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="betRebateTotal"
+                        label="总返点"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="activityTotal"
+                        label="总活动"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="realGainTotal"
+                        label="总盈亏"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="rechargeTotal"
+                        label="总充值"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="withdrawTotalOfAccept"
+                        label="总提款"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="dividendTotal"
+                        label="总红利/其他"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="withdrawTotalOfAccept"
+                        label="投注笔数"
+                        sortable>缺少数据
                 </el-table-column>
             </el-table>
             <div class="teamPagination">
@@ -144,34 +112,18 @@
 </template>
 
 <script>
-    import {getGames, getTeamBetList} from '../../service/getData'
+    import {getTeamReportsList} from '../../service/getData'
     export default {
         data(){
             return{
                 TIMERULE: ' 03:00',
-                teambetslistData: [],
-                betstableloading: true,
-                betsTableVisabel: false,
+                teamreportsData: [],
+                reportstableloading: true,
+                reportsTableVisabel: false,
                 filterform: {
                     start: null,
                     end: null,
                     userName: '',
-                    type: '1',
-                    issue: '',
-                    types:[{
-                        value: '1',
-                        label: '彩票'
-                    }, {
-                        value: '2',
-                        label: 'AG'
-                    }, {
-                        value: '3',
-                        label: 'VR真人视讯'
-                    }],//平台类型
-                    gtype: '',
-                    gtypes: [{id: '', name: '全部游戏'}],
-                    billNo: '',
-                    allowIssue: true,
                     page: 1,
                     size: 10,
                     total: 0,
@@ -190,9 +142,6 @@
             this.initFilterData();
         },
         watch: {
-            'filterform.gtype': function(to, from) {
-                this.changeGametype(to)
-            }
         },
         computed:{
         },
@@ -208,15 +157,6 @@
                 var dn = nowdate.getDate();
                 this.filterform.start = y+'-'+m+'-'+d+this.TIMERULE;
                 this.filterform.end = yn+'-'+mn+'-'+dn+this.TIMERULE;
-                this.getGameList();
-            },
-            utypeSel(type) {
-                this.isgroup = type;
-                if(type) {
-
-                } else {
-                    this.filterform.userName = '';
-                }
             },
             dateSel(type) {
                 this.istoday = type;
@@ -231,22 +171,8 @@
                     this.filterform.end = afterdate.getFullYear()+'-'+(afterdate.getMonth()+1)+'-'+afterdate.getDate()+this.TIMERULE;
                 }
             },
-            changeGametype(val){
-                this.filterform.allowIssue = val == '' ? true : false;
-                if(val == '') { this.filterform.issue = ''; }
-            },
-            async getGameList() {
-                let dataList = await getGames();
-                if (dataList.code==0) {
-                    dataList.result.forEach(element => {
-                        element.gamePermission.forEach(data => {
-                            this.filterform.gtypes.push(data);
-                        });
-                    });
-                }
-            },
             async onFilterSubmit() {
-                let betsData = await getTeamBetList(
+                let betsData = await getTeamReportsList(
                     this.filterform.page,
                     this.filterform.size,
                     this.filterform.field,
@@ -261,25 +187,25 @@
                 );
                 if(betsData.code == 0){
                     this.filterform.total = betsData.result.total;
-                    this.teambetslistData = betsData.result.rows;
-                    this.betstableloading = false;
-                    this.betsTableVisabel = true;
+                    this.teamreportsData = betsData.result.rows;
+                    this.reportstableloading = false;
+                    this.reportsTableVisabel = true;
                 }
                 console.log(betsData);
             },
             handleSizeChange(val) {
-                this.betstableloading = true;
+                this.reportstableloading = true;
                 this.filterform.page = 1;
                 this.filterform.size = val;
                 this.onFilterSubmit();
             },
             handleCurrentChange(val) {
-                this.betstableloading = true;
+                this.reportstableloading = true;
                 this.filterform.page = val;
                 this.onFilterSubmit();
             },
             teambetssortchange(column) {
-                this.betstableloading = true;
+                this.reportstableloading = true;
                 this.filterform.page = 1;
                 this.filterform.field = column.prop == undefined ? '' : column.prop;
                 this.filterform.direction = column.order == 'descending' ? 'desc' : 'asc';
