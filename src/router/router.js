@@ -25,7 +25,7 @@ const user = r => require.ensure([], () => r(require('../page/team/user')), 'use
 const userlist = r => require.ensure([], () => r(require('../page/team/user/list')), 'userlist')
 const createuser  = r => require.ensure([], () => r(require('../page/team/user/createuser')), 'createuser')
 const updateuser  = r => require.ensure([], () => r(require('../page/team/user/updateuser')), 'updateuser')
-//订单报表
+//------------------------------------订单报表------------------------------------------------//
 const bets = r => require.ensure([], () => r(require('../page/bets/bets')), 'bets')
 const gamerecord = r => require.ensure([], () => r(require('../page/bets/gamerecord')), 'gamerecord')
 const chaserecord = r => require.ensure([], () => r(require('../page/bets/chaserecord')), 'chaserecord')
@@ -33,7 +33,11 @@ const transaction = r => require.ensure([], () => r(require('../page/bets/transa
 const reportlist = r => require.ensure([], () => r(require('../page/bets/reportlist')), 'reportlist')
 const agrecord = r => require.ensure([], () => r(require('../page/bets/agrecord')), 'agrecord')
 const agreport = r => require.ensure([], () => r(require('../page/bets/agreport')), 'agreport')
-//订单报表
+//------------------------------------订单报表------------------------------------------------//
+//------------------------------------财务管理------------------------------------------------//
+const finance = r => require.ensure([], () => r(require('../page/finance/finance')), 'finance')
+const recharge = r => require.ensure([], () => r(require('../page/finance/recharge')), 'recharge')
+//------------------------------------财务管理------------------------------------------------//
 const spread = r => require.ensure([], () => r(require('../page/team/spread')), 'spread')
 const teambets = r => require.ensure([], () => r(require('../page/team/bets')), 'teambets')
 
@@ -204,6 +208,15 @@ export default [{
                 component:agreport,
             }]
         },
-
+        //财务管理
+        {
+            path: '/finance',
+            component: finance,
+            children: [{
+                path: 'recharge', //用户充值
+                name: 'recharge',
+                component: recharge,
+            }]
+        }
     ]
 }]

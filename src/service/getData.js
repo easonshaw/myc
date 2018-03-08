@@ -227,6 +227,11 @@ export const chaseRecord = (startTime, endTime, gameId, page = 1, size) => fetch
 export const transaction = (startTime, endTime, billNo, page = 1, size, type) => fetch('/fore/transaction/list', { startTime: startTime, endTime: endTime, billNo:billNo,page: page, size: size, type: type}, 'POST', 'fetch', 'json', true);
 
 /**
+ * 墨月城-我的报表(盈亏报表)
+ */
+export const getReport = (startTime, endTime, page = 1, size, type) => fetch('/fore/report/list', { startTime: startTime, endTime: endTime, page: page, size: size, type: type }, 'POST', 'fetch', 'json', true);
+
+/**
  * 墨月城-获取团队投注记录(游戏记录)
  */
 export const getTeamBetList = (page = 1, size, type) => fetch('/fore/bet-record-team/list', { page: page, size: size, type: type }, 'POST', 'fetch', 'json', true);
