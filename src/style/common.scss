@@ -6,7 +6,7 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
     text-decoration: none;
     border: none;
     font-weight: normal;
-    font-family: tahoma,"microsoft yahei";
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
     box-sizing: border-box;
     -webkit-tap-highlight-color:transparent;
     -webkit-font-smoothing: antialiased;
@@ -1223,4 +1223,327 @@ color:#3ebcd1;
 .gameTypeDiv .gamegroup dl dd a{
     color: #6e7276;
     font-size: 14px;
+}
+
+// 投注界面
+.GameWapper{
+    width: 1250px;
+    min-height: 600px;
+    margin: 0 auto;
+}
+.GameWapper .WapperLeft{
+    width: 990px;
+    float: left;
+}
+.GameWapper .WapperRight{
+    width: 240px;
+    float: right;
+}
+.GameWapper .WapperLeft .betMain{
+    width: 100%;
+    min-height: 475px;
+    background: #FFF;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+    margin-bottom: 20px;
+}
+.GameWapper .WapperLeft .betMain .betWay{
+    padding: 20px;
+}
+
+.GameWapper .WapperLeft .betList{
+    width: 100%;
+    min-height: 130px;
+    background: #FFF;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+    margin-bottom: 20px;
+}
+.GameWapper .WapperLeft .betList .betsList-header-row th{
+    padding: 5px 0;
+    text-align: center;
+    background: #f5f5f5;
+    color: #3c3c3c;
+    font-size: 12px;
+}
+.GameWapper .WapperLeft .betList .betsList-body-row td{
+    padding: 5px 0;
+    font-size: 12px;
+}
+.GameWapper .WapperRight .recentAwards{
+    background: #FFF;
+    width: 100%;
+    min-height: 475px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+}
+.GameWapper .WapperLeft .betRecords .el-tabs__header{
+    margin-bottom: 10px;
+}
+.GameWapper .WapperLeft .betRecords .el-tabs__item{
+    height: 35px;
+    line-height: 35px;
+}
+.GameWapper .WapperLeft .betRecords .el-tabs--card>.el-tabs__header .el-tabs__item{
+    border: none;
+}
+.GameWapper .WapperLeft .betRecords .el-tabs__item:hover{
+    color: #303133;
+}
+.GameWapper .WapperLeft .betRecords .el-tabs__content{
+    background: #FFF;
+    padding: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+}
+.GameWapper .WapperLeft .betRecords .viewmore{
+    padding: 20px;
+    text-align: center;
+}
+.GameWapper .WapperLeft .betRecords  .el-tabs--card>.el-tabs__header{
+    border: none;
+}
+.GameWapper .WapperLeft .betRecords  .el-tabs--card>.el-tabs__header .el-tabs__item.is-active{
+    border-bottom: none;
+    background: #ff6666;
+    color: #FFF;
+    border-radius: 3px;
+}
+.GameWapper .WapperLeft .betRecords  .el-tabs--card>.el-tabs__header .el-tabs__nav{
+    border: none;
+}
+.GameWapper .WapperLeft .betRecords .betRecords-header-row th{
+    padding: 5px 0;
+    text-align: center;
+    background: #FFF;
+    color: #3c3c3c;
+    font-size: 12px;
+}
+.GameWapper .WapperLeft .betRecords .betRecords-body-row td{
+    padding: 5px 0;
+    font-size: 12px;
+}
+.GameWapper .WapperLeft .betPlay{
+    background: url('./images/betsplit.png') bottom center no-repeat;
+}
+.GameWapper .WapperLeft .betSelList{
+    background: url('./images/betsplit.png') bottom center no-repeat;
+}
+.GameWapper .WapperLeft .betWay .el-tabs--card>.el-tabs__header{
+    border-bottom: 1px solid #ff6666;
+}
+.GameWapper .WapperLeft .betWay .el-tabs--card>.el-tabs__header .el-tabs__nav{
+    border: none;
+}
+.GameWapper .WapperLeft .betWay .el-tabs--card>.el-tabs__header .el-tabs__item{
+    border-left:none;
+    border-right: none;
+    color: #6e7276;
+}
+.GameWapper .WapperLeft .betWay .el-tabs--card>.el-tabs__header .el-tabs__item.is-active{
+    border-bottom-color: #ff6666;
+    background:#ff6666 ;
+    border-radius: 5px 5px 0 0;
+    color: #FFF;
+}
+
+.GameWapper .WapperLeft .betWay .betPlay{
+    width: 100%;
+}
+
+.GameWapper .WapperLeft .betWay .bonusAdj{
+    width: 250px;
+    height: 100px;
+    float: left;
+    position:relative;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .disMinRate{
+    width: 50px;
+    height: 25px;
+    font-size: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .disMaxRate{
+    width: 50px;
+    height: 25px;
+    font-size: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: right;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateResult{
+    width: 100%;
+    position: absolute;
+    top: 30px;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateResult span{
+    float: left;
+    width: 50%;
+    height: 25px;
+    line-height: 25px;
+    font-size: 10px;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateResult span:last-child{
+    text-align: right;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateResult span em{
+    font-style: normal;
+    color: #ff6666;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .el-slider__bar,
+.GameWapper .WapperLeft .betWay .bonusAdj .el-slider__runway{
+    height: 10px;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .el-slider__bar{
+    background-color: #ff6666
+}
+
+.GameWapper .WapperLeft .betWay .bonusAdj .el-slider__button-wrapper{
+    top: -13px;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .el-slider__button{
+    /*width: 10px;
+    height: 10px;*/
+    border: 2px solid #ff6666;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateType{
+    position: absolute;
+    bottom: 0;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateType .el-radio{
+    width: 125px;
+    float: left;
+    margin: 0;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateType .el-radio:first-child{
+    text-align: left;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateType .el-radio:last-child{
+    text-align: right;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateType  .el-radio__inner{
+    width: 18px;
+    height: 18px;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateType .el-radio__input.is-checked .el-radio__inner{
+    background: #ff6666;
+    border-color: #ff6666;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateType .el-radio__input.is-checked+.el-radio__label{
+    color: #f66;
+}
+.GameWapper .WapperLeft .betWay .bonusAdj .rateType .el-radio__inner{
+    border: 1px solid #f66;
+}
+.GameWapper .WapperLeft .betWay .betPlay .betPlaySel{
+    width: 670px;
+    float: left;
+}
+.GameWapper .WapperLeft .betWay .betPlay .betPlaySel .bet-type-button-group{
+    padding: 5px 0;
+    display: block;
+}
+.GameWapper .WapperLeft .betWay .betPlaySel .bet-type-button-group .span_text{
+    width: 100px;
+    float: left;
+    text-align: right;
+    font-weight: bold;
+    color: #6e7276;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+}
+.GameWapper .WapperLeft .betWay .betPlaySel .bet-type-button-group .text{
+    width: 570px;
+    float: left;
+    font-size: 14px;
+}
+.GameWapper .WapperLeft .betWay .betPlaySel .bet-type-button-group .text ul li{
+    float: left;
+    padding: 2px 20px;
+    color: #6e7276;
+}
+.GameWapper .WapperLeft .betWay .betPlaySel .bet-type-button-group .text ul li.bet-type-button{
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+}
+.GameWapper .WapperLeft .betWay .betPlaySel .bet-type-button-group .text ul li.bet-type-button.active{
+    background: #ff6666;
+    color: #FFF;
+    border-radius: 15px;
+}
+.GameWapper .WapperLeft .betWay  .betSelList{
+    width: 100%;
+    padding: 20px 0;
+}
+.GameWapper .WapperLeft .betWay  .betSelList .listGroup{
+    margin-bottom: 10px;
+}
+.GameWapper .WapperLeft .betWay  .betSelList .listGroup .tz_dian{
+    width: 750px;
+    float: left;
+}
+.GameWapper .WapperLeft .betWay  .betSelList .listGroup .tz_dian .span_text{
+    text-align: right;
+    font-weight: bold;
+    width: 100px;
+    display: block;
+    color: #6e7276;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    float: left;
+}
+.GameWapper .WapperLeft .betWay  .betSelList .listGroup .tz_dian ul{
+    width: 650px;
+    float: left;
+    padding-left: 15px;
+}
+.GameWapper .WapperLeft .betWay  .betSelList .listGroup .tz_dian ul li{
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    float: left;
+    margin-right: 15px;
+    border: 1px solid #ff9f9f;
+    border-radius: 50%;
+    background: -webkit-radial-gradient(left top, #ffffff 0%, #ececec);
+    cursor: pointer;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
+}
+.GameWapper .WapperLeft .betWay  .betSelList .listGroup .tz_dian ul li label{
+    display: none;
+}
+.GameWapper .WapperLeft .betWay  .betSelList .listGroup .tz_dian ul li.active{
+    border: 1px solid #FFF;
+    background: #ffcccc;
+    color: #FFF;
+}
+.GameWapper .WapperLeft .betWay  .betSelList .listGroup .tz_btn {
+    width: 200px;
+    float: left;
+}
+.GameWapper .WapperLeft .betWay  .betSelList .listGroup .tz_btn ul{
+    padding: 8px 0;
+}
+.GameWapper .WapperLeft .betWay  .betSelList .listGroup .tz_btn ul li{
+    float: left;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    margin-right: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
+}
+.GameWapper .WapperLeft .betWay  .betSelList .listGroup .tz_btn ul li.active{
+    background: #ff6666;
+    border-radius: 2px;
+    color: #FFF;
+}
+.GameWapper .WapperLeft .betWay  .opbuttons{
+    padding: 10px;
+    text-align: center;
 }

@@ -70,12 +70,12 @@
             <a href="javascript:;" @click="testSpeeddialogVisible = true"><i class="iconfont icon-cesu"></i>重<br/>新<br/>测<br/>速</a>
         </div>
 
-        <div id="gameTypeDiv" v-on:mouseenter="disGameMenu" v-on:mouseleave="hideGameMenu" ref="gameTypeDiv" v-show="menuActive" v-bind:style="{left: menuPos.left + 'px', top: menuPos.top + 'px' }" class="gameTypeDiv">
+        <div id="gameTypeDiv" v-if="user" v-on:mouseenter="disGameMenu" v-on:mouseleave="hideGameMenu" ref="gameTypeDiv" v-show="menuActive" v-bind:style="{left: menuPos.left + 'px', top: menuPos.top + 'px' }" class="gameTypeDiv">
             <div class="arrowTop"><i class="el-icon-caret-top"></i></div>
             <div class="gamegroup" v-for="item in menuData">
                 <dl class="">
                     <dt><img :src="item.gamethumb" />{{item.groupName}}</dt>
-                    <dd v-for="gitem in item.gamePermission"><a href="javascript:;" >{{gitem.name}}</a></dd>
+                    <dd v-for="gitem in item.gamePermission"><router-link :to="{name: 'main', params:{id: gitem.id}}">{{gitem.name}}</router-link></dd>
                     <span class="clear"></span>
                 </dl>
             </div>
@@ -172,7 +172,6 @@
             },
             async logout() {
                 let logoutData = await signout();
-                console.log(logoutData);
                 if(logoutData.code == 0){
                     this.$router.push('/login')
                 }
@@ -214,8 +213,6 @@
                 if(noticeData.code == 0 ) {
                     this.notice_total = noticeData.result.total;
                     this.notice = noticeData.result.rows;
-                } else {
-
                 }
             },
             ondownAppResultChange(val) {
@@ -225,12 +222,10 @@
                 this.testSpeeddialogVisible = val;
             },
             disGameMenu(e){
-                console.log(e);
                 this.menuActive = true;
                 var Menu = document.getElementById("GameMenu");
-                this.menuPos.left = Menu.clientLeft+140;
+                this.menuPos.left = Menu.clientLeft+160;
                 this.menuPos.top = Menu.clientTop+170;
-                console.log(this.menuPos);
             },
             hideGameMenu(){
                 this.menuActive = false;
