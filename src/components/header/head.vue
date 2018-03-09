@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="container container-menu">
-            <router-link :to="{ path: 'main' }" class="logo"><img src="../../images/logo.png" /> </router-link>
+            <router-link :to="{ name: 'main' }" class="logo"><img src="../../images/logo.png" /> </router-link>
             <ul class="menu-list">
                 <li id="GameMenu" v-on:mouseenter="disGameMenu" v-on:mouseleave="hideGameMenu" :class="activeNav == '' || activeNav == 'game' ? 'active' : ''"><router-link :to="{ name: 'main' }"><i class="iconfont icon-youxidating"></i> <p>游戏大厅</p></router-link>
                 </li>
