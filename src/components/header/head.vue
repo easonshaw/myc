@@ -35,11 +35,17 @@
                 <li :class="activeNav == 'activity' ? 'active' : ''"><router-link :to="{ name: 'activity' }"><i class="iconfont icon-youhuihuodong"></i> <p>优惠活动</p></router-link></li>
             </ul>
             <div class="menu-right">
-                <a href="javascript:;" class="button button-recharge">充&nbsp;&nbsp;&nbsp;&nbsp;值</a>
-                <a href="javascript:;" class="button button-postal">提&nbsp;&nbsp;&nbsp;&nbsp;现</a>
-                <a href="javascript:;" class="button button-transfer">快速转账</a>
+                <a href="javascript:;" class="button button-recharge" @click="rechargedialogVisible = true">充&nbsp;&nbsp;&nbsp;&nbsp;值</a>
+                <a href="javascript:;" class="button button-postal" @click="withdrawdialogVisible = true">提&nbsp;&nbsp;&nbsp;&nbsp;现</a>
+                <a href="javascript:;" class="button button-transfer" @click="transferdialogVisible = true">快速转账</a>
             </div>
         </div>
+
+        <dialogRecharge :rechargedialogVisible="rechargedialogVisible" @on-recharge-result-change="onrechargeResultChange"></dialogRecharge>
+        <dialogWithdraw :withdrawdialogVisible="withdrawdialogVisible" @on-withdraw-result-change="onrewithdrawResultChange"></dialogWithdraw>
+        <dialogTransfer :transferdialogVisible="transferdialogVisible" @on-transfer-result-change="ontransferResultChange"></dialogTransfer>
+        
+        
 
 
 
@@ -89,6 +95,11 @@
     import {signout, getUser, getBalance, getNotice, getGames} from '../../service/getData'
     import dialogDownApp from 'src/components/common/dialogDownApp.vue'
     import dialogTestSpeed from 'src/components/common/dialogTestSpeed.vue'
+    import dialogRecharge from 'src/components/common/dialogRecharge.vue'
+    import dialogWithdraw from 'src/components/common/dialogWithdraw.vue'
+    import dialogTransfer from 'src/components/common/dialogTransfer.vue'
+
+    
      export default {
         data(){
             return{
@@ -97,6 +108,9 @@
                 usernickNameText: '',
                 downAppdialogVisible: false, // 下载中心
                 testSpeeddialogVisible: false, //速度测试
+                rechargedialogVisible:false, //充值
+                withdrawdialogVisible:false, //提款
+                transferdialogVisible:false,//快速转账
                 noticeDialogVisible: false,
                 noticeinnerVisible: false,
                 noticeArticleTitle: '',
@@ -129,6 +143,9 @@
         components:{
             dialogDownApp,
             dialogTestSpeed,
+            dialogRecharge,
+            dialogWithdraw,
+            dialogTransfer,
         },
         methods: {
             ...mapMutations([
@@ -223,6 +240,15 @@
             },
             ontestspeedResultChange(val) {
                 this.testSpeeddialogVisible = val;
+            },
+            onrechargeResultChange(val) {
+                this.rechargedialogVisible = val;                
+            },
+            onrewithdrawResultChange(val){
+                this.withdrawdialogVisible = val;         
+            },
+            ontransferResultChange(val){
+                this.transferdialogVisible = val;
             },
             disGameMenu(e){
                 console.log(e);

@@ -3,7 +3,7 @@
         <div class="fiterForm">
             <el-form ref="form" :inline="true" :model="filterform" label-width="80px">
                 <el-form-item label="时间">
-                    <el-col :span="11">
+                   <el-col :span="11">
                         <el-date-picker type="datetime" placeholder="选择日期" format="yyyy-MM-dd HH:mm" v-model="filterform.start" style="width: 100%;"></el-date-picker>
                     </el-col>
                     <el-col class="line" :span="2">&nbsp;</el-col>
@@ -11,18 +11,11 @@
                         <el-date-picker type="datetime" placeholder="选择日期" format="yyyy-MM-dd HH:mm" v-model="filterform.end" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="类型">
-                    <el-select v-model="filterform.type" placeholder="全部">
-                        <el-option v-for="item in filterform.types"  :key="item.value" :label="item.label" :value="item.value">
+                <el-form-item label="平台">
+                    <el-select v-model="filterform.gameId"  placeholder="所有游戏">
+                        <el-option v-for="item in filterform.names"  :key="item.id" :label="item.name" :value="item.id">
                         </el-option>
                     </el-select>
-                </el-form-item>
-                <el-form-item label="注单编号">
-                    <el-input v-model="filterform.billNo" placeholder="请输入内容"></el-input>
-                </el-form-item>
-                <el-form-item style="margin-left:50px;">
-                    <el-button :class="[istoday == 0 ? 'el-button--danger' : '']" @click="dateSel(0)">今天</el-button>
-                    <el-button :class="[istoday == 1 ? 'el-button--danger' : '']" @click="dateSel(1)">昨天</el-button>
                 </el-form-item>
                 <el-form-item class="floatright">
                     <el-button type="danger" @click="onFilterSubmit">查询</el-button>
@@ -31,55 +24,59 @@
         </div>
          <div class="teamlist paddinglf" v-show="listDataShow">
             <el-table :data="listData" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
-                 <el-table-column
-                        prop="transactionTime"
-                        label="时间"
-                        width="155px"
-                        sortable>
-                </el-table-column>
                 <el-table-column
                         prop="userName"
                         label="用户名"
                         sortable>
                 </el-table-column>
-                <el-table-column
-                        prop="billNo"
-                        label="注单编号"
+                 <el-table-column
+                        prop="betTime"
+                        label="投注时间"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="transactionType"
-                        label="类型"
-                        sortable>
-                        <template slot-scope="scope">
-                            <div slot="reference">
-                                <span v-if="scope.row.transactionType == 0">充值</span>
-                                <span v-if="scope.row.transactionType == 1">提款</span>
-                                <span v-if="scope.row.transactionType == 2">消费</span>
-                                <span v-if="scope.row.transactionType == 3">派奖</span>
-                                <span v-if="scope.row.transactionType == 4">返点</span>
-                                <span v-if="scope.row.transactionType == 5">活动</span>
-                                <span v-if="scope.row.transactionType == 6">红利其他</span>
-                                <span v-if="scope.row.transactionType == 7">撤单</span>
-                                <span v-if="scope.row.transactionType == 8">转入</span>
-                                <span v-if="scope.row.transactionType == 9">转出</span>
-                                <span v-if="scope.row.transactionType == 10">其他</span>
-                            </div>
-                        </template>
-                </el-table-column>
-                <el-table-column
-                        prop="transactionAmount"
-                        label="变动金额"
+                        prop="gameName"
+                        label="游戏名称"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="currentBalance"
-                        label="余额"
+                        prop="startIssue"
+                        label="开始期数"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="transactionSubclass"
-                        label="备注"
+                        prop="playName"
+                        label="玩法"
+                        sortable>
+                </el-table-column>
+                 <el-table-column
+                        prop="betNumber"
+                        label="投注号码"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="planTotal"
+                        label="追号总金额"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="betTotal"
+                        label="完成金额"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="cancelTotal"
+                        label="取消金额"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="winStop"
+                        label="中奖后终止"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="status"
+                        label="状态"
                         sortable>
                 </el-table-column>
             </el-table>
@@ -103,7 +100,7 @@
 </template>
 
 <script>
-    import {transaction} from '../../service/getData'
+     import {getTeamAnalysis} from '../../../service/getData'
 
     export default {
         data(){
@@ -111,41 +108,9 @@
                 filterform: {
                     start: null,
                     end: null,
-                    type:'',
-                    types:[{ value: '', label: '全部'}, {
-                        value: '0',
-                        label: '充值'
-                    },{
-                        value: '1',
-                        label: '提款'
-                    },{
-                        value: '2',
-                        label: '消费'
-                    },{
-                        value: '3',
-                        label: '派奖'
-                    },{
-                        value: '4',
-                        label: '返点'
-                    },{
-                        value: '5',
-                        label: '活动'
-                    },{
-                        value: '6',
-                        label: '红利其他'
-                    },{
-                        value: '7',
-                        label: '撤单'
-                    },{
-                        value: '8',
-                        label: '转入'
-                    },{
-                        value: '9',
-                        label: '转出'
-                    },{
-                        value:'10',
-                        label:'其他'
-                    }],
+                    names:[{id: '', name: '全部游戏'}],//游戏名称
+                    gameId:'',
+                    issue:'', //期号
                     billNo:'', //注单编号
                     page: 1,
                     size: 10,
@@ -159,6 +124,9 @@
         },
         created() {
             this.initdate();
+        },
+        mounted(){
+            this.getGameList();
         },
         methods:{
             initdate() {
@@ -176,32 +144,27 @@
                 var mm = time.getMinutes();//分
                 return y+"-"+m+"-"+d+" "+h+":"+mm;
             },
-            dateSel(type) {
-                this.istoday = type;
-                var nowdate = new Date(new Date().setHours(3,0,0,0));
-                if(type == 1){
-                    var beforedate = new Date(nowdate.getTime() - 1*24*3600*1000);
-                    this.filterform.start = beforedate;
-                    this.filterform.end = nowdate;
-                } else {
-                    var afterdate = new Date(nowdate.getTime() + 1* 24*60*60*1000);
-                    this.filterform.start = nowdate;
-                    this.filterform.end = afterdate;
+            async getGameList() {
+                let dataList = await getGames();
+                if (dataList.code==0) {
+                    dataList.result.forEach(element => {
+                        element.gamePermission.forEach(data => {
+                            this.filterform.names.push(data);
+                        });
+                    });    
                 }
             },
             async onFilterSubmit() {
                 if(this.filterform.start != '' && this.filterform.end != ''){
                     //接口请求数据
-                    let filterData = await transaction(
-                        // this.dateToStr(this.filterform.start),
-                        // this.dateToStr(this.filterform.end),
-                        '',
-                        '',
-                        this.filterform.billNo,
+                    let filterData = await chaseRecord(
+                        this.dateToStr(this.filterform.start),
+                        this.dateToStr(this.filterform.end),
+                        this.filterform.gameId,
                         this.filterform.page,
                         this.filterform.size,
-                        this.filterform.type,
                     );
+                    console.log(filterData);
                     //查询错误给出提示
                     if (filterData.code!=0) {
                         this.listDataShow = false;

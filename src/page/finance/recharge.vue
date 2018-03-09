@@ -26,7 +26,7 @@
                 </el-form-item>
             </el-form>
         </div>
-         <div class="teamList paddinglf" v-show="listDataShow">
+         <div class="teamlist paddinglf" v-show="listDataShow">
             <el-table :data="listData" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="billNo"
