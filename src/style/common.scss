@@ -200,7 +200,9 @@ body{
 .withdraw_dialog .el-dialog__title{
     color: #fff;
 }
-.withdraw_dialog table, th, td
+.withdraw_dialog table,
+.withdraw_dialog table th,
+.withdraw_dialog table td
 {
     border-collapse: collapse;
     border: 1px solid #ddd;
