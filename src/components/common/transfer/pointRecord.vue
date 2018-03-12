@@ -12,17 +12,17 @@
                     </el-col>
                 </el-form-item>
                 <el-form-item label="类型">
-                    <el-select v-model="filterform.gameId"  placeholder="所有游戏">
-                        <el-option v-for="item in filterform.names"  :key="item.id" :label="item.name" :value="item.id">
+                    <el-select v-model="type"  placeholder="请选择">
+                        <el-option v-for="item in typeList"  :key="item.type" :label="item.name" :value="item.type">
                         </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item class="floatright">
-                    <el-button class="transfer-button" @click="onFilterSubmit">查询</el-button>
+                    <el-button class="transfer-buttons" @click="onFilterSubmit">查询</el-button>
                 </el-form-item>
             </el-form>
         </div>
-         <div class="transferlist paddinglf">
+         <div class="transferlist paddinglf" v-show="listDataShow">
             <el-table :data="listData" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="userName"
@@ -30,28 +30,28 @@
                         sortable>
                 </el-table-column>
                  <el-table-column
-                        prop="betTime"
+                        prop="transferType"
                         label="类型"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="gameName"
+                        prop="transferTime"
                         label="时间"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="startIssue"
+                        prop="amount"
                         label="变动金额"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="playName"
+                        prop="remark"
                         label="备注"
                         sortable>
                 </el-table-column>
             </el-table>
         </div>
-        <div class="teamPagination">
+        <div class="teamPagination" v-show="listDataShow">
             <div class="block">
                 <el-pagination
                         background
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-     import {getTeamAnalysis} from '../../../service/getData'
+     import {getTransferList} from '../../../service/getData'
 
     export default {
         data(){
@@ -78,15 +78,34 @@
                 filterform: {
                     start: null,
                     end: null,
-                    names:[{id: '', name: '全部'}],//游戏名称
-                    gameId:'',
-                    issue:'', //期号
-                    billNo:'', //注单编号
+                    names:[{id: '', name: '全部'}],
                     page: 1,
+                    field:"",
+                    direction:"",
                     size: 10,
                     total: 0,
                     pagetotals: 0,
                 },
+                type:"",
+                typeList:[{
+                    type:"",
+                    name:"全部",
+                },{
+                    type:0,
+                    name:"日奖励",
+                },{
+                    type:1,
+                    name:"充值",
+                },{
+                    type:2,
+                    name:"红包",
+                },{
+                    type:3,
+                    name:"红利",
+                },{
+                    type:4,
+                    name:"其他",
+                }],
                 istoday: 2,
                 listData: null,
                 listDataShow:false,
@@ -114,12 +133,14 @@
             async onFilterSubmit() {
                 if(this.filterform.start != '' && this.filterform.end != ''){
                     //接口请求数据
-                    let filterData = await chaseRecord(
-                        this.dateToStr(this.filterform.start),
-                        this.dateToStr(this.filterform.end),
-                        this.filterform.gameId,
+                    let filterData = await getTransferList(
                         this.filterform.page,
                         this.filterform.size,
+                        this.filterform.field,
+                        this.filterform.direction,
+                        this.type,
+                        this.dateToStr(this.filterform.start),
+                        this.dateToStr(this.filterform.end),
                     );
                     console.log(filterData);
                     //查询错误给出提示
@@ -158,4 +179,8 @@
 </script>
 
 <style lang="scss" scoped>
+.transfer-buttons{
+    background: #0BA7A3;
+    color: #fff;
+}
 </style>

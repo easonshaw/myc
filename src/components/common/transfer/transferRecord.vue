@@ -12,56 +12,56 @@
                     </el-col>
                 </el-form-item>
                 <el-form-item label="平台">
-                    <el-select v-model="filterform.gameId"  placeholder="所有游戏">
-                        <el-option v-for="item in filterform.names"  :key="item.id" :label="item.name" :value="item.id">
+                    <el-select v-model="type"  placeholder="请选择">
+                        <el-option v-for="item in typeList"  :key="item.type" :label="item.name" :value="item.type">
                         </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item class="floatright">
-                    <el-button class="transfer-button" @click="onFilterSubmit">查询</el-button>
+                    <el-button class="transfer-buttons" @click="onFilterSubmit">查询</el-button>
                 </el-form-item>
             </el-form>
         </div>
-         <div class="transferlist paddinglf">
+         <div class="transferlist paddinglf" v-show="listDataShow">
             <el-table :data="listData" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="userName"
-                        label="用户名"
-                        sortable>
-                </el-table-column>
-                 <el-table-column
-                        prop="betTime"
-                        label="时间"
+                        label="账号"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="gameName"
+                        prop="operateTime"
+                        label="时间"
+                        sortable>
+                </el-table-column>
+                 <el-table-column
+                        prop="direction"
                         label="类别"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="startIssue"
+                        prop="amount"
                         label="变动金额"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="playName"
-                        label="变动后金额"
+                        prop="currentBalance"
+                        label="转变后金额"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="playName"
+                        prop="status"
                         label="状态"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="playName"
+                        prop="remark"
                         label="备注"
                         sortable>
                 </el-table-column>
             </el-table>
         </div>
-        <div class="teamPagination">
+        <div class="teamPagination" v-show="listDataShow">
             <div class="block">
                 <el-pagination
                         background
@@ -79,7 +79,7 @@
 </template>
 
 <script>
-     import {getTeamAnalysis} from '../../../service/getData'
+     import {getExchangeList} from '../../../service/getData'
 
     export default {
         data(){
@@ -87,15 +87,24 @@
                 filterform: {
                     start: null,
                     end: null,
-                    names:[{id: '', name: 'AG'}],//游戏名称
-                    gameId:'',
-                    issue:'', //期号
-                    billNo:'', //注单编号
                     page: 1,
+                    field:"",
+                    direction:"",
                     size: 10,
                     total: 0,
                     pagetotals: 0,
                 },
+                type:"",
+                typeList:[{
+                    type:"",
+                    name:"全部",
+                },{
+                    type:1,
+                    name:"彩票",
+                },{
+                    type:2,
+                    name:"AG",
+                }],
                 istoday: 2,
                 listData: null,
                 listDataShow:false,
@@ -123,12 +132,14 @@
             async onFilterSubmit() {
                 if(this.filterform.start != '' && this.filterform.end != ''){
                     //接口请求数据
-                    let filterData = await chaseRecord(
-                        this.dateToStr(this.filterform.start),
-                        this.dateToStr(this.filterform.end),
-                        this.filterform.gameId,
+                    let filterData = await getExchangeList(
                         this.filterform.page,
                         this.filterform.size,
+                        this.filterform.field,
+                        this.filterform.direction,
+                        this.type,
+                        this.dateToStr(this.filterform.start),
+                        this.dateToStr(this.filterform.end),
                     );
                     console.log(filterData);
                     //查询错误给出提示
@@ -167,4 +178,8 @@
 </script>
 
 <style lang="scss" scoped>
+.transfer-buttons{
+    background: #0BA7A3;
+    color: #fff;
+}
 </style>

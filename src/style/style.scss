@@ -166,9 +166,18 @@
     text-align: center;
 }
 #dialog-transfer .transfer-button{
-    background: #0BA7A3;
+    background: #ddd;
     color: #fff;
 }
 #dialog-recharged .el-form-item{
     margin-bottom: 15px;
+}
+#dialog-withdraw .el-select{
+    width: 100%;
+}
+#dialog-withdraw .el-select .el-input .el-input__icon{
+    top:0px;
+}
+#dialog-transfer .cont-body .top-type .active{
+    background: #0BA7A3;
 }

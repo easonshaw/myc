@@ -42,7 +42,12 @@
         </div>
 
         <dialogRecharge :rechargedialogVisible="rechargedialogVisible" @on-recharge-result-change="onrechargeResultChange"></dialogRecharge>
-        <dialogWithdraw :withdrawdialogVisible="withdrawdialogVisible" @on-withdraw-result-change="onrewithdrawResultChange"></dialogWithdraw>
+        <dialogWithdraw 
+        :accountBalance="accountBalance" 
+        :withdrawdialogVisible="withdrawdialogVisible"
+        :usernickNameText="usernickNameText"
+        @on-withdraw-result-change="onrewithdrawResultChange">
+        </dialogWithdraw>
         <dialogTransfer :transferdialogVisible="transferdialogVisible" @on-transfer-result-change="ontransferResultChange"></dialogTransfer>
         
         

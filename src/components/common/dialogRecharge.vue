@@ -13,9 +13,9 @@
                     <p class="prompt"><img src="../../images/recharged5.png" alt=""> 提示:如选择银行卡转账,请勿使用其他支付方式,否者充值将无法到账.</p>
                 </div>
                 <div class="recharged-imput">
-                     <el-form-item label="充值入口" v-show="isBank">
+                     <!-- <el-form-item label="充值入口" v-show="isBank">
                         <el-input v-model="filterform.rechargeType" placeholder="请输入内容"></el-input>
-                    </el-form-item>
+                    </el-form-item> -->
                     <p>金额限制：单笔金额最低{{bankData.bankList[0].onetimeRechargeAmountMin}}元整，最高{{bankData.bankList[0].onetimeRechargeAmountMax}}元整。</p>
                     <el-form-item label="充值金额">
                         <el-input v-model="filterform.amount" @input="amountChange" placeholder="请输入内容"></el-input>
@@ -51,7 +51,10 @@
                     payeeAccountName:'',
                     rechargeType:'',
                 },
-                bankData:null,
+                bankData:{bankList:[
+                    {onetimeRechargeAmountMin:"",
+                    onetimeRechargeAmountMax:''}
+                ]},
                 bigAmount:'',
                 isBank:true,
             }
@@ -139,7 +142,7 @@
                     this.bankData.bankList[0].bankName,
                     this.filterform.amount
                 );
-                console.log(res);
+                // console.log(this.bankData);
                 //错误
                 if (res.code!=0) {
                     this.$alert(res.msg, '提示信息', {
@@ -155,11 +158,14 @@
             async offline(){
                 //接口请求数据
                 let res = await submitOffline(
-                    this.filterform.rechargeType,
+                    // this.filterform.rechargeType,
+                    this.bankData.rechargeType,
                     this.bankData.bankList[0].bankId,
                     this.filterform.amount,                        
                     this.filterform.payeeAccountName,
                 );
+                // console.log(res);
+                
                 //错误
                 if (res.code!=0) {
                     this.$alert(res.msg, '提示信息', {
@@ -168,7 +174,9 @@
                 }
                 //成功
                 if(res.code == 0){
-                     
+                    this.$alert('充值成功', '提示信息', {
+                        confirmButtonText: '确定',
+                    });
                 }
             }
         }
