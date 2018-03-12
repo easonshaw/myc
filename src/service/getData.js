@@ -318,4 +318,50 @@ export const submitOnline = (merchantId, platformName, bankId, bankName, amount)
  * 墨月城-线下充值:入参说明1-支付宝转账;2-网银汇款等;
  */
 export const submitOffline = (rechargeType, bankId, amount, payeeAccountName) => fetch('/fore/recharge/submit-offline', { rechargeType: rechargeType, bankId: bankId, amount: amount, payeeAccountName, payeeAccountName }, 'POST', 'fetch', 'json', true);
+<<<<<<< HEAD
 >>>>>>> 6ea172a9dad9d4dbc4e7cd4fa6f5aad81bce693c
+=======
+
+/**
+ * 墨月城-获取用户提款前初始化数据
+ */
+export const getwithdrawData = () => fetch('/fore/withdraw/before', {}, 'GET', 'fetch', 'json', true);
+
+/**
+ * 墨月城-用户提款
+ */
+export const withdrawSubmit = (userBankCardId, amount, pwdFuns) => fetch('/fore/withdraw/submit', { userBankCardId: userBankCardId, amount: amount, pwdFuns: pwdFuns}, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-获取各平台余额(额度转换前初始化数据)
+ */
+export const getThirdBalance = (pFrom, version) => fetch('/fore/third-exchange/balance', { pFrom: pFrom, version: version}, 'GET');
+
+/**
+ * 墨月城-额度转换
+ */
+export const exchangeSubmit = (platformFrom, platformTo, amount, pwdFuns) => fetch('/fore/third-exchange/submit', { platformFrom: platformFrom, platformTo: platformTo, amount: amount, pwdFuns: pwdFuns }, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-转点功能
+ */
+export const transferSubmit = (userId, pwdFunds, transferType, amount) => fetch('/fore/transfer/submit', { userId: userId, pwdFunds: pwdFunds, transferType: transferType, amount: amount }, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-获取登录用户转点记录
+ */
+export const getTransferList = (page = 1, size, field, direction, type, startTime, endTime) => fetch('/fore/transfer/list', { page: page, size: size, field: field, direction: direction, type: type, startTime: startTime, endTime: endTime}, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-额度转换记录
+ */
+export const getExchangeList = (page = 1, size, field, direction, type, startTime, endTime) => fetch('/fore/third-exchange-record/list', { 
+    page: page, 
+    size: size, 
+    field: field, 
+    direction: direction, 
+    type: type, 
+    startTime: startTime, 
+    endTime: endTime 
+}, 'GET', "fetch", "json");
+>>>>>>> 8b1235a8f2491be737a690231491336fd6a4dfdf
