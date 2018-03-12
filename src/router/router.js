@@ -73,7 +73,7 @@ export default [{
         },
         //主页
         {
-            path: '/main/:id(\\d+)?',
+            path: '/main/:id(\\d+)?/:platform([1-3])?',
             name: 'main',
             component: main
         },

@@ -277,3 +277,29 @@ export const getTeamReportsList = (page = 1, size,  field, direction , startTime
     floor:floor,
 }, 'POST', 'fetch', 'json', true);
 
+/**
+ * 墨月城-获得VR第三方链接
+ */
+export const getVrLoginUrl = (gameId) => fetch('/fore/lottery/getVrLoginUrl', {gameId:gameId}, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-获得VR第三方链接
+ */
+export const getAgLoginUrl = () => fetch('/fore/third/getLoginUrl', {platform:2, gameType:0, isTryPlay:0}, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-获得当前期数据
+ */
+export const getCurIssue = (gameId) => fetch('/fore/lotteryNumber/curIssue', {gameId:gameId, rd:Math.random()}, 'GET', 'fetch', 'json', false);
+
+/**
+ * 墨月城-获得历史数据
+ */
+export const getLotteryHistory = (gameId, count = 15) => fetch('/fore/lotteryNumber/history', {gameId:gameId, count:count, rd:Math.random()}, 'GET', 'fetch', 'json', false);
+
+/**
+ * 墨月城-获得游戏冷热遗漏值
+ */
+export const getLotteryMissCold = (gameId) => fetch('/fore/lotteryNumber/hot-cold', {gameId:gameId, rd:Math.random()}, 'GET', 'fetch', 'json', false);
+
+

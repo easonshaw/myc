@@ -26,8 +26,8 @@
             <ul class="menu-list">
                 <li id="GameMenu" v-on:mouseenter="disGameMenu" v-on:mouseleave="hideGameMenu" :class="activeNav == '' || activeNav == 'game' ? 'active' : ''"><router-link :to="{ name: 'main' }"><i class="iconfont icon-youxidating"></i> <p>游戏大厅</p></router-link>
                 </li>
-                <li :class="activeNav == 'externalgame' ? 'active' : ''"><router-link :to="{ name: 'externalgame' }"><i class="iconfont icon-zhenrentingshi"></i> <p>真人厅室</p></router-link></li>
-                <li :class="activeNav == 'account' ? 'active' : ''"><router-link :to="{ name: 'updateNickname' }"><i class="iconfont icon-wodezhanghu"></i> <p>我的账户</p></router-link></li>
+                <li :class="activeNav == 'externalgame' ? 'active' : ''"><router-link :to="{name: ''}"  @click.native="JumpToThird(59, 2)"><i class="iconfont icon-zhenrentingshi"></i> <p>真人厅室</p></router-link></li>
+                <li :class="activeNav == 'account' ? 'active' : ''"><router-link :to="{name: 'updateNickname'}"><i class="iconfont icon-wodezhanghu"></i> <p>我的账户</p></router-link></li>
                 <li :class="activeNav == 'team' ? 'active' : ''"><router-link :to="{ name: 'teamsummary' }"><i class="iconfont icon-dailiguanli"></i> <p>代理管理</p></router-link></li>
                 <li :class="activeNav == 'cashflow' ? 'active' : ''"><router-link :to="{ name: 'cashflow' }"><i class="iconfont icon-cuntijilu"></i> <p>存提记录</p></router-link></li>
                 <li :class="activeNav == 'bets' ? 'active' : ''"><router-link :to="{ name: 'gamerecord' }"><i class="iconfont icon-dingdanbaobiao"></i> <p>订单报表</p></router-link></li>
@@ -44,8 +44,8 @@
         <dialogRecharge :rechargedialogVisible="rechargedialogVisible" @on-recharge-result-change="onrechargeResultChange"></dialogRecharge>
         <dialogWithdraw :withdrawdialogVisible="withdrawdialogVisible" @on-withdraw-result-change="onrewithdrawResultChange"></dialogWithdraw>
         <dialogTransfer :transferdialogVisible="transferdialogVisible" @on-transfer-result-change="ontransferResultChange"></dialogTransfer>
-        
-        
+
+
 
 
 
@@ -81,7 +81,10 @@
             <div class="gamegroup" v-for="item in menuData">
                 <dl class="">
                     <dt><img :src="item.gamethumb" />{{item.groupName}}</dt>
-                    <dd v-for="gitem in item.gamePermission"><router-link :to="{name: 'main', params:{id: gitem.id}}">{{gitem.name}}</router-link></dd>
+                    <dd v-for="gitem in item.gamePermission">
+                        <router-link v-if="gitem.platform == 1" :to="{name: 'main', params:{id: gitem.id, platform: gitem.platform}}">{{gitem.name}}</router-link>
+                        <a v-else href="javascript:;" @click="JumpToThird(gitem.id, gitem.platform)">{{gitem.name}}</a>
+                    </dd>
                     <span class="clear"></span>
                 </dl>
             </div>
@@ -92,14 +95,14 @@
 <script>
     import {localapi, proapi, imgBaseUrl} from 'src/config/env'
     import {mapState, mapActions, mapMutations} from 'vuex'
-    import {signout, getUser, getBalance, getNotice, getGames} from '../../service/getData'
+    import {signout, getUser, getBalance, getNotice, getGames, getVrLoginUrl, getAgLoginUrl} from '../../service/getData'
     import dialogDownApp from 'src/components/common/dialogDownApp.vue'
     import dialogTestSpeed from 'src/components/common/dialogTestSpeed.vue'
     import dialogRecharge from 'src/components/common/dialogRecharge.vue'
     import dialogWithdraw from 'src/components/common/dialogWithdraw.vue'
     import dialogTransfer from 'src/components/common/dialogTransfer.vue'
 
-    
+
      export default {
         data(){
             return{
@@ -172,7 +175,7 @@
                 }
                 //获取跑马灯公告
                 let noticeData = await getNotice(1, this.notice_currentPage, this.notice_size);
-                if(noticeData.code == 0){
+                if(noticeData.code == 0 && noticeData.result.rows.length > 0){
                     this.noticeScrollHtml = noticeData.result.rows[0].content;
                 }
                 //加载菜单游戏数据
@@ -239,10 +242,10 @@
                 this.testSpeeddialogVisible = val;
             },
             onrechargeResultChange(val) {
-                this.rechargedialogVisible = val;                
+                this.rechargedialogVisible = val;
             },
             onrewithdrawResultChange(val){
-                this.withdrawdialogVisible = val;         
+                this.withdrawdialogVisible = val;
             },
             ontransferResultChange(val){
                 this.transferdialogVisible = val;
@@ -256,6 +259,16 @@
             hideGameMenu(){
                 this.menuActive = false;
             },
+            async JumpToThird(gameId, platform){
+                console.log(gameId, platform)
+                let jumpData = platform == '2' ? await getAgLoginUrl() : await getVrLoginUrl(gameId);
+                if(jumpData.code == 0) {
+                    window.open(jumpData.result.loginUrl);
+                } else {
+                    this.$message.error('游戏暂未接入')
+                }
+
+            }
         },
 
     }

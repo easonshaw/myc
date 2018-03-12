@@ -1,7 +1,7 @@
 <template>
   	<div class="">
         <head-top activeNav='game'></head-top>
-        <gamehead :gameId="gameId"></gamehead>
+        <gamehead :gameId="gameId" :recent="lotteryhistorynew" :issue="curissue" :platform="platform" @refreshIssue="refreshPageData"></gamehead>
         <div class="GameWapper">
             <div class="WapperLeft">
                 <div class="betMain">
@@ -83,10 +83,45 @@
             </div>
             <div class="WapperRight">
                 <div class="recentAwards">
-
+                    <div class="title"><i></i>近期开奖<i></i></div>
+                    <ul >
+                        <li v-for="i in lotteryhistoryData">
+                            <div class="recentItem">
+                                <div class="serialNumber">{{i.issue}}期</div>
+                                <div class="serialText">
+                                    <span v-for="j in i.lotteryNumber.split('')">{{j}}</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="moreRecents">
+                        <a  v-bind:class="{ active: recentCount == 15}" @click="recentViewToggle"  href="javascript:;">更多</a>
+                    </div>
                 </div>
                 <div class="betControl">
-
+                    <div class="betControlContent">
+                        <el-row :gutter="10" class="selList">
+                            <el-col :span="6"><a @click="bet.priceUnit = 2" v-bind:class="{ active: bet.priceUnit == 2}" href="javascript:;">2元</a></el-col>
+                            <el-col :span="6"><a @click="bet.priceUnit = 0.2" v-bind:class="{ active: bet.priceUnit == 0.2}" href="javascript:;">2分</a></el-col>
+                            <el-col :span="6"><a @click="bet.priceUnit = 0.02" v-bind:class="{ active: bet.priceUnit == 0.02}" href="javascript:;">2角</a></el-col>
+                            <el-col :span="6"><a @click="bet.priceUnit = 0.002" v-bind:class="{ active: bet.priceUnit == 0.002}" href="javascript:;">2厘</a></el-col>
+                            <el-col :span="6"><a @click="bet.priceUnit = 1" v-bind:class="{ active: bet.priceUnit == 1}" href="javascript:;">1元</a></el-col>
+                            <el-col :span="6"><a @click="bet.priceUnit = 0.1" v-bind:class="{ active: bet.priceUnit == 0.1}" href="javascript:;">1分</a></el-col>
+                            <el-col :span="6"><a @click="bet.priceUnit = 0.01" v-bind:class="{ active: bet.priceUnit == 0.01}" href="javascript:;">1角</a></el-col>
+                            <el-col :span="6"><a @click="bet.priceUnit = 0.001" v-bind:class="{ active: bet.priceUnit == 0.001}" href="javascript:;">1厘</a></el-col>
+                        </el-row>
+                        <div class="multiple">
+                            <div class="label">倍数：</div>
+                            <div class="changetimes"><el-input-number size="mini"  v-model="bet.times" @change="betTimeshandleChange" :min="1" :max="10" label="倍数"></el-input-number></div>
+                        </div>
+                        <div class="betsubmit">
+                            <el-button size="medium"  type="danger" round>立即投注</el-button>
+                        </div>
+                        <div class="betinfo">
+                            <p>已选<em>{{bet.times}}</em>注 共<em class="status_danger">{{bet.total}}</em>元</p>
+                            <p>若中奖，实际盈利<em class="status_danger">{{bet.times}}</em>元</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="clear"></div>
@@ -100,14 +135,26 @@ import {mapState, mapActions, mapMutations} from 'vuex'
 import headTop from '../../components/header/head'
 import bet from '../../page/main/bet'
 import gamehead from '../../components/header/gamehead'
-import {} from '../../service/getData'
+import {getLotteryHistory, getCurIssue, getLotteryMissCold} from '../../service/getData'
 
 export default {
     data(){
         return{
-            gameId: this.$route.params.id == undefined ? 3 : this.$route.params.id,
+            gameId: null,
+            platform: null,
             recordsActive: 'first',
             betRecordsData: null,
+            lotteryhistorynew: null,
+            lotteryhistoryData: null,
+            lotteryhistoryfull: null,
+            lotteryhistorycurr: null,
+            recentCount: 10,
+            curissue: null,
+            bet:{
+                priceUnit: 2,
+                times: 1,
+                total: 0,
+            }
         }
     },
 	mounted(){
@@ -123,14 +170,22 @@ export default {
     },
     watch: {
         '$route': function(to, from) {
-            this.initMenuSel()
+            this.initMenuSel();
+            this.loadlotteryhistory();
+            this.loadissue();
+            this.loadlotterymissclod();
         }
     },
     created() {
+	    this.initMenuSel();
+        this.loadlotteryhistory();
+        this.loadissue();
+        this.loadlotterymissclod();
     },
     methods:{
         initMenuSel(){
-            this.gameId = this.$route.params.id;
+            this.gameId = this.$route.params.id == undefined ? 3 : this.$route.params.id;
+            this.platform = this.$route.params.platform == undefined ? 1 : this.$route.params.platform;
         },
         betRecordshandleClick(tab, event){
         },
@@ -146,6 +201,47 @@ export default {
             }
             return 'betRecords-body-row';
         },
+        recentViewToggle() {
+            this.recentCount = this.recentCount == 10 ? 15 : 10;
+            this.lotteryhistoryData = this.recentCount == 10 ? this.lotteryhistorycurr : this.lotteryhistoryfull;
+        },
+        betTimeshandleChange(val) {
+
+        },
+        async loadlotteryhistory() {
+            let historyData = await getLotteryHistory(this.gameId);
+            if(historyData.code == 0){
+                this.lotteryhistoryfull = historyData.result;
+                this.lotteryhistorycurr = this.lotteryhistoryfull.slice(0, 10);
+                this.lotteryhistoryData = this.lotteryhistorycurr;
+                let ar = this.lotteryhistoryfull.slice(0, 1);
+                this.lotteryhistorynew = ar[0];
+            }
+        },
+        async loadissue() {
+            let issueData = await getCurIssue(this.gameId);
+            if(issueData.code == 0){
+                this.curissue = issueData.result;
+            }
+        },
+        async loadlotterymissclod() {
+            let misscoldData = await  getLotteryMissCold(this.gameId);
+            if(misscoldData.code == 0) {
+                let hotcold = JSON.parse(misscoldData.result[0].hotCold);
+                let miss = JSON.parse(misscoldData.result[0].missTimes);
+                console.log(hotcold, miss);
+            }
+
+        },
+        refreshPageData() {
+            console.log('$emit')
+            let that = this;
+            setTimeout(function() {
+                that.loadlotteryhistory();
+            }, 5000)
+            this.loadissue();
+        }
+
     },
 }
 

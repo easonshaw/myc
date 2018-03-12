@@ -25,11 +25,11 @@
                 </div>
             </div>
             <div class="lotteryNumber">
-                <div class="title">第{{gameDt.curissue}}期 <span class="history"><i class="iconfont icon-zoushi"></i><router-link :to="{name: 'main'}"> 更多走势</router-link></span></div>
+                <div class="title">第{{recentissue}}期 <span class="history"><i class="iconfont icon-zoushi"></i><router-link :to="{name: 'main'}"> 更多走势</router-link></span></div>
                 <ul class="lastdigit" id="lastdigit">
                     <li>
                         <div class="slotMachineContainer" >
-                            <span>09</span>
+                            <span>{{recentlist.a}}</span>
                             <span class="">00</span>
                             <span class="">01</span>
                             <span class="">02</span>
@@ -45,7 +45,7 @@
                     </li>
                     <li>
                         <div class="slotMachineContainer" >
-                            <span>09</span>
+                            <span>{{recentlist.b}}</span>
                             <span class="">00</span>
                             <span class="">01</span>
                             <span class="">02</span>
@@ -61,7 +61,7 @@
                     </li>
                     <li>
                         <div class="slotMachineContainer" >
-                            <span>09</span>
+                            <span>{{recentlist.c}}</span>
                             <span class="">00</span>
                             <span class="">01</span>
                             <span class="">02</span>
@@ -77,7 +77,7 @@
                     </li>
                     <li>
                         <div class="slotMachineContainer" >
-                            <span>09</span>
+                            <span>{{recentlist.d}}</span>
                             <span class="">00</span>
                             <span class="">01</span>
                             <span class="">02</span>
@@ -93,7 +93,7 @@
                     </li>
                     <li>
                         <div class="slotMachineContainer" >
-                            <span>09</span>
+                            <span>{{recentlist.e}}</span>
                             <span class="">00</span>
                             <span class="">01</span>
                             <span class="">02</span>
@@ -110,14 +110,19 @@
                 </ul>
             </div>
         </div>
+        <dialogIssueClose :timeout="3" @on-issue-result-change="onIssueResultChange" center :issue="gameDt.curissue" :issueClosedialogVisible="issueClosedialogVisible" ></dialogIssueClose>
     </div>
 </template>
 
 <script>
+    import {localapi, proapi, imgBaseUrl} from 'src/config/env'
+    import {mapState, mapActions, mapMutations} from 'vuex'
     import {} from '../../service/getData'
+    import dialogIssueClose from 'src/components/common/dialogIssueClose.vue'
     export default {
         data(){
             return{
+                issueClosedialogVisible: false,
                 logo: '',
                 timeTag:{
                     0: require('../../images/time-0.png'),
@@ -147,33 +152,109 @@
                     class: 'iconfont icon-guanbishengyin',
                     allow: true,
                 },
-
+                recentissue: '',
+                recentlist: {a:0, b:0, c:0, d:0, e:0},
             }
         },
-        props: ['gameId'],
+        props: ['gameId', 'platform', 'recent', 'issue'],
         mounted(){
         },
         components:{
+            dialogIssueClose
         },
         computed:{
         },
         created(){
             this.initHeadData();
+            this.loadrecent();
         },
         watch: {
             '$route': function(to, from) {
-                this.initHeadData()
+                this.initHeadData();
+                this.loadcurissue();
+            },
+            'recent': function(to, form) {
+                this.loadrecent();
+            },
+            'issue': function(to, form) {
+                this.loadcurissue();
+                console.log('to:', to, 'form', form)
+                this.issuetimer();
             }
         },
         methods:{
             initHeadData(to) {
-                let lg = this.$route.params.id == undefined ? (this.gameId == undefined ? 3 : this.gameId) : this.$route.params.id;
-                this.logo = require('../../images/game-logo-'+lg+'.png');
+                if(this.platform == '1'){
+                    //平台
+                    let lg = this.$route.params.id == undefined ? (this.gameId == undefined ? 3 : this.gameId) : this.$route.params.id;
+                    this.logo = require('../../images/game-logo-'+lg+'.png');
+                }
             },
             musictoggle(){
                 console.log(this.music)
                 this.music.allow = !this.music.allow;
                 this.music.class = this.music.allow == true ? 'iconfont icon-guanbishengyin' : 'iconfont icon-wenxintishi';
+            },
+            loadrecent(){
+                if(this.recent != null){
+                    let recentArray = this.recent.lotteryNumber.split(' ');
+                    this.recentissue = this.recent.issue;
+                    this.recentlist.a = recentArray[0];
+                    this.recentlist.b = recentArray[1];
+                    this.recentlist.c = recentArray[2];
+                    this.recentlist.d = recentArray[3];
+                    this.recentlist.e = recentArray[4];
+                }
+            },
+            loadcurissue() {
+                this.gameDt.curissue = this.issue.issue;
+                let issueData = this.issue;
+            },
+            onIssueResultChange(val){
+                this.issueClosedialogVisible = val;
+            },
+            issuetimer() {
+                let self = this;
+                let timepieces = self.issue.currentTime - (new Date()).getTime() ;
+                let timer = setInterval(function(){
+                    let nowTime = new Date(new Date().getTime() + timepieces); // + timepieces
+                    let endTime = new Date(self.issue.closeTime);
+                    let t = endTime.getTime() - nowTime.getTime();
+                    if(t > 0) {
+                        let day = Math.floor(t / 86400000);
+                        let hour = Math.floor((t / 3600000) % 24);
+                        let min = Math.floor((t / 60000) % 60);
+                        let sec = Math.floor((t / 1000) % 60);
+                        hour = hour < 10 ? "0" + hour : hour;
+                        min = min < 10 ? "0" + min : min;
+                        sec = sec < 10 ? "0" + sec : sec;
+                        let format = '';
+                        if (day > 0) {
+                            format = `${day}天${hour}小时${min}分${sec}秒`;
+                        }
+                        if (day <= 0 && hour > 0) {
+                            format = `${hour}小时${min}分${sec}秒`;
+                        }
+                        if (day <= 0 && hour <= 0) {
+                            format = `${min}分${sec}秒`;
+                        }
+                        format = `${hour}:${min}:${sec}`;
+                        self.gameDt.digits.hour1 = self.timeTag[(hour.toString().split(''))[0]];
+                        self.gameDt.digits.hour2 = self.timeTag[(hour.toString().split(''))[1]];
+                        self.gameDt.digits.minute1 = self.timeTag[(min.toString().split(''))[0]];
+                        self.gameDt.digits.minute2 = self.timeTag[(min.toString().split(''))[1]];
+                        self.gameDt.digits.seconds1 = self.timeTag[(sec.toString().split(''))[0]];
+                        self.gameDt.digits.seconds2 = self.timeTag[(sec.toString().split(''))[1]];
+                    }else{
+                        clearInterval(timer);
+                        self.issueClosedialogVisible = true;
+                        self.$emit('refreshIssue');
+                        setTimeout(function() {
+                            //issuebetclose.close()
+                        }, 3000);
+                        console.log(t, nowTime, endTime, timer);
+                    }
+                }, 1000);
             }
         },
     }
