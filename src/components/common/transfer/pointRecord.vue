@@ -1,5 +1,5 @@
  <template>
-    <div class="teamsummary">
+    <div class="transfer">
         <div class="fiterForm">
             <el-form ref="form" :inline="true" :model="filterform" label-width="80px">
                 <el-form-item label="时间">
@@ -11,77 +11,47 @@
                         <el-date-picker type="datetime" placeholder="选择日期" format="yyyy-MM-dd HH:mm" v-model="filterform.end" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="平台">
+                <el-form-item label="类型">
                     <el-select v-model="filterform.gameId"  placeholder="所有游戏">
                         <el-option v-for="item in filterform.names"  :key="item.id" :label="item.name" :value="item.id">
                         </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item class="floatright">
-                    <el-button type="danger" @click="onFilterSubmit">查询</el-button>
+                    <el-button class="transfer-button" @click="onFilterSubmit">查询</el-button>
                 </el-form-item>
             </el-form>
         </div>
-         <div class="teamlist paddinglf" v-show="listDataShow">
+         <div class="transferlist paddinglf">
             <el-table :data="listData" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="userName"
-                        label="用户名"
+                        label="账号"
                         sortable>
                 </el-table-column>
                  <el-table-column
                         prop="betTime"
-                        label="投注时间"
+                        label="类型"
                         sortable>
                 </el-table-column>
                 <el-table-column
                         prop="gameName"
-                        label="游戏名称"
+                        label="时间"
                         sortable>
                 </el-table-column>
                 <el-table-column
                         prop="startIssue"
-                        label="开始期数"
+                        label="变动金额"
                         sortable>
                 </el-table-column>
                 <el-table-column
                         prop="playName"
-                        label="玩法"
-                        sortable>
-                </el-table-column>
-                 <el-table-column
-                        prop="betNumber"
-                        label="投注号码"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="planTotal"
-                        label="追号总金额"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="betTotal"
-                        label="完成金额"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="cancelTotal"
-                        label="取消金额"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="winStop"
-                        label="中奖后终止"
-                        sortable>
-                </el-table-column>
-                <el-table-column
-                        prop="status"
-                        label="状态"
+                        label="备注"
                         sortable>
                 </el-table-column>
             </el-table>
         </div>
-        <div class="teamPagination" v-show="listDataShow">
+        <div class="teamPagination">
             <div class="block">
                 <el-pagination
                         background
@@ -108,7 +78,7 @@
                 filterform: {
                     start: null,
                     end: null,
-                    names:[{id: '', name: '全部游戏'}],//游戏名称
+                    names:[{id: '', name: '全部'}],//游戏名称
                     gameId:'',
                     issue:'', //期号
                     billNo:'', //注单编号
@@ -125,9 +95,6 @@
         created() {
             this.initdate();
         },
-        mounted(){
-            this.getGameList();
-        },
         methods:{
             initdate() {
                 var nowdate = new Date(new Date().setHours(3,0,0,0));
@@ -143,16 +110,6 @@
                 var h = time.getHours();//时
                 var mm = time.getMinutes();//分
                 return y+"-"+m+"-"+d+" "+h+":"+mm;
-            },
-            async getGameList() {
-                let dataList = await getGames();
-                if (dataList.code==0) {
-                    dataList.result.forEach(element => {
-                        element.gamePermission.forEach(data => {
-                            this.filterform.names.push(data);
-                        });
-                    });    
-                }
             },
             async onFilterSubmit() {
                 if(this.filterform.start != '' && this.filterform.end != ''){

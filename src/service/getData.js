@@ -278,6 +278,7 @@ export const getTeamReportsList = (page = 1, size,  field, direction , startTime
 }, 'POST', 'fetch', 'json', true);
 
 /**
+<<<<<<< HEAD
  * 墨月城-获得VR第三方链接
  */
 export const getVrLoginUrl = (gameId) => fetch('/fore/lottery/getVrLoginUrl', {gameId:gameId}, 'POST', 'fetch', 'json', true);
@@ -303,3 +304,18 @@ export const getLotteryHistory = (gameId, count = 15) => fetch('/fore/lotteryNum
 export const getLotteryMissCold = (gameId) => fetch('/fore/lotteryNumber/hot-cold', {gameId:gameId, rd:Math.random()}, 'GET', 'fetch', 'json', false);
 
 
+=======
+ * 墨月城-获取支付方式
+ */
+export const getPayWays = (pFrom, version) => fetch('/fore/recharge/pay-ways', { pFrom: pFrom, version: version}, 'GET');
+
+/**
+ * 墨月城-第三方充值
+ */
+export const submitOnline = (merchantId, platformName, bankId, bankName, amount) => fetch('/fore/recharge/submit-online', { merchantId: merchantId, platformName: platformName, bankId: bankId, bankName, bankName, amount: amount }, 'GET');
+
+/**
+ * 墨月城-线下充值:入参说明1-支付宝转账;2-网银汇款等;
+ */
+export const submitOffline = (rechargeType, bankId, amount, payeeAccountName) => fetch('/fore/recharge/submit-offline', { rechargeType: rechargeType, bankId: bankId, amount: amount, payeeAccountName, payeeAccountName }, 'POST', 'fetch', 'json', true);
+>>>>>>> 6ea172a9dad9d4dbc4e7cd4fa6f5aad81bce693c

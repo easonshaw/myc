@@ -2,9 +2,9 @@
     <div class="cont-body">
         <div class="top-type">
             转点类型
-            <el-button type="success" class="button">日奖励</el-button>
-            <el-button type="success" class="button">充值</el-button>
-            <el-button type="success" class="button">红利</el-button>
+            <el-button class="transfer-button">日奖励</el-button>
+            <el-button class="transfer-button">充值</el-button>
+            <el-button class="transfer-button">红利</el-button>
         </div>
          <el-form ref="form" :model="filterform" label-width="70px" class="form">
                    <el-form-item label="转入账号" >
@@ -17,21 +17,22 @@
                         <el-input v-model="filterform.issue" placeholder="请输入内容"></el-input>
                     </el-form-item>
                     <el-form-item label="资金密码" >
-                        <el-input v-model="filterform.issue" placeholder="请输入内容"></el-input>
+                        <el-input v-model="filterform.password"  type="password" placeholder="请输入内容"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="success" class="submit"  @click="onFilterSubmit">转入</el-button>
+                        <el-button class="transfer-submits"  @click="onFilterSubmit">转入</el-button>
                      </el-form-item>
                 </el-form>
     </div>
 </template>
 <script>
     import {getTeamAnalysis} from '../../../service/getData'
-    import echarts from 'echarts'
+    
     export default {
         data(){
             return{
                  filterform:{
+                     password:'',
                      type:'1',
                     types:[{
                         value: '1',
@@ -65,15 +66,17 @@
     margin: 20px 0; 
     width: 360px;
 }
-.button{
+.transfer-button{
     background: #0BA7A3;
     width: 120px;
+    color: #fff;
 }
-.button:first-child{
+.transfer-button:first-child{
    margin-left: 20px;
 }
-.submit{
-    width: 150px;
+.transfer-submits{
     background: #0BA7A3;
+    width: 150px;
+    color:#fff;
 }
 </style>

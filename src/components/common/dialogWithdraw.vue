@@ -13,7 +13,7 @@
                     </el-form-item>
                     
                     <el-form-item label="资金密码">
-                        <el-input v-model="filterform.billNo" placeholder="请输入内容"></el-input>
+                        <el-input v-model="filterform.password" type="password" placeholder="请输入内容"></el-input>
                     </el-form-item>
                     <el-form-item class="floatright">
                         <el-button type="warning">立刻取款</el-button>
@@ -61,25 +61,10 @@
     export default {
         data(){
             return{
-                filterform:{},
+                filterform:{
+                    password:'',
+                },
                 dialogVisible: this.withdrawdialogVisible,
-                tableData: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: ' 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: ' 1517 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: ' 1519 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: ' 1516 弄'
-                }]
             }
         },
         mounted(){
