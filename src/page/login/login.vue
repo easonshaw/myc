@@ -113,7 +113,7 @@
 
                 loginForm: {
                     username: 'test001dail12',
-                    password: 'sky888',
+                    password: 'sky8888',
                     vcode: '1111'
                 },
                 loginRule: {

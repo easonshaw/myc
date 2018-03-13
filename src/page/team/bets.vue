@@ -7,17 +7,17 @@
                         <el-form-item label="时间">
                             <el-row>
                                 <el-col :span="11">
-                                    <el-date-picker type="datetime" placeholder="选择日期" value-format="yyyy-MM-dd H:i" v-model="filterform.start" style="width: 100%;"></el-date-picker>
+                                    <el-date-picker type="datetime" placeholder="选择日期" format="yyyy-MM-dd HH:mm"  v-model="filterform.start" style="width: 100%;"></el-date-picker>
                                 </el-col>
                                 <el-col class="line" :span="2">&nbsp;</el-col>
                                 <el-col :span="11">
-                                    <el-date-picker type="datetime" placeholder="选择日期" value-format="yyyy-MM-dd H:i" v-model="filterform.end" style="width: 100%;"></el-date-picker>
+                                    <el-date-picker type="datetime" placeholder="选择日期" format="yyyy-MM-dd HH:mm"  v-model="filterform.end" style="width: 100%;"></el-date-picker>
                                 </el-col>
                             </el-row>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="游戏类型">
+                        <el-form-item label="">
                             <el-select v-model="filterform.type" placeholder="请选择" change="changeGametype">
                                 <el-option v-for="item in filterform.types"  :key="item.value" :label="item.label" :value="item.value">
                                 </el-option>
@@ -25,7 +25,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="游戏名称">
+                        <el-form-item label="">
                             <el-select v-model="filterform.gtype" placeholder="所有游戏">
                                 <el-option v-for="item in filterform.gtypes"  :key="item.id" :label="item.name" :value="item.id">
                                 </el-option>
@@ -72,7 +72,7 @@
                 <el-table-column
                         prop="userName"
                         label="用户名"
-                        sortable>
+                        >
                 </el-table-column>
                 <el-table-column
                         prop="betTime"
@@ -87,7 +87,7 @@
                 <el-table-column
                         prop="gameName"
                         label="彩种"
-                        sortable>
+                        >
                 </el-table-column>
                 <el-table-column
                         prop="issue"
@@ -97,12 +97,12 @@
                 <el-table-column
                         prop="playName"
                         label="玩法"
-                        sortable>
+                        >
                 </el-table-column>
                 <el-table-column
                         prop="betNumber"
                         label="投注内容"
-                        sortable>
+                        >
                 </el-table-column>
                 <el-table-column
                         prop="betTotal"

@@ -39,7 +39,7 @@
                 </div>
                 <div class="showimg" >
                     <img  src="../../images/pcdownload.png" />
-                    <div class="downloadpc"><el-button type="danger">点击下载</el-button></div>
+                    <div class="downloadpc"><el-button @click="downloadpc" type="danger">点击下载</el-button></div>
                 </div>
                 <div class="showcontent">
                     <div >
@@ -76,6 +76,9 @@
         methods: {
             downApphandleClose(){
                 this.dialogVisible = false;
+            },
+            downloadpc(){
+                window.open('http://d1.myc178.com/soft/myc.rar');
             }
         },
         watch: {

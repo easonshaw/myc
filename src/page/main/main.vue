@@ -177,10 +177,22 @@ export default {
         }
     },
     created() {
+	    this.websocket();
 	    this.initMenuSel();
         this.loadlotteryhistory();
         this.loadissue();
         this.loadlotterymissclod();
+    },
+    socket: {
+        /*prefix: "/push/",
+        events: {
+            changed(msg) {
+                console.log("Something changed: " + msg);
+            },
+            connect() {
+                console.log("Websocket connected to " + this.$socket.nsp);
+            },
+        }*/
     },
     methods:{
         initMenuSel(){
@@ -240,6 +252,70 @@ export default {
                 that.loadlotteryhistory();
             }, 5000)
             this.loadissue();
+        },
+        onData() {
+            var dataObj = eval("(" + event.data + ")");
+            console.log(dataObj);
+            if (dataObj.msgType == "exclusive_login") {
+                // 唯一在线
+                // onlyOnline(dataObj, webSocket);
+            } else if (dataObj.msgType == "off_line") {
+                // 强制下线
+                //forceOffline(dataObj);
+            } else if (dataObj.msgType == "open_issue") {
+                // 开盘期号
+                //openingIssue(dataObj);
+            } else if (dataObj.msgType == "open_ln") {
+                // 开奖号码
+                // lotteryNumberOpen(dataObj);
+            } else if (dataObj.msgType == "bet_record") {
+                //投注记录
+                //betRecord(dataObj);
+            } else if (dataObj.msgType == "recharge_succeed" || dataObj.msgType == "withdraw_succeed" || dataObj.msgType == "agent_transfer") {
+                //充值，提现，代理转账
+                //rechargeAndWithdraw(dataObj);
+            } else if (dataObj.msgType == "immediately_msg") {
+                // 即时消息
+                //pushletMsgShow(dataObj);
+            } else if (dataObj.msgType == "inner_msg") {
+                // 站内信
+                // innerMsg(dataObj);
+            } else if (dataObj.msgType == "lottery_settle") {
+                // 开奖结算提示
+                //  setTimeout(function () {
+                //      settlementMessage(dataObj);
+                //  }, 8000);
+            } else if (dataObj.msgType == "win_num") {
+                // 中奖提示消息
+                //setTimeout(function () {
+                //  winMessage(dataObj);
+                //}, 8000);
+            } else if (dataObj.msgType == "logout") {
+                //stopWebSocket(webSocket);
+            } else if (dataObj.msgType == "win_list") {
+                //刷新中奖排行
+                //refreshWInList();
+            } else if (dataObj.msgType == "futureIssue") {
+            }
+        },
+        websocket () {
+            let ws = new WebSocket('ws://d1.myc178.com/push')
+            ws.onopen = () => {
+                // Web Socket 已连接上，使用 send() 方法发送数据
+                ws.send('Holle');
+                console.log('数据发送中...')
+            }
+            ws.onmessage = evt => {
+                this.onData(event, ws);
+            }
+            ws.onclose = function () {
+                // 关闭 websocket
+                console.log('连接已关闭...')
+            }
+            // 路由跳转时结束websocket链接
+            this.$router.afterEach(function () {
+                ws.close()
+            })
         }
 
     },

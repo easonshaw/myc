@@ -16,7 +16,7 @@ if (process.env.NODE_ENV == 'development') {
   imgBaseUrl = '';
 
 }else if(process.env.NODE_ENV == 'production'){
-	baseUrl = 'http://v1.myc178.com';
+	baseUrl = 'http://d1.myc178.com';
   imgBaseUrl = '';
 }
 

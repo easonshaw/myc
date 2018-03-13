@@ -22,10 +22,7 @@
 
 <style lang="scss">
   	@import './style/common';
-	.router-fade-enter-active, .router-fade-leave-active {
-	  	transition: opacity .3s;
-	}
-	.router-fade-enter, .router-fade-leave-active {
-	  	opacity: 0;
+	body{
+		background: url('http://d1.myc178.com/static/img/main-bg.png') left center repeat;
 	}
 </style>

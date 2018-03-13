@@ -6,7 +6,7 @@
                 <ul>
                     <li v-for="(speed, key) in speeds">
                         <div class="linespeed"> <span class='line'>线路{{key+1}} <em :class="speed.speedlevel">({{speed.speedtag}})</em></span> <span class="speed" :class="'speed'+speed.speedlevel">速度 <i class="iconfont icon-sudu"></i><em >{{speed.speednumber}}ms</em></span></div>
-                        <div class="lineurl">{{speed.url}} <span v-clipboard:copy="speed.url" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</span></div>
+                        <div class="lineurl">{{speed.urltit}} <span v-clipboard:copy="speed.url" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</span></div>
                         <div class="lineaccess"><a class="accessurl" :href="speed.url">立即访问</a></div>
                     </li>
                 </ul>
@@ -55,12 +55,12 @@
             },
             refreshSpeed() {
                 this.speeds = [
-                    {'url': 'http://w1.myc178.com', 'speedtag': '最佳', 'speedlevel': 'a', 'speednumber': parseInt(20*Math.random())},
-                    {'url': 'http://w2.myc178.com', 'speedtag': '最佳', 'speedlevel': 'a', 'speednumber': parseInt(40*Math.random())},
-                    {'url': 'http://w3.myc178.com', 'speedtag': '最佳', 'speedlevel': 'b', 'speednumber': parseInt(60*Math.random())},
-                    {'url': 'http://w4.myc178.com', 'speedtag': '最佳', 'speedlevel': 'b', 'speednumber': parseInt(80*Math.random())},
-                    {'url': 'http://w5.myc178.com', 'speedtag': '最佳', 'speedlevel': 'c', 'speednumber': parseInt(200*Math.random())},
-                    {'url': 'http://w6.myc178.com', 'speedtag': '最佳', 'speedlevel': 'c', 'speednumber': parseInt(300*Math.random())},
+                    {'url': 'http://d1.myc178.com/index.html#/login', 'urltit':'http://d1.myc178.com/', 'speedtag': '最佳', 'speedlevel': 'a', 'speednumber': parseInt(20*Math.random())},
+                    {'url': 'http://d1.myc178.com/index.html#/login', 'urltit':'http://d1.myc178.com/', 'speedtag': '最佳', 'speedlevel': 'a', 'speednumber': parseInt(40*Math.random())},
+                    {'url': 'http://d1.myc178.com/index.html#/login', 'urltit':'http://d1.myc178.com/', 'speedtag': '最佳', 'speedlevel': 'b', 'speednumber': parseInt(60*Math.random())},
+                    {'url': 'http://d1.myc178.com/index.html#/login', 'urltit':'http://d1.myc178.com/', 'speedtag': '最佳', 'speedlevel': 'b', 'speednumber': parseInt(80*Math.random())},
+                    {'url': 'http://d1.myc178.com/index.html#/login', 'urltit':'http://d1.myc178.com/', 'speedtag': '最佳', 'speedlevel': 'c', 'speednumber': parseInt(200*Math.random())},
+                    {'url': 'http://d1.myc178.com/index.html#/login', 'urltit':'http://d1.myc178.com/', 'speedtag': '最佳', 'speedlevel': 'c', 'speednumber': parseInt(300*Math.random())},
                 ]
             }
         },
