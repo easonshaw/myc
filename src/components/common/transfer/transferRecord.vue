@@ -23,7 +23,7 @@
             </el-form>
         </div>
          <div class="transferlist paddinglf" v-show="listDataShow">
-            <el-table :data="listData" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
+            <el-table :data="listData" border style="width: 100%"   @sort-change="tableChange" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="userName"
                         label="账号"
@@ -94,11 +94,8 @@
                     total: 0,
                     pagetotals: 0,
                 },
-                type:"",
+                type:1,
                 typeList:[{
-                    type:"",
-                    name:"全部",
-                },{
                     type:1,
                     name:"彩票",
                 },{
@@ -165,6 +162,12 @@
             },
             handleCurrentChange(val) {
                 this.filterform.page = val;
+                this.onFilterSubmit();
+            },
+            tableChange(column){
+                this.filterform.page = 1;
+                this.filterform.field = column.prop == undefined ? '' : column.prop;
+                this.filterform.direction = column.order == 'descending' ? 'desc' : 'asc';
                 this.onFilterSubmit();
             },
             tableRowClassName({row, rowIndex}) {

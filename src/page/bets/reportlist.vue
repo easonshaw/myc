@@ -27,38 +27,38 @@
             </el-form>
         </div>
          <div class="teamlist paddinglf" v-show="listDataShow">
-            <el-table :data="listData" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
+            <el-table :data="listData" border style="width: 100%"  @sort-change="tableChange" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="betTotal"
-                        label="总消费">
+                        label="总消费" sortable>
                 </el-table-column>
                  <el-table-column
                         prop="winTotal"
-                        label="总消费派奖">
+                        label="总消费派奖" sortable>
                 </el-table-column>
                 <el-table-column
                         prop="betRebateTotal"
-                        label="总返点">
+                        label="总返点" sortable>
                 </el-table-column>
                 <el-table-column
                         prop="activityTotal"
-                        label="总活动">
+                        label="总活动" sortable>
                 </el-table-column>
                 <el-table-column
                         prop="realGainTotal"
-                        label="总盈亏">
+                        label="总盈亏" sortable>
                 </el-table-column>
                 <el-table-column
                         prop="rechargeTotal"
-                        label="总充值">
+                        label="总充值" sortable>
                 </el-table-column>
                 <el-table-column
                         prop="withdrawTotalOfAccept"
-                        label="总提款">
+                        label="总提款" sortable>
                 </el-table-column>
                 <el-table-column
                         prop="dividendTotal"
-                        label="总红利/其他">
+                        label="总红利/其他" sortable>
                 </el-table-column>
             </el-table>
         </div>
@@ -104,6 +104,8 @@
                     size: 20,
                     total: 0,
                     pagetotals: 0,
+                    field: '',
+                    direction: '',
                 },
                 istoday: 2,
                 listData: null,
@@ -151,6 +153,8 @@
                         this.filterform.page,
                         this.filterform.size,
                         this.filterform.type,
+                        this.filterform.field,
+                        this.filterform.direction,
                     );
                     console.log(filterData);
                     //查询错误给出提示
@@ -176,6 +180,12 @@
             },
             handleCurrentChange(val) {
                 this.filterform.page = val;
+                this.onFilterSubmit();
+            },
+            tableChange(column){
+                this.filterform.page = 1;
+                this.filterform.field = column.prop == undefined ? '' : column.prop;
+                this.filterform.direction = column.order == 'descending' ? 'desc' : 'asc';
                 this.onFilterSubmit();
             },
             tableRowClassName({row, rowIndex}) {

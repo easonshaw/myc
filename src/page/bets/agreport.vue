@@ -27,22 +27,22 @@
             </el-form>
         </div>
          <div class="teamlist paddinglf" v-show="listDataShow">
-            <el-table :data="listData" border style="width: 100%" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
+            <el-table :data="listData" border style="width: 100%"  @sort-change="tableChange"  :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="betTotal"
-                        label="总消费">
+                        label="总消费" sortable>
                 </el-table-column>
                  <el-table-column
                         prop="winTotal"
-                        label="总消费派奖">
+                        label="总消费派奖" sortable>
                 </el-table-column>
                 <el-table-column
                         prop="activityTotal"
-                        label="总活动">
+                        label="总活动" sortable>
                 </el-table-column>
                 <el-table-column
                         prop="realGainTotal"
-                        label="总盈亏">
+                        label="总盈亏" sortable>
                 </el-table-column>
             </el-table>
         </div>
@@ -83,6 +83,8 @@
                 istoday: 2,
                 listData: null,
                 listDataShow:false,
+                field: '',
+                direction: '',
             }
         },
         created() {
@@ -126,6 +128,8 @@
                         this.filterform.page,
                         this.filterform.size,
                         this.filterform.type,
+                        this.filterform.field,
+                        this.filterform.direction,
                     );
                     //查询错误给出提示
                     if (filterData.code!=0) {
@@ -150,6 +154,12 @@
             },
             handleCurrentChange(val) {
                 this.filterform.page = val;
+                this.onFilterSubmit();
+            },
+            tableChange(column){
+                this.filterform.page = 1;
+                this.filterform.field = column.prop == undefined ? '' : column.prop;
+                this.filterform.direction = column.order == 'descending' ? 'desc' : 'asc';
                 this.onFilterSubmit();
             },
             tableRowClassName({row, rowIndex}) {
