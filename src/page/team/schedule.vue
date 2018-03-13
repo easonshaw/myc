@@ -7,11 +7,11 @@
                         <el-form-item label="时间">
                             <el-row>
                                 <el-col :span="11">
-                                    <el-date-picker type="datetime" placeholder="选择日期" value-format="yyyy-MM-dd H:i" v-model="filterform.start" style="width: 100%;"></el-date-picker>
+                                    <el-date-picker type="datetime" placeholder="选择日期" format="yyyy-MM-dd HH:mm"  v-model="filterform.start" style="width: 100%;"></el-date-picker>
                                 </el-col>
                                 <el-col class="line" :span="2">&nbsp;</el-col>
                                 <el-col :span="11">
-                                    <el-date-picker type="datetime" placeholder="选择日期" value-format="yyyy-MM-dd H:i" v-model="filterform.end" style="width: 100%;"></el-date-picker>
+                                    <el-date-picker type="datetime" placeholder="选择日期" format="yyyy-MM-dd HH:mm"  v-model="filterform.end" style="width: 100%;"></el-date-picker>
                                 </el-col>
                             </el-row>
                         </el-form-item>
@@ -23,7 +23,7 @@
                     </el-col>
 
                     <el-col :span="6">
-                        <el-form-item label="彩种">
+                        <el-form-item label="">
                             <el-select v-model="filterform.gtype" placeholder="所有彩种">
                                 <el-option v-for="item in filterform.gtypes"  :key="item.id" :label="item.name" :value="item.id">
                                 </el-option>
@@ -56,7 +56,7 @@
                 <el-table-column
                         prop="userName"
                         label="用户名"
-                        sortable>
+                        >
                 </el-table-column>
                 <el-table-column
                         prop="userName"
@@ -66,7 +66,7 @@
                 <el-table-column
                         prop="gameId"
                         label="彩种"
-                        sortable>
+                        >
                 </el-table-column>
                 <el-table-column
                         prop="chaseIssue"
@@ -76,12 +76,12 @@
                 <el-table-column
                         prop="playName"
                         label="玩法"
-                        sortable>
+                        >
                 </el-table-column>
                 <el-table-column
                         prop="betNumber"
                         label="追号内容"
-                        sortable>
+                        >
                 </el-table-column>
                 <el-table-column
                         prop="betTotal"
@@ -96,7 +96,7 @@
                 <el-table-column
                         prop="winStop"
                         label="中奖后终止"
-                        sortable>
+                        >
                 </el-table-column>
                 <el-table-column
                         prop="orderStatus"
