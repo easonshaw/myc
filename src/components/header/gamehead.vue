@@ -137,8 +137,8 @@
                     9: require('../../images/time-9.png'),
                 },
                 gameDt: {
-                    curissue: '20160818034',
-                    endtime: '04:58',
+                    curissue: '0000000000',
+                    endtime: '',
                     digits:{
                         hour1: require('../../images/time-0.png'),
                         hour2: require('../../images/time-0.png'),
