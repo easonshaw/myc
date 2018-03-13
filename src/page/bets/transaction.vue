@@ -40,7 +40,7 @@
                 <el-table-column
                         prop="userName"
                         label="用户名"
-                        sortable>
+                        >
                 </el-table-column>
                 <el-table-column
                         prop="billNo"

@@ -7,13 +7,12 @@
                     <marquee class="lat_scroll" direction="left" scrollamount="5" onmouseover="this.stop()" style="width: 400px;" onmouseout="this.start()">
                         {{noticeScrollHtml}}
                     </marquee>
-
                 </div>
                 <div class="top-right">
                     <span class="r-kefu"><i class="iconfont icon-zaixiankefu"></i>  <a href="javascript:;">在线客服</a></span>
                     <span class="r-msg"><i class="iconfont icon-xiaoxi"></i>  <a href="javascript:;">消息</a></span>
                     <span class="r-notice"><i class="iconfont icon-gonggao"></i>  <a @click="call_notice" href="javascript:;">公告</a></span>
-                    <span class="r-help"><i class="iconfont icon-bangzhuzhongxin"></i>  <a href="javascript:;">帮助中心</a></span>
+                    <span class="r-help"><i class="iconfont icon-bangzhuzhongxin"></i>  <a @click="toHepleCenter" href="javascript:;">帮助中心</a></span>
                     <span class="r-feedback"><i class="iconfont icon-yonghufankui"></i>  <a href="javascript:;">用户反馈</a></span>
                     <span class="r-user" v-if="user"><i class="iconfont icon-user"></i>  <a href="javascript:;">{{usernickNameText}}</a></span>
                     <span class="r-money" ><a href="javascript:;">￥余额: <em>{{accountBalance}}</em></a></span>
@@ -32,7 +31,10 @@
                 <li :class="activeNav == 'cashflow' ? 'active' : ''"><router-link :to="{ name: 'cashflow' }"><i class="iconfont icon-cuntijilu"></i> <p>存提记录</p></router-link></li>
                 <li :class="activeNav == 'bets' ? 'active' : ''"><router-link :to="{ name: 'gamerecord' }"><i class="iconfont icon-dingdanbaobiao"></i> <p>订单报表</p></router-link></li>
                 <li :class="activeNav == 'finance' ? 'active' : ''"><router-link :to="{ name: 'recharge' }"><i class="iconfont icon-caiwuguanli"></i> <p>财务管理</p></router-link></li>
-                <li :class="activeNav == 'activity' ? 'active' : ''"><router-link :to="{ name: 'activity' }"><i class="iconfont icon-youhuihuodong"></i> <p>优惠活动</p></router-link></li>
+                <li :class="activeNav == 'activity' ? 'active' : ''">
+                    <a data-v-9d92c9cc="" href="javascript:;" @click="showActivity" class="router-link-active"><i data-v-9d92c9cc="" class="iconfont icon-youhuihuodong"></i> <p data-v-9d92c9cc="">优惠活动</p></a>
+                    <!-- <router-link :to="{ name: 'activity' }"><i class="iconfont icon-youhuihuodong"></i> <p>优惠活动</p></router-link> -->
+                </li>
             </ul>
             <div class="menu-right">
                 <a href="javascript:;" class="button button-recharge" @click="rechargedialogVisible = true">充&nbsp;&nbsp;&nbsp;&nbsp;值</a>
@@ -40,6 +42,8 @@
                 <a href="javascript:;" class="button button-transfer" @click="transferdialogVisible = true">快速转账</a>
             </div>
         </div>
+        <!-- 优惠活动 -->
+         <dialogActivity :activitydialogVisible="activitydialogVisible" @on-activity-result-change="onactivityResultChange"></dialogActivity>
 
         <dialogRecharge :rechargedialogVisible="rechargedialogVisible" @on-recharge-result-change="onrechargeResultChange"></dialogRecharge>
         <dialogWithdraw 
@@ -49,8 +53,6 @@
         @on-withdraw-result-change="onrewithdrawResultChange">
         </dialogWithdraw>
         <dialogTransfer :transferdialogVisible="transferdialogVisible" @on-transfer-result-change="ontransferResultChange"></dialogTransfer>
-
-
 
 
 
@@ -106,6 +108,7 @@
     import dialogRecharge from 'src/components/common/dialogRecharge.vue'
     import dialogWithdraw from 'src/components/common/dialogWithdraw.vue'
     import dialogTransfer from 'src/components/common/dialogTransfer.vue'
+    import dialogActivity from 'src/components/common/dialogActivity.vue'    
 
 
      export default {
@@ -119,6 +122,7 @@
                 rechargedialogVisible:false, //充值
                 withdrawdialogVisible:false, //提款
                 transferdialogVisible:false,//快速转账
+                activitydialogVisible:false,//优惠活动                
                 noticeDialogVisible: false,
                 noticeinnerVisible: false,
                 noticeArticleTitle: '',
@@ -154,6 +158,7 @@
             dialogRecharge,
             dialogWithdraw,
             dialogTransfer,
+            dialogActivity
         },
         methods: {
             ...mapMutations([
@@ -219,6 +224,10 @@
                 this.noticeinnerVisible = true;
                 console.log(index)
             },
+            showActivity(){
+                this.activeNav = "activity";
+                this.activitydialogVisible =true;
+            },
             noticehandleClose() {
                 this.noticeDialogVisible = false;
             },
@@ -255,6 +264,9 @@
             ontransferResultChange(val){
                 this.transferdialogVisible = val;
             },
+            onactivityResultChange(val){
+                this.activitydialogVisible = val;                
+            },
             disGameMenu(e){
                 this.menuActive = true;
                 var Menu = document.getElementById("GameMenu");
@@ -263,6 +275,9 @@
             },
             hideGameMenu(){
                 this.menuActive = false;
+            },
+            toHepleCenter(){
+                 this.$router.push('/helpcenter');
             },
             async JumpToThird(gameId, platform){
                 console.log(gameId, platform)

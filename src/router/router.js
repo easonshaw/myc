@@ -40,6 +40,8 @@ const finance = r => require.ensure([], () => r(require('../page/finance/finance
 const recharge = r => require.ensure([], () => r(require('../page/finance/recharge')), 'recharge')
 //------------------------------------财务管理------------------------------------------------//
 
+const helpcenter = r => require.ensure([], () => r(require('../page/helpcenter/helpcenter')), 'helpcenter')
+
 const spread = r => require.ensure([], () => r(require('../page/team/spread')), 'spread')
 const teambets = r => require.ensure([], () => r(require('../page/team/bets')), 'teambets')
 const teamschedule = r => require.ensure([], () => r(require('../page/team/schedule')), 'teamschedule')
@@ -229,6 +231,12 @@ export default [{
                 name: 'recharge',
                 component: recharge,
             }]
+        },
+        //帮助中心
+        {
+            path: '/helpcenter', 
+            name: 'helpcenter',
+            component: helpcenter
         }
     ]
 }]

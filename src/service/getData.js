@@ -201,6 +201,7 @@ export const getSpreadList = (page = 1, size = 10, field = '', direction = '') =
  * 墨月城-当前登录用户有效游戏列表
  */
 export const getGames = () => fetch('/fore/lottery/games', {}, 'GET');
+
 /**
  * 墨月城-获取推广链接详情
  */
@@ -230,6 +231,11 @@ export const transaction = (startTime, endTime, billNo, page = 1, size, type, fi
  * 墨月城-我的报表(盈亏报表)
  */
 export const getReport = (startTime, endTime, page = 1, size, type, field, direction) => fetch('/fore/report/list', { startTime: startTime, endTime: endTime, page: page, size: size, type: type, field: field, direction: direction }, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-获取登录用户充提记录
+ */
+export const getRechargeList = (startTime, endTime, page = 1, size, type, field, direction) => fetch('/fore/recharge/list', { startTime: startTime, endTime: endTime, page: page, size: size, type: type, field: field, direction: direction }, 'POST', 'fetch', 'json', true);
 
 /**
  * 墨月城-获取团队投注记录(游戏记录)
@@ -359,4 +365,8 @@ export const getExchangeList = (page = 1, size, field, direction, type, startTim
     startTime: startTime, 
     endTime: endTime 
 }, 'GET', "fetch", "json");
- 
+
+/**
+ * 墨月城-获取活动优惠
+ */
+export const getActivitys = () => fetch('/fore/activity/list', {}, 'GET');

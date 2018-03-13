@@ -29,45 +29,50 @@
          <div class="teamlist paddinglf" v-show="listDataShow">
             <el-table :data="listData" border style="width: 100%" @sort-change="tableChange"  :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
-                        prop="billNo"
-                        label="订单编号"
-                        sortable>
+                        prop="userName"
+                        label="用户名">
                 </el-table-column>
                  <el-table-column
-                        prop="transactionTime"
+                        prop="createdDate"
                         label="充提时间"
                         width="155px"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="transactionType"
-                        label="类型"
-                        sortable>
+                        prop="type"
+                        label="类型">
                         <template slot-scope="scope">
                             <div slot="reference">
-                                <span v-if="scope.row.transactionType == 0">充值</span>
-                                <span v-if="scope.row.transactionType == 1">提款</span>
-                                <span v-if="scope.row.transactionType == 2">消费</span>
-                                <span v-if="scope.row.transactionType == 3">派奖</span>
-                                <span v-if="scope.row.transactionType == 4">返点</span>
-                                <span v-if="scope.row.transactionType == 5">活动</span>
-                                <span v-if="scope.row.transactionType == 6">红利其他</span>
-                                <span v-if="scope.row.transactionType == 7">撤单</span>
-                                <span v-if="scope.row.transactionType == 8">转入</span>
-                                <span v-if="scope.row.transactionType == 9">转出</span>
-                                <span v-if="scope.row.transactionType == 10">其他</span>
+                                <span v-if="scope.row.type == 0">全部</span>
+                                <span v-if="scope.row.type == 1">充值</span>
+                                <span v-if="scope.row.type == 2">提款</span>
                             </div>
                         </template>
                 </el-table-column>
                 <el-table-column
-                        prop="transactionAmount"
+                        prop="amount"
                         label="金额"
                         sortable>
                 </el-table-column>
                 <el-table-column
-                        prop="transactionSubclass"
-                        label="备注"
+                        prop="fee"
+                        label="手续费"
                         sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="orderStatus"
+                        label="状态">
+                        <template slot-scope="scope">
+                            <div slot="reference">
+                                <span v-if="scope.row.orderStatus == 1">已确认</span>
+                                <span v-if="scope.row.orderStatus == 2">进行中</span>
+                                <span v-if="scope.row.orderStatus == 3">取消</span>
+                            </div>
+                        </template>
+                </el-table-column>
+                <el-table-column
+                        prop="remark"
+                        label="备注">
                 </el-table-column>
             </el-table>
         </div>
@@ -90,7 +95,7 @@
 </template>
 
 <script>
-    import {transaction} from '../../service/getData'
+    import {getRechargeList} from '../../service/getData'
 
     export default {
         data(){
@@ -98,12 +103,12 @@
                 filterform: {
                     start: null,
                     end: null,
-                    type:'',
-                    types:[{ value: '', label: '全部'}, {
-                        value: '0',
+                    type:0,
+                    types:[{ value: 0, label: '全部'}, {
+                        value: 1,
                         label: '充值'
                     },{
-                        value: '1',
+                        value: 2,
                         label: '提款'
                     }],
                     billNo:'', //注单编号
@@ -154,12 +159,11 @@
             async onFilterSubmit() {
                 if(this.filterform.start != '' && this.filterform.end != ''){
                     //接口请求数据
-                    let filterData = await transaction(
-                        // this.dateToStr(this.filterform.start),
-                        // this.dateToStr(this.filterform.end),
-                        '',
-                        '',
-                        this.filterform.billNo,
+                    let filterData = await getRechargeList(
+                        this.dateToStr(this.filterform.start),
+                        this.dateToStr(this.filterform.end),
+                        // '',
+                        // '',
                         this.filterform.page,
                         this.filterform.size,
                         this.filterform.type,

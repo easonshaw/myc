@@ -51,6 +51,31 @@
     font-size: 1.2em;
 }
 
+.activity_dialog .el-dialog__header{
+    text-align: left;
+    // border-radius:10px 10px 0px 0px;
+    background: #9FA0A0;
+}
+.activity_dialog .el-dialog__headerbtn .el-dialog__close{
+    color: #9FA0A0;
+}
+.activity_dialog .el-dialog__title{
+    color: #fff;
+}
+.activity_dialog .el-dialog__headerbtn{
+    background: #ffffff;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    top: 10px;
+    font-size: 30px;
+    border-radius: 50%;
+}
+.activity_dialog .el-dialog__body{
+    padding: 0px;
+}
+
+
 .withdraw_dialog .el-dialog__header{
     text-align: left;
     // border-radius:10px 10px 0px 0px;
