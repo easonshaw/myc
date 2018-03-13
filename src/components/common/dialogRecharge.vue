@@ -5,7 +5,7 @@
                 <div class="recharged-bank">
                     <div class="inline">选择充值银行</div>
                     <div class="inline">
-                        <div class="bank" v-for="item in payWays" @click="activeFun(item)" :class="item.isActive ? 'bank-selected':''">
+                        <div class="bank" v-for="item in payWays" @click="activeFun(item)" :title="item.platformName" :class="item.isActive ? 'bank-selected':''">
                             <img :src="item.platformLogo" alt="">
                             <div class="inline">{{item.rechargeName}}</div>
                         </div>
@@ -51,10 +51,12 @@
                     payeeAccountName:'',
                     rechargeType:'',
                 },
-                bankData:{bankList:[
-                    {onetimeRechargeAmountMin:"",
-                    onetimeRechargeAmountMax:''}
-                ]},
+                bankData:{
+                    bankList:[{
+                        onetimeRechargeAmountMin:"",
+                        onetimeRechargeAmountMax:''}
+                    ]
+                },
                 bigAmount:'',
                 isBank:true,
             }
@@ -158,7 +160,6 @@
             async offline(){
                 //接口请求数据
                 let res = await submitOffline(
-                    // this.filterform.rechargeType,
                     this.bankData.rechargeType,
                     this.bankData.bankList[0].bankId,
                     this.filterform.amount,                        
@@ -192,6 +193,7 @@
         vertical-align:middle;
         margin: 10px 5px;
         padding: 5px 8px;
+        cursor: pointer;
     }
     #dialog-recharged .bank img{
         height: 30px;

@@ -86,7 +86,6 @@
                 if (withdrawData.code==0) {
                     this.withdrawData = withdrawData.result;                    
                 }
-                // console.log(withdrawData);
             },
             //提交提款
             async onwithdrawSubmit(){
