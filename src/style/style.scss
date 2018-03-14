@@ -51,6 +51,31 @@
     font-size: 1.2em;
 }
 
+.activity_dialog .el-dialog__header{
+    text-align: left;
+    // border-radius:10px 10px 0px 0px;
+    background: #9FA0A0;
+}
+.activity_dialog .el-dialog__headerbtn .el-dialog__close{
+    color: #9FA0A0;
+}
+.activity_dialog .el-dialog__title{
+    color: #fff;
+}
+.activity_dialog .el-dialog__headerbtn{
+    background: #ffffff;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    top: 10px;
+    font-size: 30px;
+    border-radius: 50%;
+}
+.activity_dialog .el-dialog__body{
+    padding: 0px;
+}
+
+
 .withdraw_dialog .el-dialog__header{
     text-align: left;
     // border-radius:10px 10px 0px 0px;
@@ -180,4 +205,41 @@
 }
 #dialog-transfer .cont-body .top-type .active{
     background: #0BA7A3;
+}
+
+.help-content .el-collapse-item{
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.help-content .el-collapse-item .el-collapse-item__header{
+    border-radius: 5px;
+    padding-left: 20px;
+    
+    color: #fff;
+}
+.help-content .el-collapse-item:nth-child(odd) .el-collapse-item__header{
+    background: #FF6666;
+}
+
+.help-content .el-collapse-item:nth-child(even) .el-collapse-item__header{
+    background: #EF857D;
+}
+
+.help-content .el-collapse-item:nth-child(odd) .el-collapse-item__header .icon{
+    color: #FF6666;
+}
+
+.help-content .el-collapse-item:nth-child(even) .el-collapse-item__header .icon{
+    color: #EF857D;
+}
+
+.help-content .el-collapse-item  .el-collapse-item__content{
+    background: #ddd;
+    padding: 10px 20px;
+}
+
+.help-content .has-gutter th{
+    background: #FF6666;
+    color: #fff;
 }

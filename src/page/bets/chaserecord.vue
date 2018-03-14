@@ -31,7 +31,7 @@
                 <el-table-column
                         prop="userName"
                         label="用户名"
-                        sortable>
+                        >
                 </el-table-column>
                  <el-table-column
                         prop="betTime"
@@ -41,7 +41,7 @@
                 <el-table-column
                         prop="gameName"
                         label="游戏名称"
-                        sortable>
+                        >
                 </el-table-column>
                 <el-table-column
                         prop="startIssue"
@@ -51,7 +51,7 @@
                 <el-table-column
                         prop="playName"
                         label="玩法"
-                        sortable>
+                        >
                 </el-table-column>
                  <el-table-column
                         prop="betNumber"

@@ -7,14 +7,13 @@
                     <marquee class="lat_scroll" direction="left" scrollamount="5" onmouseover="this.stop()" style="width: 400px;" onmouseout="this.start()">
                         {{noticeScrollHtml}}
                     </marquee>
-
                 </div>
                 <div class="top-right">
                     <span class="r-kefu"><i class="iconfont icon-zaixiankefu"></i>  <a href="javascript:;">在线客服</a></span>
                     <span class="r-msg"><i class="iconfont icon-xiaoxi"></i>  <a href="javascript:;">消息</a></span>
                     <span class="r-notice"><i class="iconfont icon-gonggao"></i>  <a @click="call_notice" href="javascript:;">公告</a></span>
-                    <span class="r-help"><i class="iconfont icon-bangzhuzhongxin"></i>  <a href="javascript:;">帮助中心</a></span>
-                    <span class="r-feedback"><i class="iconfont icon-yonghufankui"></i>  <a href="javascript:;">用户反馈</a></span>
+                    <span class="r-help"><i class="iconfont icon-bangzhuzhongxin"></i>  <a @click="toHepleCenter" href="javascript:;">帮助中心</a></span>
+                    <span class="r-feedback"><i class="iconfont icon-yonghufankui"></i>  <a href="javascript:;" @click="feedbackDialogVisible = true">用户反馈</a></span>
                     <span class="r-user" v-if="user"><i class="iconfont icon-user"></i>  <a href="javascript:;">{{usernickNameText}}</a></span>
                     <span class="r-money" ><a href="javascript:;">￥余额: <em>{{accountBalance}}</em></a></span>
                     <span class="r-logout"><i class="iconfont icon-dengchu"></i>  <a href="javascript:;" @click="logout">退出</a></span>
@@ -32,6 +31,11 @@
                 <li :class="activeNav == 'bets' ? 'active' : ''"><router-link :to="{ name: 'gamerecord' }"><i class="iconfont icon-dingdanbaobiao"></i> <p>订单报表</p></router-link></li>
                 <li :class="activeNav == 'finance' ? 'active' : ''"><router-link :to="{ name: 'recharge' }"><i class="iconfont icon-caiwuguanli"></i> <p>财务管理</p></router-link></li>
                 <li :class="activeNav == 'activity' ? 'active' : ''"><a><i class="iconfont icon-youhuihuodong"></i> <p>优惠活动</p></a></li>
+                <li :class="activeNav == 'activity' ? 'active' : ''">
+                    <a data-v-9d92c9cc="" href="javascript:;" @click="showActivity" class="router-link-active"><i data-v-9d92c9cc="" class="iconfont icon-youhuihuodong"></i> <p data-v-9d92c9cc="">优惠活动</p></a>
+                    <!-- <router-link :to="{ name: 'activity' }"><i class="iconfont icon-youhuihuodong"></i> <p>优惠活动</p></router-link> -->
+                </li>
+
             </ul>
             <div class="menu-right">
                 <a href="javascript:;" class="button button-recharge" @click="rechargedialogVisible = true">充&nbsp;&nbsp;&nbsp;&nbsp;值</a>
@@ -39,6 +43,8 @@
                 <a href="javascript:;" class="button button-transfer" @click="transferdialogVisible = true">快速转账</a>
             </div>
         </div>
+        <!-- 优惠活动 -->
+         <dialogActivity :activitydialogVisible="activitydialogVisible" @on-activity-result-change="onactivityResultChange"></dialogActivity>
 
         <dialogRecharge :rechargedialogVisible="rechargedialogVisible" @on-recharge-result-change="onrechargeResultChange"></dialogRecharge>
         <dialogWithdraw 
@@ -48,8 +54,6 @@
         @on-withdraw-result-change="onrewithdrawResultChange">
         </dialogWithdraw>
         <dialogTransfer :transferdialogVisible="transferdialogVisible" @on-transfer-result-change="ontransferResultChange"></dialogTransfer>
-
-
 
 
 
@@ -75,6 +79,24 @@
                     :total="notice_total">
             </el-pagination>
         </el-dialog>
+
+         <el-dialog title="用户反馈" custom-class="activity_dialog"   label-width="100px"  :visible.sync="feedbackDialogVisible" :before-close="feedbackClose">
+             <div class="dialog-content">
+                <el-form :model="feedbackForm" :rules="rules" ref="feedbackForm" class="feedbackForm">
+                    <el-form-item label="反馈内容" prop="content">
+                        <el-input type="textarea" :rows="5" v-model="feedbackForm.content"></el-input>
+                    </el-form-item>
+                    <p>*您可以透过【用户反馈】向我们汇报程序出现的问题，平台使用上的建议和客服服务品质，让玖富娱乐能够提供更好的平台体验度。</p>
+                    <el-form-item label="验证码" prop="code">
+                        <el-input v-model="feedbackForm.code"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="danger" @click="submitfeedbackForm(feedbackForm)">反馈送出</el-button>
+                    </el-form-item>
+                </el-form>
+             </div>
+        </el-dialog>
+
         <div class="floatButtons">
             <a href="javascript:;" @click="downAppdialogVisible = true"><i class="iconfont icon-xiazai"></i>下<br/>载<br/>中<br/>心</a>
             <a href="javascript:;" @click="testSpeeddialogVisible = true"><i class="iconfont icon-cesu"></i>重<br/>新<br/>测<br/>速</a>
@@ -105,6 +127,7 @@
     import dialogRecharge from 'src/components/common/dialogRecharge.vue'
     import dialogWithdraw from 'src/components/common/dialogWithdraw.vue'
     import dialogTransfer from 'src/components/common/dialogTransfer.vue'
+    import dialogActivity from 'src/components/common/dialogActivity.vue'    
 
 
      export default {
@@ -118,6 +141,8 @@
                 rechargedialogVisible:false, //充值
                 withdrawdialogVisible:false, //提款
                 transferdialogVisible:false,//快速转账
+                activitydialogVisible:false,//优惠活动 
+                feedbackDialogVisible:false, //用户反馈           
                 noticeDialogVisible: false,
                 noticeinnerVisible: false,
                 noticeArticleTitle: '',
@@ -130,6 +155,19 @@
                 menuPos: {left: 0, top: 0},
                 menuActive: false,
                 menuData: {},
+                rules:{
+                    content: [
+                        { required: true, message: '请输入反馈内容', trigger: 'blur' },
+                        { min: 3, max: 150, message: '长度在 3 到 150 个字符', trigger: 'blur' }
+                    ],
+                    code: [
+                        { required: true, message: '验证码不能为空', trigger: 'blur' }
+                    ],
+                    },
+                feedbackForm:{
+                    content:"",
+                    code:"",
+                }
             }
         },
         mounted(){
@@ -154,6 +192,7 @@
             dialogRecharge,
             dialogWithdraw,
             dialogTransfer,
+            dialogActivity
         },
         methods: {
             ...mapMutations([
@@ -218,10 +257,25 @@
                 this.noticeArticleHtml = this.notice[index].content;
                 this.noticeArticleTitle = this.notice[index].title;
                 this.noticeinnerVisible = true;
-                console.log(index)
+            },
+            showActivity(){
+                this.activeNav = "activity";
+                this.activitydialogVisible =true;
             },
             noticehandleClose() {
                 this.noticeDialogVisible = false;
+            },
+            feedbackClose(){
+                this.feedbackDialogVisible = false;                
+            },
+            submitfeedbackForm(feedbackForm){
+                this.$refs.feedbackForm.validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                    } else {
+                        return false;
+                    }
+                });
             },
             async notice_handleSizeChange(val) {
                 this.notice_size = val;
@@ -256,6 +310,9 @@
             ontransferResultChange(val){
                 this.transferdialogVisible = val;
             },
+            onactivityResultChange(val){
+                this.activitydialogVisible = val;                
+            },
             disGameMenu(e){
                 this.menuActive = true;
                 var Menu = document.getElementById("GameMenu");
@@ -264,6 +321,9 @@
             },
             hideGameMenu(){
                 this.menuActive = false;
+            },
+            toHepleCenter(){
+                 this.$router.push('/helpcenter/deposit');
             },
             async JumpToThird(gameId, platform){
                 console.log(gameId, platform)
@@ -361,5 +421,12 @@
     .notice_list li span{
         float: right;
     }
-
+    .dialog-content{
+        padding: 20px;
+    }
+    .dialog-content p{
+       padding: 0  10px;
+       color: red;
+       font-size: 0.8em;
+    }
 </style>

@@ -61,13 +61,11 @@
                 isBank:true,
             }
         },
-        created() {
-            this.getpays();
-        },
         props: ['rechargedialogVisible'],
         watch: {
             rechargedialogVisible: function (value){
                 this.dialogVisible = this.rechargedialogVisible;
+                if (value==true) {this.getpays();}
             },
             dialogVisible: function(val) {
                 this.$emit("on-recharge-result-change",val);

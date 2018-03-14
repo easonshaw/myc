@@ -2,14 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3474a12-ee3e-46ce-90fd-7aaa596340e6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/images/activity.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/common/dialogActivity.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/page/helpcenter/deposit.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/page/helpcenter/helpcenter.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/page/helpcenter/palyways.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/page/helpcenter/palyways/first.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/page/helpcenter/palyways/second.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/page/helpcenter/palyways/third.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/page/helpcenter/problem.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/common/dialogRecharge.vue" afterPath="$PROJECT_DIR$/src/components/common/dialogRecharge.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/common/dialogWithdraw.vue" afterPath="$PROJECT_DIR$/src/components/common/dialogWithdraw.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/header/head.vue" afterPath="$PROJECT_DIR$/src/components/header/head.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/page/main/main.vue" afterPath="$PROJECT_DIR$/src/page/main/main.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/page/team/user/createuser.vue" afterPath="$PROJECT_DIR$/src/page/team/user/createuser.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/page/team/user/updateuser.vue" afterPath="$PROJECT_DIR$/src/page/team/user/updateuser.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/page/bets/agrecord.vue" afterPath="$PROJECT_DIR$/src/page/bets/agrecord.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/page/bets/chaserecord.vue" afterPath="$PROJECT_DIR$/src/page/bets/chaserecord.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/page/bets/gamerecord.vue" afterPath="$PROJECT_DIR$/src/page/bets/gamerecord.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/page/bets/transaction.vue" afterPath="$PROJECT_DIR$/src/page/bets/transaction.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/page/finance/recharge.vue" afterPath="$PROJECT_DIR$/src/page/finance/recharge.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/router/router.js" afterPath="$PROJECT_DIR$/src/router/router.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/service/getData.js" afterPath="$PROJECT_DIR$/src/service/getData.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/style/common.scss" afterPath="$PROJECT_DIR$/src/style/common.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/style/style.scss" afterPath="$PROJECT_DIR$/src/style/style.scss" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,7 +50,46 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="428">
               <caret line="122" column="25" lean-forward="false" selection-start-line="122" selection-start-column="20" selection-end-line="122" selection-end-column="25" />
-              <folding />
+              <folding>
+                <marker date="1521022772365" expanded="true" signature="2710:2745" ph="..." />
+                <marker date="1521022772365" expanded="true" signature="2780:2926" ph="..." />
+                <marker date="1521022772365" expanded="true" signature="2960:3107" ph="..." />
+                <marker date="1521022772365" expanded="true" signature="3141:3286" ph="..." />
+                <marker date="1521022772365" expanded="true" signature="3320:3468" ph="..." />
+                <marker date="1521022772365" expanded="true" signature="3502:3647" ph="..." />
+                <marker date="1521022772365" expanded="true" signature="3681:3822" ph="..." />
+                <marker date="1521022772365" expanded="true" signature="3920:4496" ph="..." />
+                <marker date="1521022772365" expanded="true" signature="3952:4481" ph="..." />
+                <marker date="1521022772365" expanded="true" signature="3984:4462" ph="..." />
+                <marker date="1521022772365" expanded="true" signature="4534:9189" ph="..." />
+                <marker date="1521022772365" expanded="true" signature="4619:9180" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="4635:5241" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="4655:5231" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="4685:5120" ph="{&quot;gameId&quot;: ''...}" />
+                <marker date="1521022772365" expanded="true" signature="5261:5301" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="5320:5363" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="5381:9173" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="5406:5659" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="5688:6026" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="6060:6422" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="6149:6408" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="6206:6384" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="6271:6360" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="6450:7026" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="6588:6797" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="6803:7012" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="7063:8348" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="7141:8334" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="7733:7950" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="7846:7926" ph="{&quot;confirmButtonText&quot;: '确定'...}" />
+                <marker date="1521022772365" expanded="true" signature="8023:8316" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="8385:8525" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="8564:8662" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="8695:8967" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="9016:9163" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="9054:9114" ph="{...}" />
+                <marker date="1521022772365" expanded="true" signature="9217:9226" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -46,7 +98,7 @@
         <entry file="file://$PROJECT_DIR$/src/page/team/user/list.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="478">
-              <caret line="47" column="35" lean-forward="true" selection-start-line="39" selection-start-column="24" selection-end-line="47" selection-end-column="35" />
+              <caret line="47" column="35" lean-forward="false" selection-start-line="39" selection-start-column="24" selection-end-line="47" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -62,12 +114,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="head.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="head.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/header/head.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="282" column="37" lean-forward="false" selection-start-line="282" selection-start-column="37" selection-end-line="282" selection-end-column="37" />
-              <folding />
+            <state relative-caret-position="210">
+              <caret line="425" column="5" lean-forward="true" selection-start-line="425" selection-start-column="5" selection-end-line="425" selection-end-column="5" />
+              <folding>
+                <element signature="e#3846#3852#0" expanded="true" />
+                <element signature="e#3852#3858#0" expanded="true" />
+                <element signature="e#3858#3864#0" expanded="true" />
+                <element signature="e#3864#3870#0" expanded="true" />
+                <element signature="e#3983#3989#0" expanded="true" />
+                <element signature="e#3989#3995#0" expanded="true" />
+                <element signature="e#3995#4001#0" expanded="true" />
+                <element signature="e#4001#4007#0" expanded="true" />
+                <element signature="e#8519#8578#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -75,18 +137,18 @@
       <file leaf-file-name="getData.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/service/getData.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="231" column="267" lean-forward="false" selection-start-line="231" selection-start-column="263" selection-end-line="231" selection-end-column="267" />
+            <state relative-caret-position="216">
+              <caret line="232" column="267" lean-forward="false" selection-start-line="232" selection-start-column="267" selection-end-line="232" selection-end-column="267" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fetch.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fetch.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/config/fetch.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="32" column="26" lean-forward="true" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="55" />
+              <caret line="32" column="26" lean-forward="false" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -95,8 +157,8 @@
       <file leaf-file-name="router.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/router/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="204" column="13" lean-forward="false" selection-start-line="204" selection-start-column="13" selection-end-line="204" selection-end-column="13" />
+            <state relative-caret-position="284">
+              <caret line="211" column="13" lean-forward="false" selection-start-line="211" selection-start-column="13" selection-end-line="211" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -194,11 +256,11 @@
         <option value="$PROJECT_DIR$/src/page/team/user/createuser.vue" />
         <option value="$PROJECT_DIR$/src/page/team/user/updateuser.vue" />
         <option value="$PROJECT_DIR$/src/router/router.js" />
-        <option value="$PROJECT_DIR$/src/components/header/head.vue" />
         <option value="$PROJECT_DIR$/src/style/common.scss" />
         <option value="$PROJECT_DIR$/src/page/main/main.vue" />
         <option value="$PROJECT_DIR$/src/service/getData.js" />
         <option value="$PROJECT_DIR$/src/config/fetch.js" />
+        <option value="$PROJECT_DIR$/src/components/header/head.vue" />
       </list>
     </option>
   </component>
@@ -219,7 +281,7 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-2" />
     <option name="y" value="2" />
     <option name="width" value="772" />
@@ -353,15 +415,15 @@
       <workItem from="1520643293294" duration="29567000" />
       <workItem from="1520816224989" duration="14969000" />
       <workItem from="1520902908297" duration="20517000" />
-      <workItem from="1520989233900" duration="15041000" />
+      <workItem from="1520989233900" duration="15269000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="201610000" />
+    <option name="totallyTimeSpent" value="201838000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="7" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -712,18 +774,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/header/head.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="282" column="37" lean-forward="false" selection-start-line="282" selection-start-column="37" selection-end-line="282" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/page/team/user/list.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="478">
-          <caret line="47" column="35" lean-forward="true" selection-start-line="39" selection-start-column="24" selection-end-line="47" selection-end-column="35" />
+          <caret line="47" column="35" lean-forward="false" selection-start-line="39" selection-start-column="24" selection-end-line="47" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -740,7 +794,46 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="428">
           <caret line="122" column="25" lean-forward="false" selection-start-line="122" selection-start-column="20" selection-end-line="122" selection-end-column="25" />
-          <folding />
+          <folding>
+            <marker date="1521022772365" expanded="true" signature="2710:2745" ph="..." />
+            <marker date="1521022772365" expanded="true" signature="2780:2926" ph="..." />
+            <marker date="1521022772365" expanded="true" signature="2960:3107" ph="..." />
+            <marker date="1521022772365" expanded="true" signature="3141:3286" ph="..." />
+            <marker date="1521022772365" expanded="true" signature="3320:3468" ph="..." />
+            <marker date="1521022772365" expanded="true" signature="3502:3647" ph="..." />
+            <marker date="1521022772365" expanded="true" signature="3681:3822" ph="..." />
+            <marker date="1521022772365" expanded="true" signature="3920:4496" ph="..." />
+            <marker date="1521022772365" expanded="true" signature="3952:4481" ph="..." />
+            <marker date="1521022772365" expanded="true" signature="3984:4462" ph="..." />
+            <marker date="1521022772365" expanded="true" signature="4534:9189" ph="..." />
+            <marker date="1521022772365" expanded="true" signature="4619:9180" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="4635:5241" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="4655:5231" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="4685:5120" ph="{&quot;gameId&quot;: ''...}" />
+            <marker date="1521022772365" expanded="true" signature="5261:5301" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="5320:5363" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="5381:9173" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="5406:5659" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="5688:6026" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="6060:6422" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="6149:6408" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="6206:6384" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="6271:6360" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="6450:7026" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="6588:6797" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="6803:7012" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="7063:8348" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="7141:8334" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="7733:7950" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="7846:7926" ph="{&quot;confirmButtonText&quot;: '确定'...}" />
+            <marker date="1521022772365" expanded="true" signature="8023:8316" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="8385:8525" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="8564:8662" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="8695:8967" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="9016:9163" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="9054:9114" ph="{...}" />
+            <marker date="1521022772365" expanded="true" signature="9217:9226" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -756,16 +849,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/router/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="204" column="13" lean-forward="false" selection-start-line="204" selection-start-column="13" selection-end-line="204" selection-end-column="13" />
+        <state relative-caret-position="284">
+          <caret line="211" column="13" lean-forward="false" selection-start-line="211" selection-start-column="13" selection-end-line="211" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/service/getData.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="231" column="267" lean-forward="false" selection-start-line="231" selection-start-column="263" selection-end-line="231" selection-end-column="267" />
+        <state relative-caret-position="216">
+          <caret line="232" column="267" lean-forward="false" selection-start-line="232" selection-start-column="267" selection-end-line="232" selection-end-column="267" />
           <folding />
         </state>
       </provider>
@@ -773,8 +866,26 @@
     <entry file="file://$PROJECT_DIR$/src/config/fetch.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="32" column="26" lean-forward="true" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="55" />
+          <caret line="32" column="26" lean-forward="false" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="55" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/header/head.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="425" column="5" lean-forward="true" selection-start-line="425" selection-start-column="5" selection-end-line="425" selection-end-column="5" />
+          <folding>
+            <element signature="e#3846#3852#0" expanded="true" />
+            <element signature="e#3852#3858#0" expanded="true" />
+            <element signature="e#3858#3864#0" expanded="true" />
+            <element signature="e#3864#3870#0" expanded="true" />
+            <element signature="e#3983#3989#0" expanded="true" />
+            <element signature="e#3989#3995#0" expanded="true" />
+            <element signature="e#3995#4001#0" expanded="true" />
+            <element signature="e#4001#4007#0" expanded="true" />
+            <element signature="e#8519#8578#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
