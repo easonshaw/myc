@@ -29,10 +29,9 @@
                 <li :class="activeNav == 'externalgame' ? 'active' : ''"><router-link :to="{name: ''}"  @click.native="JumpToThird(59, 2)"><i class="iconfont icon-zhenrentingshi"></i> <p>真人厅室</p></router-link></li>
                 <li :class="activeNav == 'account' ? 'active' : ''"><router-link :to="{name: 'updateNickname'}"><i class="iconfont icon-wodezhanghu"></i> <p>我的账户</p></router-link></li>
                 <li :class="activeNav == 'team' ? 'active' : ''"><router-link :to="{ name: 'teamsummary' }"><i class="iconfont icon-dailiguanli"></i> <p>代理管理</p></router-link></li>
-                <li :class="activeNav == 'cashflow' ? 'active' : ''"><router-link :to="{ name: 'cashflow' }"><i class="iconfont icon-cuntijilu"></i> <p>存提记录</p></router-link></li>
                 <li :class="activeNav == 'bets' ? 'active' : ''"><router-link :to="{ name: 'gamerecord' }"><i class="iconfont icon-dingdanbaobiao"></i> <p>订单报表</p></router-link></li>
                 <li :class="activeNav == 'finance' ? 'active' : ''"><router-link :to="{ name: 'recharge' }"><i class="iconfont icon-caiwuguanli"></i> <p>财务管理</p></router-link></li>
-                <li :class="activeNav == 'activity' ? 'active' : ''"><router-link :to="{ name: 'activity' }"><i class="iconfont icon-youhuihuodong"></i> <p>优惠活动</p></router-link></li>
+                <li :class="activeNav == 'activity' ? 'active' : ''"><a><i class="iconfont icon-youhuihuodong"></i> <p>优惠活动</p></a></li>
             </ul>
             <div class="menu-right">
                 <a href="javascript:;" class="button button-recharge" @click="rechargedialogVisible = true">充&nbsp;&nbsp;&nbsp;&nbsp;值</a>
@@ -138,6 +137,7 @@
             this.checkLogin();
         },
         created() {
+            this.websocket();
         },
         watch: {
 
@@ -160,6 +160,7 @@
                 'RECORD_USERINFO',
             ]),
             async checkLogin() {
+                //检测是否登录
                 let userData = await getUser();
                 if(userData.code == 0) {
                     this.RECORD_USERINFO(userData.result.userInfo);
@@ -196,19 +197,19 @@
                 }
             },
             async logout() {
+                //退出登录
                 let logoutData = await signout();
                 if(logoutData.code == 0){
                     this.$router.push('/login')
                 }
             },
             async call_notice() {
+                //显示头部公告
                 if(this.notice == null) {
                     let noticeData = await getNotice(2, this.notice_currentPage, this.notice_size);
                     if(noticeData.code == 0 ) {
                         this.notice_total = noticeData.result.total;
                         this.notice = noticeData.result.rows;
-                    } else {
-
                     }
                 }
                 this.noticeDialogVisible = true;
@@ -271,6 +272,34 @@
                     window.open(jumpData.result.loginUrl);
                 } else {
                     this.$message.error('游戏暂未接入')
+                }
+
+            },
+            onData() {
+                var dataObj = eval("(" + event.data + ")");
+                var dataContent = JSON.parse(dataObj.content);
+                console.log(dataObj, dataContent);
+                if(dataObj.msgType == 1) {
+                    this.$notify.info({
+                        title: dataObj.title,
+                        message: '第'+dataContent.issue+'期 开奖号码:'+dataContent.lotteryNumber,
+                        position: 'bottom-right'
+                    });
+                }
+            },
+            websocket () {
+                let ws = new WebSocket('ws://d1.myc178.com/push')
+                ws.onopen = () => {
+                    // Web Socket 已连接上，使用 send() 方法发送数据
+                    ws.send('Holle');
+                    console.log('数据发送中...')
+                }
+                ws.onmessage = evt => {
+                    this.onData(event, ws);
+                }
+                ws.onclose = function () {
+                    // 关闭 websocket
+                    console.log('连接已关闭...')
                 }
 
             }

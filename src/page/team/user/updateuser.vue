@@ -83,6 +83,7 @@
                     accountTypeInit: "",
                     userName: '',
                     passwd: 'sky888',
+                    fastPointInit: 0,
                     fastPoint: 0,
                     fastPointMin: 0,
                     fastPointMax: 12.8,
@@ -174,11 +175,12 @@
             async initData() {
                 if(this.userInfo != null && this.userInfo.bonusSSC != undefined) {
                     this.userForm.fastPointMax = this.userInfo.rebatePointSSC * 1;
+
                     this.loading.close();
                 }
                 let updateUserData = await getUserbeforeUpdate(this.$route.params.uid);
                 if(updateUserData.code == 0){
-                    this.userForm.fastPoint =  updateUserData.result.rebatePointSSC;
+                    this.userForm.fastPointInit = this.userForm.fastPoint =  updateUserData.result.rebatePointSSC;
                     this.userForm.userName = updateUserData.result.userName;
                     this.userForm.accountType = updateUserData.result.accountType+"";
                     this.userForm.accountTypeInit = updateUserData.result.accountType+"";
@@ -198,10 +200,13 @@
                 this.fastPoint = val;
                 let rabetkey;
                 for(rabetkey in this.rebate){
+                    console.log(val, this.userForm.fastPointInit);
+                    if(rabetkey == 'rebatePointBLYZ' || val < this.userForm.fastPointInit) {
+                        break;
+                    }
                     this.rebate[rabetkey].VALUE = val;
                     this.rebate[rabetkey].TEXT = fastPoint;
                 }
-                console.log(val, fastPoint)
             },
             async submitForm(formName) {
                 this.$refs[formName].validate((valid) => {

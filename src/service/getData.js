@@ -217,6 +217,16 @@ export const delSpread = (id) => fetch('/fore/spread/delete', {id:id}, 'POST', '
 export const betList = (startTime, endTime, field, direction, gameId, issue, billNo, page = 1, size, type) => fetch('/fore/bet-record/list', { startTime: startTime, endTime: endTime, field: field, direction: direction, gameId: gameId, issue: issue, billNo:billNo,page: page, size: size, type: type }, 'POST', 'fetch', 'json', true);
 
 /**
+ * 墨月城-获取近期投注记录
+ */
+export const getlatelybetList = (count = 10) => fetch('/fore/bet-record/lately', { count: count  }, 'POST', 'fetch', 'json', true);
+
+/**
+ * 墨月城-获取单条投注明细
+ */
+export const getbetDetail = (orderNo) => fetch('/fore/bet-record/list/'+orderNo, {}, 'GET', 'fetch', 'json', true);
+
+/**
  * 墨月城-当前登录用户的追号记录
  */
 export const chaseRecord = (startTime, endTime, gameId, page = 1, size, field, direction) => fetch('/fore/chase-record/list', { startTime: startTime, endTime: endTime, gameId: gameId, page: page, size: size, field: field, direction: direction}, 'POST', 'fetch', 'json', true);

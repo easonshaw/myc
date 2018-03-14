@@ -183,6 +183,9 @@
                 this.fastPoint = val;
                 let rabetkey;
                 for(rabetkey in this.rebate){
+                    if(rabetkey == 'rebatePointBLYZ') {
+                        break;
+                    }
                     this.rebate[rabetkey].VALUE = val;
                     this.rebate[rabetkey].TEXT = fastPoint;
                 }

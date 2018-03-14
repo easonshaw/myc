@@ -203,10 +203,6 @@ export default [{
                 name: 'chaserecord',
                 component: chaserecord,
             },{
-                path:'chaserecord',//追号记录
-                name: 'chaserecord',
-                component: chaserecord,
-            },{
                 path: 'transaction',//账变记录
                 name: 'transaction',
                 component: transaction,

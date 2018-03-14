@@ -61,7 +61,9 @@ html,body{
 .show{
     display: block;
 }
-
+.status_black{
+    color: #333;
+}
 .status_success{
     color: #67C23A;
 }
@@ -1319,9 +1321,26 @@ color:#3ebcd1;
     color: #3c3c3c;
     font-size: 12px;
 }
+.GameWapper .WapperLeft .betRecords .el-table__body-wrapper{
+    overflow-y: scroll;
+}
+.GameWapper .WapperLeft .betRecords .el-table .cell{
+    font-size: 12px;
+    text-align: center;
+    word-break: normal;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
 .GameWapper .WapperLeft .betRecords .betRecords-body-row td{
     padding: 5px 0;
     font-size: 12px;
+}
+.GameWapper .WapperLeft .betRecords .table_button_mini{
+    padding: 3px 20px;
+    font-size: 12px;
+    background-color: #ff9966;
+    border-color: #ff9966;
 }
 .GameWapper .WapperLeft .betPlay{
     background: url('./images/betsplit.png') bottom center no-repeat;

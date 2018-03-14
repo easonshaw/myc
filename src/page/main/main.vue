@@ -19,61 +19,70 @@
                     </el-table>
                 </div>
 
+
+
                 <div class="betRecords">
                     <el-tabs v-model="recordsActive" type="card" @tab-click="betRecordshandleClick">
                         <el-tab-pane label="投注记录" name="first">
-                            <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="betRecordsData" :header-row-class-name="betsRecordmethodTableRowClassName">
-                                <el-table-column prop="name" label="投注时间"> </el-table-column>
-                                <el-table-column prop="name" label="彩种"></el-table-column>
-                                <el-table-column prop="name" label="期号"> </el-table-column>
-                                <el-table-column prop="name" label="玩法"></el-table-column>
-                                <el-table-column prop="name" label="投注内容"></el-table-column>
-                                <el-table-column prop="name" label="投注金额"></el-table-column>
-                                <el-table-column prop="name" label="奖金"></el-table-column>
-                                <el-table-column prop="name" label="开奖号"></el-table-column>
-                                <el-table-column prop="name" label="状态"></el-table-column>
+                            <el-table height="350"  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="mydata.latelybetList" :header-row-class-name="betsRecordmethodTableRowClassName">
+                                <el-table-column prop="betTime" width="135" label="投注时间"> </el-table-column>
+                                <el-table-column prop="gameName" label="彩种"></el-table-column>
+                                <el-table-column prop="issue" width="100" label="期号"> </el-table-column>
+                                <el-table-column prop="playName" width="120" label="玩法"></el-table-column>
+                                <el-table-column prop="betNumber" width="100" label="投注内容"></el-table-column>
+                                <el-table-column prop="betTotal" label="投注金额"></el-table-column>
+                                <el-table-column prop="winAmount" label="奖金"></el-table-column>
+                                <el-table-column prop="lotteryNumber" width="120" label="开奖号"></el-table-column>
+                                <el-table-column prop="orderStatus" label="状态">
+                                    <template slot-scope="scope">
+                                        <div slot="reference">
+                                            <span class="status_black" v-if="scope.row.orderStatus == 1">未开奖</span>
+                                            <span class="status_black" v-if="scope.row.orderStatus == 1">已封盘</span>
+                                            <span class="status_warning" v-if="scope.row.orderStatus == 2">已撤单</span>
+                                            <span class="status_success" v-if="scope.row.orderStatus == 3">已中奖</span>
+                                            <span class="status_black" v-if="scope.row.orderStatus == 4">未中奖</span>
+                                            <span class="status_danger" v-if="scope.row.orderStatus == 5">系统撤单</span>
+                                            <p><el-button class="table_button_mini" type="primary" round>详情</el-button></p>
+                                        </div>
+                                    </template>
+                                </el-table-column>
                             </el-table>
-                            <div class="viewmore"><el-button size="small" type="warning" round>查看更多</el-button></div>
+                            <div class="viewmore"><el-button size="mini" type="warning" round>查看更多</el-button></div>
                         </el-tab-pane>
                         <el-tab-pane label="追号记录" name="second">
-                            <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="betRecordsData" :header-row-class-name="betsRecordmethodTableRowClassName">
-                                <el-table-column prop="name" label="投注时间"> </el-table-column>
+                            <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="mydata.chaseList" :header-row-class-name="betsRecordmethodTableRowClassName">
+                                <el-table-column prop="name" label="追号时间"> </el-table-column>
                                 <el-table-column prop="name" label="彩种"></el-table-column>
-                                <el-table-column prop="name" label="期号"> </el-table-column>
+                                <el-table-column prop="name" label="开始期号"> </el-table-column>
                                 <el-table-column prop="name" label="玩法"></el-table-column>
-                                <el-table-column prop="name" label="投注内容"></el-table-column>
-                                <el-table-column prop="name" label="投注金额"></el-table-column>
-                                <el-table-column prop="name" label="奖金"></el-table-column>
-                                <el-table-column prop="name" label="开奖号"></el-table-column>
-                                <el-table-column prop="name" label="状态"></el-table-column>
+                                <el-table-column prop="name" label="追号内容"></el-table-column>
+                                <el-table-column prop="name" label="追号总金额"></el-table-column>
+                                <el-table-column prop="name" label="完成金额"></el-table-column>
+                                <el-table-column prop="name" label="取消金额"></el-table-column>
+                                <el-table-column prop="name" label="中奖后停止"></el-table-column>
+                                <el-table-column prop="name" width="150" label="状态（点击查看）"></el-table-column>
                             </el-table>
                             <div class="viewmore"><el-button size="small" type="warning" round>查看更多</el-button></div>
                         </el-tab-pane>
                         <el-tab-pane label="盈亏报表" name="third">
-                            <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="betRecordsData" :header-row-class-name="betsRecordmethodTableRowClassName">
-                                <el-table-column prop="name" label="投注时间"> </el-table-column>
-                                <el-table-column prop="name" label="彩种"></el-table-column>
-                                <el-table-column prop="name" label="期号"> </el-table-column>
-                                <el-table-column prop="name" label="玩法"></el-table-column>
-                                <el-table-column prop="name" label="投注内容"></el-table-column>
-                                <el-table-column prop="name" label="投注金额"></el-table-column>
-                                <el-table-column prop="name" label="奖金"></el-table-column>
-                                <el-table-column prop="name" label="开奖号"></el-table-column>
-                                <el-table-column prop="name" label="状态"></el-table-column>
+                            <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="mydata.profitlossList" :header-row-class-name="betsRecordmethodTableRowClassName">
+                                <el-table-column prop="name" label="总投注					"> </el-table-column>
+                                <el-table-column prop="name" label="总奖金"></el-table-column>
+                                <el-table-column prop="name" label="总返点"> </el-table-column>
+                                <el-table-column prop="name" label="总活动"></el-table-column>
+                                <el-table-column prop="name" label="总盈亏"></el-table-column>
+                                <el-table-column prop="name" label="总红利"></el-table-column>
                             </el-table>
                             <div class="viewmore"><el-button size="small" type="warning" round>查看更多</el-button></div>
                         </el-tab-pane>
                         <el-tab-pane label="帐变记录" name="fourth">
-                            <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="betRecordsData" :header-row-class-name="betsRecordmethodTableRowClassName">
-                                <el-table-column prop="name" label="投注时间"> </el-table-column>
-                                <el-table-column prop="name" label="彩种"></el-table-column>
-                                <el-table-column prop="name" label="期号"> </el-table-column>
-                                <el-table-column prop="name" label="玩法"></el-table-column>
-                                <el-table-column prop="name" label="投注内容"></el-table-column>
-                                <el-table-column prop="name" label="投注金额"></el-table-column>
-                                <el-table-column prop="name" label="奖金"></el-table-column>
-                                <el-table-column prop="name" label="开奖号"></el-table-column>
-                                <el-table-column prop="name" label="状态"></el-table-column>
+                            <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="mydata.amountchangeList" :header-row-class-name="betsRecordmethodTableRowClassName">
+                                <el-table-column prop="name" label="时间"> </el-table-column>
+                                <el-table-column prop="name" label="注单编号"></el-table-column>
+                                <el-table-column prop="name" label="类型"> </el-table-column>
+                                <el-table-column prop="name" label="变动金额"></el-table-column>
+                                <el-table-column prop="name" label="余额"></el-table-column>
+                                <el-table-column prop="name" label="备注"></el-table-column>
                             </el-table>
                             <div class="viewmore"><el-button size="small" type="warning" round>查看更多</el-button></div>
                         </el-tab-pane>
@@ -135,7 +144,7 @@ import {mapState, mapActions, mapMutations} from 'vuex'
 import headTop from '../../components/header/head'
 import bet from '../../page/main/bet'
 import gamehead from '../../components/header/gamehead'
-import {getLotteryHistory, getCurIssue, getLotteryMissCold} from '../../service/getData'
+import {getLotteryHistory, getCurIssue, getLotteryMissCold, getlatelybetList, chaseRecord} from '../../service/getData'
 
 export default {
     data(){
@@ -154,7 +163,14 @@ export default {
                 priceUnit: 2,
                 times: 1,
                 total: 0,
+            },
+            mydata:{
+                latelybetList: [], //近期投注记录
+                chaseList: [], //追号记录
+                profitlossList: [], //盈亏报表
+                amountchangeList: [], //账户变动
             }
+
         }
     },
 	mounted(){
@@ -177,22 +193,11 @@ export default {
         }
     },
     created() {
-	    this.websocket();
 	    this.initMenuSel();
         this.loadlotteryhistory();
         this.loadissue();
+        this.loadmydata();
         this.loadlotterymissclod();
-    },
-    socket: {
-        /*prefix: "/push/",
-        events: {
-            changed(msg) {
-                console.log("Something changed: " + msg);
-            },
-            connect() {
-                console.log("Websocket connected to " + this.$socket.nsp);
-            },
-        }*/
     },
     methods:{
         initMenuSel(){
@@ -219,6 +224,18 @@ export default {
         },
         betTimeshandleChange(val) {
 
+        },
+        async loadmydata() {
+            let latelybetData = await getlatelybetList(8);
+            if(latelybetData.code == 0){
+                this.mydata.latelybetList = latelybetData.result;
+            }
+            console.log('近期投注记录', latelybetData);
+            let chaseData = await chaseRecord('', '', 3, 1, 10, '', '');
+            if(chaseData.code == 0){
+                this.mydata.chaseList = chaseData.result;
+            }
+            console.log('追号记录', chaseData);
         },
         async loadlotteryhistory() {
             let historyData = await getLotteryHistory(this.gameId);
@@ -253,70 +270,7 @@ export default {
             }, 5000)
             this.loadissue();
         },
-        onData() {
-            var dataObj = eval("(" + event.data + ")");
-            console.log(dataObj);
-            if (dataObj.msgType == "exclusive_login") {
-                // 唯一在线
-                // onlyOnline(dataObj, webSocket);
-            } else if (dataObj.msgType == "off_line") {
-                // 强制下线
-                //forceOffline(dataObj);
-            } else if (dataObj.msgType == "open_issue") {
-                // 开盘期号
-                //openingIssue(dataObj);
-            } else if (dataObj.msgType == "open_ln") {
-                // 开奖号码
-                // lotteryNumberOpen(dataObj);
-            } else if (dataObj.msgType == "bet_record") {
-                //投注记录
-                //betRecord(dataObj);
-            } else if (dataObj.msgType == "recharge_succeed" || dataObj.msgType == "withdraw_succeed" || dataObj.msgType == "agent_transfer") {
-                //充值，提现，代理转账
-                //rechargeAndWithdraw(dataObj);
-            } else if (dataObj.msgType == "immediately_msg") {
-                // 即时消息
-                //pushletMsgShow(dataObj);
-            } else if (dataObj.msgType == "inner_msg") {
-                // 站内信
-                // innerMsg(dataObj);
-            } else if (dataObj.msgType == "lottery_settle") {
-                // 开奖结算提示
-                //  setTimeout(function () {
-                //      settlementMessage(dataObj);
-                //  }, 8000);
-            } else if (dataObj.msgType == "win_num") {
-                // 中奖提示消息
-                //setTimeout(function () {
-                //  winMessage(dataObj);
-                //}, 8000);
-            } else if (dataObj.msgType == "logout") {
-                //stopWebSocket(webSocket);
-            } else if (dataObj.msgType == "win_list") {
-                //刷新中奖排行
-                //refreshWInList();
-            } else if (dataObj.msgType == "futureIssue") {
-            }
-        },
-        websocket () {
-            let ws = new WebSocket('ws://d1.myc178.com/push')
-            ws.onopen = () => {
-                // Web Socket 已连接上，使用 send() 方法发送数据
-                ws.send('Holle');
-                console.log('数据发送中...')
-            }
-            ws.onmessage = evt => {
-                this.onData(event, ws);
-            }
-            ws.onclose = function () {
-                // 关闭 websocket
-                console.log('连接已关闭...')
-            }
-            // 路由跳转时结束websocket链接
-            this.$router.afterEach(function () {
-                ws.close()
-            })
-        }
+
 
     },
 }
