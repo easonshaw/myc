@@ -24,8 +24,6 @@
 </template>
 
 <script>
-    // import {localapi, proapi, imgBaseUrl} from 'src/config/env'
-    // import {mapState, mapActions, mapMutations} from 'vuex'
     import {getActivitys} from '../../service/getData'
     export default {
         data(){
@@ -35,9 +33,6 @@
                 content:"",
                 dialogVisible: this.activitydialogVisible
             }
-        },
-        mounted(){
-            this.getActivityList();
         },
         props: ['activitydialogVisible'],
         methods: {
@@ -61,6 +56,7 @@
         watch: {
             activitydialogVisible: function (value){
                 this.dialogVisible = this.activitydialogVisible;
+                if (value==true) {this.getActivityList();}                
             },
             dialogVisible: function(val) {
                 this.$emit("on-activity-result-change",val);

@@ -41,6 +41,11 @@ const recharge = r => require.ensure([], () => r(require('../page/finance/rechar
 //------------------------------------财务管理------------------------------------------------//
 
 const helpcenter = r => require.ensure([], () => r(require('../page/helpcenter/helpcenter')), 'helpcenter')
+const palyways = r => require.ensure([], () => r(require('../page/helpcenter/palyways')), 'palyways')
+const deposit = r => require.ensure([], () => r(require('../page/helpcenter/deposit')), 'deposit')
+const problem = r => require.ensure([], () => r(require('../page/helpcenter/problem')), 'problem')
+
+
 
 const spread = r => require.ensure([], () => r(require('../page/team/spread')), 'spread')
 const teambets = r => require.ensure([], () => r(require('../page/team/bets')), 'teambets')
@@ -235,8 +240,20 @@ export default [{
         //帮助中心
         {
             path: '/helpcenter', 
-            name: 'helpcenter',
-            component: helpcenter
+            component: helpcenter,
+            children: [{
+                path: 'palyways', //玩法介绍
+                name: 'palyways',
+                component: palyways,
+            },{
+                path:"deposit",//如何存款
+                name:'deposit',
+                component: deposit,
+            }, {
+                path: "problem",//常见问题
+                name: 'problem',
+                component: problem,
+            }]
         }
     ]
 }]

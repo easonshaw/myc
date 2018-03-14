@@ -72,9 +72,6 @@
                 userBankCardId:""
             }
         },
-        mounted(){
-            this.getData();
-        },
         props: ['withdrawdialogVisible','accountBalance','usernickNameText'],
         methods: {
             downApphandleClose(){
@@ -111,6 +108,7 @@
         watch: {
             withdrawdialogVisible: function (value){
                 this.dialogVisible = this.withdrawdialogVisible;
+                if (value==true) {this.getData();}
             },
             dialogVisible: function(val) {
                 this.$emit("on-withdraw-result-change",val);

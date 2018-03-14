@@ -13,7 +13,7 @@
                     <span class="r-msg"><i class="iconfont icon-xiaoxi"></i>  <a href="javascript:;">消息</a></span>
                     <span class="r-notice"><i class="iconfont icon-gonggao"></i>  <a @click="call_notice" href="javascript:;">公告</a></span>
                     <span class="r-help"><i class="iconfont icon-bangzhuzhongxin"></i>  <a @click="toHepleCenter" href="javascript:;">帮助中心</a></span>
-                    <span class="r-feedback"><i class="iconfont icon-yonghufankui"></i>  <a href="javascript:;">用户反馈</a></span>
+                    <span class="r-feedback"><i class="iconfont icon-yonghufankui"></i>  <a href="javascript:;" @click="feedbackDialogVisible = true">用户反馈</a></span>
                     <span class="r-user" v-if="user"><i class="iconfont icon-user"></i>  <a href="javascript:;">{{usernickNameText}}</a></span>
                     <span class="r-money" ><a href="javascript:;">￥余额: <em>{{accountBalance}}</em></a></span>
                     <span class="r-logout"><i class="iconfont icon-dengchu"></i>  <a href="javascript:;" @click="logout">退出</a></span>
@@ -78,6 +78,24 @@
                     :total="notice_total">
             </el-pagination>
         </el-dialog>
+
+         <el-dialog title="用户反馈" custom-class="activity_dialog"   label-width="100px"  :visible.sync="feedbackDialogVisible" :before-close="feedbackClose">
+             <div class="dialog-content">
+                <el-form :model="feedbackForm" :rules="rules" ref="feedbackForm" class="feedbackForm">
+                    <el-form-item label="反馈内容" prop="content">
+                        <el-input type="textarea" :rows="5" v-model="feedbackForm.content"></el-input>
+                    </el-form-item>
+                    <p>*您可以透过【用户反馈】向我们汇报程序出现的问题，平台使用上的建议和客服服务品质，让玖富娱乐能够提供更好的平台体验度。</p>
+                    <el-form-item label="验证码" prop="code">
+                        <el-input v-model="feedbackForm.code"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="danger" @click="submitfeedbackForm(feedbackForm)">反馈送出</el-button>
+                    </el-form-item>
+                </el-form>
+             </div>
+        </el-dialog>
+
         <div class="floatButtons">
             <a href="javascript:;" @click="downAppdialogVisible = true"><i class="iconfont icon-xiazai"></i>下<br/>载<br/>中<br/>心</a>
             <a href="javascript:;" @click="testSpeeddialogVisible = true"><i class="iconfont icon-cesu"></i>重<br/>新<br/>测<br/>速</a>
@@ -122,7 +140,8 @@
                 rechargedialogVisible:false, //充值
                 withdrawdialogVisible:false, //提款
                 transferdialogVisible:false,//快速转账
-                activitydialogVisible:false,//优惠活动                
+                activitydialogVisible:false,//优惠活动 
+                feedbackDialogVisible:false, //用户反馈           
                 noticeDialogVisible: false,
                 noticeinnerVisible: false,
                 noticeArticleTitle: '',
@@ -135,6 +154,19 @@
                 menuPos: {left: 0, top: 0},
                 menuActive: false,
                 menuData: {},
+                rules:{
+                    content: [
+                        { required: true, message: '请输入反馈内容', trigger: 'blur' },
+                        { min: 3, max: 150, message: '长度在 3 到 150 个字符', trigger: 'blur' }
+                    ],
+                    code: [
+                        { required: true, message: '验证码不能为空', trigger: 'blur' }
+                    ],
+                    },
+                feedbackForm:{
+                    content:"",
+                    code:"",
+                }
             }
         },
         mounted(){
@@ -222,7 +254,6 @@
                 this.noticeArticleHtml = this.notice[index].content;
                 this.noticeArticleTitle = this.notice[index].title;
                 this.noticeinnerVisible = true;
-                console.log(index)
             },
             showActivity(){
                 this.activeNav = "activity";
@@ -230,6 +261,18 @@
             },
             noticehandleClose() {
                 this.noticeDialogVisible = false;
+            },
+            feedbackClose(){
+                this.feedbackDialogVisible = false;                
+            },
+            submitfeedbackForm(feedbackForm){
+                this.$refs.feedbackForm.validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                    } else {
+                        return false;
+                    }
+                });
             },
             async notice_handleSizeChange(val) {
                 this.notice_size = val;
@@ -277,7 +320,7 @@
                 this.menuActive = false;
             },
             toHepleCenter(){
-                 this.$router.push('/helpcenter');
+                 this.$router.push('/helpcenter/deposit');
             },
             async JumpToThird(gameId, platform){
                 console.log(gameId, platform)
@@ -347,5 +390,12 @@
     .notice_list li span{
         float: right;
     }
-
+    .dialog-content{
+        padding: 20px;
+    }
+    .dialog-content p{
+       padding: 0  10px;
+       color: red;
+       font-size: 0.8em;
+    }
 </style>
