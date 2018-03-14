@@ -30,7 +30,6 @@
                 <li :class="activeNav == 'team' ? 'active' : ''"><router-link :to="{ name: 'teamsummary' }"><i class="iconfont icon-dailiguanli"></i> <p>代理管理</p></router-link></li>
                 <li :class="activeNav == 'bets' ? 'active' : ''"><router-link :to="{ name: 'gamerecord' }"><i class="iconfont icon-dingdanbaobiao"></i> <p>订单报表</p></router-link></li>
                 <li :class="activeNav == 'finance' ? 'active' : ''"><router-link :to="{ name: 'recharge' }"><i class="iconfont icon-caiwuguanli"></i> <p>财务管理</p></router-link></li>
-                <li :class="activeNav == 'activity' ? 'active' : ''"><a><i class="iconfont icon-youhuihuodong"></i> <p>优惠活动</p></a></li>
                 <li :class="activeNav == 'activity' ? 'active' : ''">
                     <a data-v-9d92c9cc="" href="javascript:;" @click="showActivity" class="router-link-active"><i data-v-9d92c9cc="" class="iconfont icon-youhuihuodong"></i> <p data-v-9d92c9cc="">优惠活动</p></a>
                     <!-- <router-link :to="{ name: 'activity' }"><i class="iconfont icon-youhuihuodong"></i> <p>优惠活动</p></router-link> -->
