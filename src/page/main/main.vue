@@ -170,7 +170,6 @@ export default {
                 profitlossList: [], //盈亏报表
                 amountchangeList: [], //账户变动
             }
-
         }
     },
 	mounted(){

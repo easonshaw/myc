@@ -8,12 +8,12 @@
                     <div class="time">2018-3-13</div>             
                 </div>
             </div>
-            <!-- <div class="page"> 
+            <div class="page"> 
                 <el-pagination
                     layout="prev, pager, next"
                     :total="50">
                 </el-pagination>
-            </div> -->
+            </div>
         </el-dialog>
         <el-dialog title="优惠活动" :visible.sync="sodialogVisible" width="30%" :before-close="itemhandleClose">
             <div class="content">
