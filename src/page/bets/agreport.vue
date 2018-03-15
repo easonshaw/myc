@@ -30,23 +30,23 @@
             <el-table :data="listData" border style="width: 100%"  @sort-change="tableChange"  :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="betTotal"
-                        label="总消费" sortable>
+                        label="总消费" >
                 </el-table-column>
                  <el-table-column
                         prop="winTotal"
-                        label="总消费派奖" sortable>
+                        label="总消费派奖" >
                 </el-table-column>
                 <el-table-column
                         prop="activityTotal"
-                        label="总活动" sortable>
+                        label="总活动" >
                 </el-table-column>
                 <el-table-column
                         prop="realGainTotal"
-                        label="总盈亏" sortable>
+                        label="总盈亏" >
                 </el-table-column>
             </el-table>
         </div>
-        <div class="teamPagination" v-show="listDataShow">
+        <!-- <div class="teamPagination" v-show="listDataShow">
             <div class="block">
                 <el-pagination
                         background
@@ -59,7 +59,7 @@
                         :total="filterform.total">
                 </el-pagination>
             </div>
-        </div>
+        </div> -->
     </div>
     
 </template>
@@ -81,7 +81,7 @@
                     pagetotals: 0,
                 },
                 istoday: 2,
-                listData: null,
+                listData: [],
                 listDataShow:false,
                 field: '',
                 direction: '',
@@ -141,9 +141,8 @@
                     //查询到数据
                     if(filterData.code == 0){
                         this.listDataShow = true;
-                        this.listData = filterData.result.rows;
-                        this.filterform.total = filterData.result.total;
-                        this.filterform.pagetotals = filterData.result.totalPages;
+                       this.listData=[];
+                        this.listData.push(filterData.result);
                     }
                 }
             },

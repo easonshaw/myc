@@ -9,9 +9,13 @@
                 </div>
             </div>
             <div class="page"> 
-                <el-pagination
-                    layout="prev, pager, next"
-                    :total="50">
+               <el-pagination
+                background
+                @current-change="handleCurrentChange"
+                layout="prev, pager, next"
+                :page-size="size"
+                :page-count="pagetotals"
+                :total="total">
                 </el-pagination>
             </div>
         </el-dialog>
@@ -31,6 +35,10 @@
                 sodialogVisible: false,
                 activityList:[],
                 content:"",
+                size:10,
+                page:1,
+                total:1,
+                pagetotals:1,
                 dialogVisible: this.activitydialogVisible
             }
         },
@@ -51,7 +59,11 @@
             showactivityInfo(item){
                 this.content = item.content;
                 this.sodialogVisible = true;
-            }
+            },
+              handleCurrentChange(val) {
+                this.page = val;
+                this.getActivityList();
+            },
         },
         watch: {
             activitydialogVisible: function (value){
@@ -90,6 +102,7 @@
 }
 .page{
     text-align: center;
+    padding: 15px 0;
 }
 .content{
     padding: 0px 15px;

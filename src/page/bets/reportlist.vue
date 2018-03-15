@@ -30,39 +30,39 @@
             <el-table :data="listData" border style="width: 100%"  @sort-change="tableChange" :header-row-class-name="tableRowClassName" :default-sort = "{prop: 'date', order: 'descending'}" >
                 <el-table-column
                         prop="betTotal"
-                        label="总消费" sortable>
+                        label="总消费" >
                 </el-table-column>
                  <el-table-column
                         prop="winTotal"
-                        label="总消费派奖" sortable>
+                        label="总消费派奖" >
                 </el-table-column>
                 <el-table-column
                         prop="betRebateTotal"
-                        label="总返点" sortable>
+                        label="总返点" >
                 </el-table-column>
                 <el-table-column
                         prop="activityTotal"
-                        label="总活动" sortable>
+                        label="总活动" >
                 </el-table-column>
                 <el-table-column
                         prop="realGainTotal"
-                        label="总盈亏" sortable>
+                        label="总盈亏" >
                 </el-table-column>
                 <el-table-column
                         prop="rechargeTotal"
-                        label="总充值" sortable>
+                        label="总充值" >
                 </el-table-column>
                 <el-table-column
                         prop="withdrawTotalOfAccept"
-                        label="总提款" sortable>
+                        label="总提款" >
                 </el-table-column>
                 <el-table-column
                         prop="dividendTotal"
-                        label="总红利/其他" sortable>
+                        label="总红利/其他" >
                 </el-table-column>
             </el-table>
         </div>
-        <div class="teamPagination" v-show="listDataShow">
+        <!-- <div class="teamPagination" v-show="listDataShow">
             <div class="block">
                 <el-pagination
                         background
@@ -75,7 +75,7 @@
                         :total="filterform.total">
                 </el-pagination>
             </div>
-        </div>
+        </div> -->
     </div>
     
 </template>
@@ -108,7 +108,7 @@
                     direction: '',
                 },
                 istoday: 2,
-                listData: null,
+                listData: [],
                 listDataShow:false,
             }
         },
@@ -156,7 +156,7 @@
                         this.filterform.field,
                         this.filterform.direction,
                     );
-                    console.log(filterData);
+                    // console.log(filterData);
                     //查询错误给出提示
                     if (filterData.code!=0) {
                         this.listDataShow = false;
@@ -167,9 +167,11 @@
                     //查询到数据
                     if(filterData.code == 0){
                         this.listDataShow = true;
-                        this.listData = filterData.result.rows;
-                        this.filterform.total = filterData.result.total;
-                        this.filterform.pagetotals = filterData.result.totalPages;
+                        this.listData=[];
+                        this.listData.push(filterData.result);
+                        // this.listData = filterData.result.rows;
+                        // this.filterform.total = filterData.result.total;
+                        // this.filterform.pagetotals = filterData.result.totalPages;
                     }
                 }
             },
