@@ -37,14 +37,16 @@ export default async(url = '', data = {}, type = 'GET', method = 'fetch', rettyp
 		}
 
 		if(transformRequest){
-			let retdata = ''
-			console.log(data);
+			let retdata = '';
+			let i = 0;
 			for (let it in data) {
-				retdata += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+				//if(data[it] == '') continue;
+				retdata += (i == 0 ? '' : '&')+encodeURIComponent(it) + '=' + encodeURIComponent(data[it]);
+				i++;
 			}
-			url = url+'?'+retdata;
+			url = url+(retdata == '' ? '' : '?')+retdata;
 		}
-		
+        //console.log('fetch data:', data, url);
 		try {
 			const response = await fetch(url, requestConfig);
 			const responseJson = rettype == 'json' ? await response.json() : await response.text();

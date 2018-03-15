@@ -178,7 +178,6 @@
             },
             'issue': function(to, form) {
                 this.loadcurissue();
-                console.log('to:', to, 'form', form)
                 this.issuetimer();
             }
         },
@@ -191,7 +190,6 @@
                 }
             },
             musictoggle(){
-                console.log(this.music)
                 this.music.allow = !this.music.allow;
                 this.music.class = this.music.allow == true ? 'iconfont icon-guanbishengyin' : 'iconfont icon-wenxintishi';
             },
@@ -252,7 +250,6 @@
                         setTimeout(function() {
                             //issuebetclose.close()
                         }, 3000);
-                        console.log(t, nowTime, endTime, timer);
                     }
                 }, 1000);
             }

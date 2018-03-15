@@ -148,7 +148,6 @@
                     <tr class=""><td>两分11选5</td><td>返点：{{spreadDetail.rebatePointLF11X5}}</td><td>奖金：{{spreadDetail.bonusLF11X5}}</td></tr>
                     <tr class=""><td>北京赛车</td><td>返点：{{spreadDetail.rebatePointBJSC}}</td><td>奖金：{{spreadDetail.bonusBJSC}}</td></tr>
                     <tr class=""><td>快三</td><td>返点：{{spreadDetail.rebatePointK3}}</td><td>奖金：{{spreadDetail.bonusK3}}</td></tr>
-                    <tr class=""><td>霸来运转</td><td>返点：{{spreadDetail.rebatePointBLYZ}}</td><td>奖金：{{spreadDetail.bonusBLYZ}}</td></tr>
                     <tr class=""><td>真人视讯</td><td colspan="2">返点：{{spreadDetail.rebatePointZRSX}}</td></tr>
                     </tbody>
                 </table>
@@ -229,11 +228,6 @@
                         VALUE: 0, //快三返点
                         TEXT: 1700,
                         LABEL: '快三',
-                    },
-                    rebatePointBLYZ: {
-                        VALUE: 0, //霸来运转返点
-                        TEXT: 1700,
-                        LABEL: '霸来运转',
                     },
                     rebatePointZRSX: {
                         VALUE: 0, //真人视讯返点
@@ -345,7 +339,6 @@
                     this.rebate.rebatePointLF11X5.VALUE * 1,
                     this.rebate.rebatePointBJSC.VALUE * 1,
                     this.rebate.rebatePointK3.VALUE * 1,
-                    this.rebate.rebatePointBLYZ.VALUE * 1,
                     this.rebate.rebatePointZRSX.VALUE* 1
                 );
                 if(createDatas.code == 0) {
