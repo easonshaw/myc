@@ -1321,8 +1321,15 @@ color:#3ebcd1;
     color: #3c3c3c;
     font-size: 12px;
 }
-.GameWapper .WapperLeft .betRecords .el-table__body-wrapper{
+
+.GameWapper .WapperLeft .betRecords #pane-first .el-table__body-wrapper,
+.GameWapper .WapperLeft .betRecords #pane-second .el-table__body-wrapper{
     overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+.GameWapper .WapperLeft .betRecords #pane-first .el-table__body-wrapper table,
+.GameWapper .WapperLeft .betRecords #pane-second .el-table__body-wrapper table{
 }
 .GameWapper .WapperLeft .betRecords .el-table .cell{
     font-size: 12px;
@@ -1337,7 +1344,7 @@ color:#3ebcd1;
     font-size: 12px;
 }
 .GameWapper .WapperLeft .betRecords .table_button_mini{
-    padding: 3px 20px;
+    padding: 3px 15px;
     font-size: 12px;
     background-color: #ff9966;
     border-color: #ff9966;
