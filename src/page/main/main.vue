@@ -144,7 +144,7 @@ import {mapState, mapActions, mapMutations} from 'vuex'
 import headTop from '../../components/header/head'
 import bet from '../../page/main/bet'
 import gamehead from '../../components/header/gamehead'
-import {getLotteryHistory, getCurIssue, getLotteryMissCold, getlatelybetList, chaseRecord} from '../../service/getData'
+import {getLotteryHistory, getCurIssue, getLotteryMissCold, getlatelybetList, chaseRecord, getReport} from '../../service/getData'
 
 export default {
     data(){
@@ -229,12 +229,20 @@ export default {
             if(latelybetData.code == 0){
                 this.mydata.latelybetList = latelybetData.result;
             }
-            console.log('近期投注记录', latelybetData);
-            let chaseData = await chaseRecord('', '', 3, 1, 10, '', '');
+            console.log('#近期投注记录#', latelybetData);
+
+            let chaseData = await chaseRecord('2018-3-5 3:00', '2018-3-6 3:00', '', 1, 10, '', '');
             if(chaseData.code == 0){
-                this.mydata.chaseList = chaseData.result;
+                //this.mydata.chaseList = chaseData.result;
             }
-            console.log('追号记录', chaseData);
+            console.log('#追号记录#', chaseData);
+
+            let profitlossData = await getReport('', '', 1, 10, '', '', '', '');
+            if(profitlossData.code == 0){
+                //this.mydata.chaseList = chaseData.result;
+            }
+            console.log('#盈亏记录#', profitlossData);
+
         },
         async loadlotteryhistory() {
             let historyData = await getLotteryHistory(this.gameId);
@@ -257,7 +265,7 @@ export default {
             if(misscoldData.code == 0) {
                 let hotcold = JSON.parse(misscoldData.result[0].hotCold);
                 let miss = JSON.parse(misscoldData.result[0].missTimes);
-                console.log(hotcold, miss);
+                //console.log('#冷热遗漏#', hotcold, miss);
             }
 
         },

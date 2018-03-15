@@ -124,7 +124,7 @@ export const getTeamMemberList = (page=1, size, field='', direction='', userName
 /**
  * 墨月城-修改会员信息
  */
-export const updateUser = (id, accountType, rebatePointSSC, rebatePointLFFFC, rebatePointMMC, rebatePointFTC, rebatePoint11X5, rebatePointLF11X5, rebatePointBJSC, rebatePointK3, rebatePointBLYZ, rebatePointZRSX, quota1 = 0, quota2 = 0, quota3 = 0) => fetch('/fore/team/update', {
+export const updateUser = (id, accountType, rebatePointSSC, rebatePointLFFFC, rebatePointMMC, rebatePointFTC, rebatePoint11X5, rebatePointLF11X5, rebatePointBJSC, rebatePointK3, rebatePointZRSX, quota1 = 0, quota2 = 0, quota3 = 0) => fetch('/fore/team/update', {
     id:id,
     accountType:accountType,
     rebatePointSSC:rebatePointSSC,
@@ -135,7 +135,6 @@ export const updateUser = (id, accountType, rebatePointSSC, rebatePointLFFFC, re
     rebatePointLF11X5:rebatePointLF11X5,
     rebatePointBJSC:rebatePointBJSC,
     rebatePointK3:rebatePointK3,
-    rebatePointBLYZ:rebatePointBLYZ,
     rebatePointZRSX:rebatePointZRSX,
     quota1:quota1,
     quota2:quota2,
@@ -145,7 +144,7 @@ export const updateUser = (id, accountType, rebatePointSSC, rebatePointLFFFC, re
 /**
  * 墨月城-创建会员信息
  */
-export const createUser = (userName, accountType, rebatePointSSC, rebatePointLFFFC, rebatePointMMC, rebatePointFTC, rebatePoint11X5, rebatePointLF11X5, rebatePointBJSC, rebatePointK3, rebatePointBLYZ, rebatePointZRSX, quota1 = 0, quota2 = 0, quota3 = 0) => fetch('/fore/team/create', {
+export const createUser = (userName, accountType, rebatePointSSC, rebatePointLFFFC, rebatePointMMC, rebatePointFTC, rebatePoint11X5, rebatePointLF11X5, rebatePointBJSC, rebatePointK3, rebatePointZRSX, quota1 = 0, quota2 = 0, quota3 = 0) => fetch('/fore/team/create', {
     userName:userName,
     accountType:accountType,
     rebatePointSSC:rebatePointSSC,
@@ -156,7 +155,6 @@ export const createUser = (userName, accountType, rebatePointSSC, rebatePointLFF
     rebatePointLF11X5:rebatePointLF11X5,
     rebatePointBJSC:rebatePointBJSC,
     rebatePointK3:rebatePointK3,
-    rebatePointBLYZ:rebatePointBLYZ,
     rebatePointZRSX:rebatePointZRSX,
     quota1:quota1,
     quota2:quota2,
@@ -176,7 +174,7 @@ export const getUserbeforeUpdate = (userId) => fetch('/fore/team/beforeUpdate', 
 /**
  * 墨月城-创建推广链接
  */
-export const createSpread = (remark, accountType, rebatePointSSC, rebatePointLFFFC, rebatePointMMC, rebatePointFTC, rebatePoint11X5, rebatePointLF11X5, rebatePointBJSC, rebatePointK3, rebatePointBLYZ, rebatePointZRSX) => fetch('/fore/spread/create', {
+export const createSpread = (remark, accountType, rebatePointSSC, rebatePointLFFFC, rebatePointMMC, rebatePointFTC, rebatePoint11X5, rebatePointLF11X5, rebatePointBJSC, rebatePointK3, rebatePointZRSX) => fetch('/fore/spread/create', {
     remark:remark,
     accountType:accountType,
     bonusSSC:rebatePointSSC,
@@ -188,7 +186,6 @@ export const createSpread = (remark, accountType, rebatePointSSC, rebatePointLFF
     rebatePointLF11X5:rebatePointLF11X5,
     rebatePointBJSC:rebatePointBJSC,
     rebatePointK3:rebatePointK3,
-    rebatePointBLYZ:rebatePointBLYZ,
     rebatePointZRSX:rebatePointZRSX,
 }, 'POST', 'fetch', 'json', true);
 
@@ -240,7 +237,7 @@ export const transaction = (startTime, endTime, billNo, page = 1, size, type, fi
 /**
  * 墨月城-我的报表(盈亏报表)
  */
-export const getReport = (startTime, endTime, page = 1, size, type, field, direction) => fetch('/fore/report/list', { startTime: startTime, endTime: endTime, page: page, size: size, type: type, field: field, direction: direction }, 'POST', 'fetch', 'json', true);
+export const getReport = (startTime, endTime, type, userName = '') => fetch('/fore/report/list', { startTime: startTime, endTime: endTime, type: type, userName:userName }, 'POST', 'fetch', 'json', true);
 
 /**
  * 墨月城-获取登录用户充提记录
@@ -251,17 +248,17 @@ export const getRechargeList = (startTime, endTime, page = 1, size, type, field,
  * 墨月城-获取团队投注记录(游戏记录)
  */
 export const getTeamBetList = (page = 1, size,  field, direction , startTime, endTime, type, userName = '', gameId, issue, billNo) => fetch('/fore/bet-record-team/list', {
-    page:page,
-    size:size,
-    field:field,
-    direction:direction,
-    startTime:startTime,
-    endTime:endTime,
-    type:type,
-    userName:userName,
-    gameId:gameId,
-    issue:issue,
-    billNo:billNo
+    page: page,
+    size: size,
+    field: field,
+    direction: direction,
+    startTime: startTime,
+    endTime: endTime,
+    type: type,
+    userName: userName,
+    gameId: gameId,
+    issue: issue,
+    billNo: billNo
 }, 'POST', 'fetch', 'json', true);
 
 /**

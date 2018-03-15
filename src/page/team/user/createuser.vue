@@ -132,11 +132,6 @@
                         TEXT: 1700,
                         LABEL: '快三',
                     },
-                    rebatePointBLYZ: {
-                        VALUE: 0, //霸来运转返点
-                        TEXT: 1700,
-                        LABEL: '霸来运转',
-                    },
                     rebatePointZRSX: {
                         VALUE: 0, //真人视讯返点
                         TEXT: 1700,
@@ -183,9 +178,7 @@
                 this.fastPoint = val;
                 let rabetkey;
                 for(rabetkey in this.rebate){
-                    if(rabetkey == 'rebatePointBLYZ') {
-                        break;
-                    }
+                    if(rabetkey == 'rebatePointZRSX') continue;
                     this.rebate[rabetkey].VALUE = val;
                     this.rebate[rabetkey].TEXT = fastPoint;
                 }
@@ -211,7 +204,6 @@
                     this.rebate.rebatePointLF11X5.VALUE,
                     this.rebate.rebatePointBJSC.VALUE,
                     this.rebate.rebatePointK3.VALUE,
-                    this.rebate.rebatePointBLYZ.VALUE,
                     this.rebate.rebatePointZRSX.VALUE
                 );
                 if(createDatas.code == 0) {
