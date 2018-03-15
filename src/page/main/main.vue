@@ -42,49 +42,65 @@
                                             <span class="status_success" v-if="scope.row.orderStatus == 3">已中奖</span>
                                             <span class="status_black" v-if="scope.row.orderStatus == 4">未中奖</span>
                                             <span class="status_danger" v-if="scope.row.orderStatus == 5">系统撤单</span>
-                                            <p><el-button class="table_button_mini" type="primary" round>详情</el-button></p>
+                                            <p><el-button  class="table_button_mini" type="primary" round>详情</el-button></p>
                                         </div>
                                     </template>
                                 </el-table-column>
                             </el-table>
-                            <div class="viewmore"><el-button size="mini" type="warning" round>查看更多</el-button></div>
+                            <div class="viewmore"><el-button @click.native="fastgoto('gamerecord')" size="mini" type="warning" round>查看更多</el-button></div>
                         </el-tab-pane>
                         <el-tab-pane label="追号记录" name="second">
                             <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="mydata.chaseList" :header-row-class-name="betsRecordmethodTableRowClassName">
-                                <el-table-column prop="name" label="追号时间"> </el-table-column>
-                                <el-table-column prop="name" label="彩种"></el-table-column>
-                                <el-table-column prop="name" label="开始期号"> </el-table-column>
-                                <el-table-column prop="name" label="玩法"></el-table-column>
-                                <el-table-column prop="name" label="追号内容"></el-table-column>
-                                <el-table-column prop="name" label="追号总金额"></el-table-column>
+                                <el-table-column prop="betTime" width="135" label="追号时间"> </el-table-column>
+                                <el-table-column prop="gameName" label="彩种"></el-table-column>
+                                <el-table-column prop="billNo" width="130" label="开始期号"> </el-table-column>
+                                <el-table-column prop="name" label="游戏玩法"></el-table-column>
+                                <el-table-column prop="name" label="投注号码"></el-table-column>
+                                <el-table-column prop="name" label="总金额"></el-table-column>
                                 <el-table-column prop="name" label="完成金额"></el-table-column>
                                 <el-table-column prop="name" label="取消金额"></el-table-column>
                                 <el-table-column prop="name" label="中奖后停止"></el-table-column>
                                 <el-table-column prop="name" width="150" label="状态（点击查看）"></el-table-column>
                             </el-table>
-                            <div class="viewmore"><el-button size="small" type="warning" round>查看更多</el-button></div>
+                            <div class="viewmore"><el-button @click.native="fastgoto('chaserecord')" size="small" type="warning" round>查看更多</el-button></div>
                         </el-tab-pane>
                         <el-tab-pane label="盈亏报表" name="third">
                             <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="mydata.profitlossList" :header-row-class-name="betsRecordmethodTableRowClassName">
-                                <el-table-column prop="name" label="总投注					"> </el-table-column>
-                                <el-table-column prop="name" label="总奖金"></el-table-column>
-                                <el-table-column prop="name" label="总返点"> </el-table-column>
-                                <el-table-column prop="name" label="总活动"></el-table-column>
-                                <el-table-column prop="name" label="总盈亏"></el-table-column>
-                                <el-table-column prop="name" label="总红利"></el-table-column>
+                                <el-table-column prop="betTotal" label="总投注"> </el-table-column>
+                                <el-table-column prop="winTotal" label="总奖金"></el-table-column>
+                                <el-table-column prop="betRebateTotal" label="总返点"> </el-table-column>
+                                <el-table-column prop="activityTotal" label="总活动"></el-table-column>
+                                <el-table-column prop="realGainTotal" label="总盈亏"></el-table-column>
+                                <el-table-column prop="dividendTotal" label="总红利"></el-table-column>
                             </el-table>
-                            <div class="viewmore"><el-button size="small" type="warning" round>查看更多</el-button></div>
+                            <div class="viewmore"><el-button @click.native="fastgoto('reportlist')" size="small" type="warning" round>查看更多</el-button></div>
                         </el-tab-pane>
                         <el-tab-pane label="帐变记录" name="fourth">
                             <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="mydata.amountchangeList" :header-row-class-name="betsRecordmethodTableRowClassName">
-                                <el-table-column prop="name" label="时间"> </el-table-column>
-                                <el-table-column prop="name" label="注单编号"></el-table-column>
-                                <el-table-column prop="name" label="类型"> </el-table-column>
-                                <el-table-column prop="name" label="变动金额"></el-table-column>
-                                <el-table-column prop="name" label="余额"></el-table-column>
-                                <el-table-column prop="name" label="备注"></el-table-column>
+                                <el-table-column prop="transactionTime" label="时间"> </el-table-column>
+                                <el-table-column prop="billNo" width="200" label="注单编号"></el-table-column>
+                                <el-table-column prop="transactionType" label="类型">
+                                    <template slot-scope="scope">
+                                        <div slot="reference">
+                                            <span class="status_black" v-if="scope.row.transactionType == 0">充值</span>
+                                            <span class="status_black" v-if="scope.row.transactionType == 1">提款</span>
+                                            <span class="status_warning" v-if="scope.row.transactionType == 2">消费</span>
+                                            <span class="status_success" v-if="scope.row.transactionType == 3">派奖</span>
+                                            <span class="status_black" v-if="scope.row.transactionType == 4">返点</span>
+                                            <span class="status_danger" v-if="scope.row.transactionType == 5">活动</span>
+                                            <span class="status_danger" v-if="scope.row.transactionType == 6">红利其他</span>
+                                            <span class="status_danger" v-if="scope.row.transactionType == 7">撤单</span>
+                                            <span class="status_danger" v-if="scope.row.transactionType == 8">转入</span>
+                                            <span class="status_danger" v-if="scope.row.transactionType == 9">转出</span>
+                                            <span class="status_danger" v-if="scope.row.transactionType == 10">其他</span>
+                                        </div>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="transactionAmount" label="变动金额"></el-table-column>
+                                <el-table-column prop="currentBalance" label="余额"></el-table-column>
+                                <el-table-column prop="transactionSubclass" label="备注"></el-table-column>
                             </el-table>
-                            <div class="viewmore"><el-button size="small" type="warning" round>查看更多</el-button></div>
+                            <div class="viewmore"><el-button @click.native="fastgoto('transaction')" size="small" type="warning" round>查看更多</el-button></div>
                         </el-tab-pane>
                     </el-tabs>
                 </div>
@@ -144,7 +160,7 @@ import {mapState, mapActions, mapMutations} from 'vuex'
 import headTop from '../../components/header/head'
 import bet from '../../page/main/bet'
 import gamehead from '../../components/header/gamehead'
-import {getLotteryHistory, getCurIssue, getLotteryMissCold, getlatelybetList, chaseRecord, getReport} from '../../service/getData'
+import {getLotteryHistory, getCurIssue, getLotteryMissCold, getlatelybetList, chaseRecord, getReport, transaction} from '../../service/getData'
 
 export default {
     data(){
@@ -222,8 +238,12 @@ export default {
             this.recentCount = this.recentCount == 10 ? 15 : 10;
             this.lotteryhistoryData = this.recentCount == 10 ? this.lotteryhistorycurr : this.lotteryhistoryfull;
         },
-        betTimeshandleChange(val) {
+        betTimeshandleChange (val) {
 
+        },
+        fastgoto(val) {
+            console.log(val)
+            this.$router.push({name: val})
         },
         async loadmydata() {
             let latelybetData = await getlatelybetList(8);
@@ -232,18 +252,23 @@ export default {
             }
             console.log('#近期投注记录#', latelybetData);
 
-            let chaseData = await chaseRecord('2018-3-5 3:00', '2018-3-6 3:00', '', 1, 10, '', '');
+            let chaseData = await chaseRecord('', '', '', 1, 8, '', '');
             if(chaseData.code == 0){
-                //this.mydata.chaseList = chaseData.result;
+                this.mydata.chaseList = chaseData.result.rows;
             }
             console.log('#追号记录#', chaseData);
 
-            let profitlossData = await getReport('', '', 1, 10, '', '', '', '');
+            let profitlossData = await getReport('', '', 1, 8, '', '', '', '');
             if(profitlossData.code == 0){
-                //this.mydata.chaseList = chaseData.result;
+                this.mydata.profitlossList.push(profitlossData.result);
             }
             console.log('#盈亏记录#', profitlossData);
 
+            let amountchangeData = await transaction('', '', '', 1, 8, '', '', '', '');
+            if(amountchangeData.code == 0){
+                this.mydata.amountchangeList = amountchangeData.result.rows;;
+            }
+            console.log('#帐变记录#', amountchangeData);
         },
         async loadlotteryhistory() {
             let historyData = await getLotteryHistory(this.gameId);

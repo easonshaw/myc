@@ -313,6 +313,7 @@
                 this.fastPoint = val;
                 let rabetkey;
                 for(rabetkey in this.rebate){
+                    if(rebetkey == 'rebatePointZRSX') continue;
                     this.rebate[rabetkey].VALUE = val;
                     this.rebate[rabetkey].TEXT = fastPoint;
                 }

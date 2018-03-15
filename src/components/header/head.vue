@@ -347,7 +347,7 @@
                 }
             },
             websocket () {
-                let ws = new WebSocket('ws://d1.myc178.com/push')
+                let ws = new WebSocket('ws://localhost/push')
                 ws.onopen = () => {
                     // Web Socket 已连接上，使用 send() 方法发送数据
                     ws.send('Holle');
@@ -355,6 +355,7 @@
                 }
                 ws.onmessage = evt => {
                     this.onData(event, ws);
+
                 }
                 ws.onclose = function () {
                     // 关闭 websocket
