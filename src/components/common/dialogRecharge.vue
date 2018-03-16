@@ -5,18 +5,17 @@
                 <div class="recharged-bank">
                     <div class="inline">选择充值银行</div>
                     <div class="inline">
-                        <div class="bank" v-for="item in payWays" @click="activeFun(item)" :title="item.platformName" :class="item.isActive ? 'bank-selected':''">
-                            <img :src="item.platformLogo" alt="">
-                            <div class="inline">{{item.rechargeName}}</div>
+                        <div class="inline" v-for="item in payWays" >
+                            <div class="bank" v-for="(bank,index) in item.bankList" @click="activeFun(item,index)" :title="bank.platformName" :class="bank.isActive ? 'bank-selected':''">
+                                <img :src="bank.platformLogo" alt="">
+                                <div class="inline">{{item.rechargeName}}</div>
+                            </div>
                         </div>
                     </div>
                     <p class="prompt"><img src="../../images/recharged5.png" alt=""> 提示:如选择银行卡转账,请勿使用其他支付方式,否者充值将无法到账.</p>
                 </div>
                 <div class="recharged-imput">
-                     <!-- <el-form-item label="充值入口" v-show="isBank">
-                        <el-input v-model="filterform.rechargeType" placeholder="请输入内容"></el-input>
-                    </el-form-item> -->
-                    <p>金额限制：单笔金额最低{{bankData.bankList[0].onetimeRechargeAmountMin}}元整，最高{{bankData.bankList[0].onetimeRechargeAmountMax}}元整。</p>
+                    <p>金额限制：单笔金额最低{{bank.onetimeRechargeAmountMin}}元整，最高{{bank.onetimeRechargeAmountMax}}元整。</p>
                     <el-form-item label="充值金额">
                         <el-input v-model="filterform.amount" @input="amountChange" placeholder="请输入内容"></el-input>
                     </el-form-item>
@@ -51,11 +50,10 @@
                     payeeAccountName:'',
                     rechargeType:'',
                 },
-                bankData:{
-                    bankList:[{
-                        onetimeRechargeAmountMin:"",
-                        onetimeRechargeAmountMax:''}
-                    ]
+                pay:{},
+                bank:{
+                    onetimeRechargeAmountMin:"",
+                    onetimeRechargeAmountMax:""
                 },
                 bigAmount:'',
                 isBank:true,
@@ -77,12 +75,15 @@
                 this.dialogVisible = false;
             },
             //选择支付方式
-            activeFun(data){
+            activeFun(data,index){
                 this.payWays.forEach(element => {
-                    element.isActive = false;
+                    element.bankList.forEach(e => {
+                        e.isActive = false;
+                    });
                 });
-                data.isActive = !data.isActive;
-                this.bankData = data;             
+                data.bankList[index].isActive = !data.bankList[index].isActive;
+                this.pay = data;
+                this.bank = data.bankList[index];
                 if (data.rechargeName=='网银汇款') {
                     this.isBank = true;
                 }else{
@@ -94,14 +95,11 @@
                 let payWays = await getPayWays(3,"1.0.0");
                 if (payWays.code==0) {
                     payWays.result.forEach(data => {
-                        //默认选中网银汇款
-                        data.isActive = data.rechargeName=='网银汇款' ? true : false;
-                        if (data.rechargeName=='网银汇款') {
-                            this.bankData =data;
-                        }
+                        data.bankList.forEach(element => {
+                            element.isActive = false;
+                        });
                     });
                     this.payWays = payWays.result;
-                    console.log(payWays);
                 }
             },
             //大写金额转化
@@ -124,7 +122,7 @@
             },
             //提交表单
             onFilterSubmit(){
-                if (this.bankData.rechargeName=='网银汇款' || this.bankData.rechargeName=='支付宝转账') {
+                if (this.pay.rechargeName=='网银汇款' || this.pay.rechargeName=='支付宝转账') {
                     //线下充值
                     this.offline();
                 }else{
@@ -136,35 +134,34 @@
             async online(){
                 //接口请求数据
                 let res = await submitOnline(
-                    this.bankData.merchantId,
-                    this.bankData.platformName,
-                    this.bankData.bankList[0].bankId,
-                    this.bankData.bankList[0].bankName,
+                    this.bank.merchantId,
+                    this.bank.platformName,
+                    this.bank.bankId,
+                    this.bank.bankName,
                     this.filterform.amount
                 );
-                // console.log(this.bankData);
                 //错误
                 if (res.code!=0) {
                     this.$alert(res.msg, '提示信息', {
                         confirmButtonText: '确定',
                     });
                 }
-                //成功
+                 //成功
                 if(res.code == 0){
-                     
+                    this.$alert('充值成功', '提示信息', {
+                        confirmButtonText: '确定',
+                    });
                 }
             },
             //请求线下充值接口
             async offline(){
                 //接口请求数据
                 let res = await submitOffline(
-                    this.bankData.rechargeType,
-                    this.bankData.bankList[0].bankId,
+                    this.pay.rechargeType,
+                    this.bank.bankId,
                     this.filterform.amount,                        
                     this.filterform.payeeAccountName,
                 );
-                // console.log(res);
-                
                 //错误
                 if (res.code!=0) {
                     this.$alert(res.msg, '提示信息', {

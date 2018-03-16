@@ -21,7 +21,7 @@
         </el-dialog>
         <el-dialog title="优惠活动" :visible.sync="sodialogVisible" width="30%" :before-close="itemhandleClose">
             <div class="content">
-                <span>{{content}}</span>         
+                <span>{{content}}</span>
             </div>
         </el-dialog>
     </div>
@@ -35,7 +35,7 @@
                 sodialogVisible: false,
                 activityList:[],
                 content:"",
-                size:10,
+                size:5,
                 page:1,
                 total:1,
                 pagetotals:1,
@@ -48,9 +48,14 @@
                 this.dialogVisible = false;
             },
             async getActivityList(){
-                let activityList = await getActivitys();
+                let activityList = await getActivitys(
+                    this.page,
+                    this.size
+                );
                 if (activityList.code==0) {
                     this.activityList = activityList.result.rows;
+                    this.total = activityList.result.total;
+                    this.pagetotals = activityList.result.totalPages;
                 }
             },
             itemhandleClose() {
@@ -60,7 +65,7 @@
                 this.content = item.content;
                 this.sodialogVisible = true;
             },
-              handleCurrentChange(val) {
+            handleCurrentChange(val) {
                 this.page = val;
                 this.getActivityList();
             },
@@ -83,8 +88,8 @@
 }
 .activity-list{
     padding: 10px 20px;
-    height: 300px;
-    overflow-y: scroll;
+    min-height: 300px;
+    // overflow-y: scroll;
 }
 .activity-item{
     height: 30px;
