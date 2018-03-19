@@ -5,7 +5,7 @@
         <div class="GameWapper">
             <div class="WapperLeft">
                 <div class="betMain">
-                    <bet :gameId="gameId"></bet>
+                    <bet :gameinfo="gameinfo" :gameId="gameId"></bet>
                 </div>
                 <div class="betList">
                     <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="betRecordsData" :header-row-class-name="betsListmethodTableRowClassName">
@@ -53,14 +53,29 @@
                             <el-table  element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)" :data="mydata.chaseList" :header-row-class-name="betsRecordmethodTableRowClassName">
                                 <el-table-column prop="betTime" width="135" label="追号时间"> </el-table-column>
                                 <el-table-column prop="gameName" label="彩种"></el-table-column>
-                                <el-table-column prop="billNo" width="130" label="开始期号"> </el-table-column>
-                                <el-table-column prop="name" label="游戏玩法"></el-table-column>
-                                <el-table-column prop="name" label="投注号码"></el-table-column>
-                                <el-table-column prop="name" label="总金额"></el-table-column>
-                                <el-table-column prop="name" label="完成金额"></el-table-column>
-                                <el-table-column prop="name" label="取消金额"></el-table-column>
-                                <el-table-column prop="name" label="中奖后停止"></el-table-column>
-                                <el-table-column prop="name" width="150" label="状态（点击查看）"></el-table-column>
+                                <el-table-column prop="startIssue" width="100" label="开始期号"> </el-table-column>
+                                <el-table-column prop="playName" label="游戏玩法"></el-table-column>
+                                <el-table-column prop="betNumber" label="投注号码" width="120"></el-table-column>
+                                <el-table-column prop="betTotal" label="总金额"></el-table-column>
+                                <el-table-column prop="planTotal" label="完成金额"></el-table-column>
+                                <el-table-column prop="cancelTotal" label="取消金额"></el-table-column>
+                                <el-table-column prop="winStop" label="中奖后停止">
+                                    <template slot-scope="scope">
+                                        <div slot="reference">
+                                            <span class="status_black" v-if="scope.row.winStop == 0">否</span>
+                                            <span class="status_success" v-if="scope.row.winStop == 1">是</span>
+                                        </div>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="status" width="150" label="状态（点击查看）">
+                                    <template slot-scope="scope">
+                                        <div slot="reference">
+                                            <span class="status_black" v-if="scope.row.status == 0">追号中</span>
+                                            <span class="status_success" v-if="scope.row.status == 1">已完成</span>
+                                            <span class="status_warning" v-if="scope.row.status == 2">已撤单</span>
+                                        </div>
+                                    </template>
+                                </el-table-column>
                             </el-table>
                             <div class="viewmore"><el-button @click.native="fastgoto('chaserecord')" size="small" type="warning" round>查看更多</el-button></div>
                         </el-tab-pane>
@@ -160,7 +175,7 @@ import {mapState, mapActions, mapMutations} from 'vuex'
 import headTop from '../../components/header/head'
 import bet from '../../page/main/bet'
 import gamehead from '../../components/header/gamehead'
-import {getLotteryHistory, getCurIssue, getLotteryMissCold, getlatelybetList, chaseRecord, getReport, transaction} from '../../service/getData'
+import {getLotteryHistory, getCurIssue, getLotteryMissCold, getlatelybetList, chaseRecord, getReport, transaction, getLotteryPlays} from '../../service/getData'
 
 export default {
     data(){
@@ -185,8 +200,8 @@ export default {
                 chaseList: [], //追号记录
                 profitlossList: [], //盈亏报表
                 amountchangeList: [], //账户变动
-            }
-
+            },
+            gameinfo:{},
         }
     },
 	mounted(){
@@ -203,6 +218,7 @@ export default {
     watch: {
         '$route': function(to, from) {
             this.initMenuSel();
+            this.loadlotteryplays();
             this.loadlotteryhistory();
             this.loadissue();
             this.loadlotterymissclod();
@@ -210,6 +226,7 @@ export default {
     },
     created() {
 	    this.initMenuSel();
+        this.loadlotteryplays();
         this.loadlotteryhistory();
         this.loadissue();
         this.loadmydata();
@@ -258,7 +275,7 @@ export default {
             }
             console.log('#追号记录#', chaseData);
 
-            let profitlossData = await getReport('', '', 1, 8, '', '', '', '');
+            let profitlossData = await getReport('', '', '');
             if(profitlossData.code == 0){
                 this.mydata.profitlossList.push(profitlossData.result);
             }
@@ -287,13 +304,19 @@ export default {
             }
         },
         async loadlotterymissclod() {
-            let misscoldData = await  getLotteryMissCold(this.gameId);
+            let misscoldData = await getLotteryMissCold(this.gameId);
             if(misscoldData.code == 0) {
                 let hotcold = JSON.parse(misscoldData.result[0].hotCold);
                 let miss = JSON.parse(misscoldData.result[0].missTimes);
                 //console.log('#冷热遗漏#', hotcold, miss);
             }
-
+        },
+        async loadlotteryplays() {
+            let lotteryplaysData = await getLotteryPlays(this.gameId);
+            if(lotteryplaysData.code == 0) {
+                this.gameinfo = lotteryplaysData.result;
+            }
+            console.log('#游戏玩法#', lotteryplaysData);
         },
         refreshPageData() {
             console.log('$emit')

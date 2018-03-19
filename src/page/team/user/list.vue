@@ -53,7 +53,7 @@
                             sortable>
                         <template slot-scope="scope">
                             <div slot="reference" class="name-wrapper">
-                                <el-button type="primary" size="mini" @click="filterByuserName(scope.row.userName)" round>{{ scope.row.directChildsCount }}</el-button>
+                                <el-button  type="primary" size="mini" @click="filterByuserName(scope.row.userName, scope.row.directChildsCount)" round>{{ scope.row.directChildsCount }}</el-button>
                             </div>
                         </template>
                     </el-table-column>
@@ -183,7 +183,11 @@
                 this.detailVisabel = true;
                 this.detailUser = userinfo;
             },
-            filterByuserName(name){
+            filterByuserName(name, directChildsCount){
+                if(directChildsCount == 0){
+                    this.$message.error('没有找到下级用户');
+                    return false;
+                }
                 this.filterform.userName = name;
                 this.onFilterSubmit();
             },

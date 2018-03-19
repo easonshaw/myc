@@ -290,6 +290,12 @@ export const getTeamReportsList = (page = 1, size,  field, direction , startTime
     floor:floor,
 }, 'POST', 'fetch', 'json', true);
 
+
+/**
+ * 墨月城-获得游戏玩法
+ */
+export const getLotteryPlays = (gameId) => fetch('/fore/lottery/plays/'+gameId, {}, 'GET', 'fetch', 'json', true);
+
 /**
  * 墨月城-获得VR第三方链接
  */
