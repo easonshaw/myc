@@ -377,3 +377,8 @@ export const getExchangeList = (page = 1, size, field, direction, type, startTim
  * 墨月城-获取活动优惠
  */
 export const getActivitys = (page = 1, size) => fetch('/fore/activity/list', { page: page, size: size, }, 'GET', 'fetch','json');
+
+/**
+ * 墨月城-用户意见反馈
+ */
+export const adviceSend = (content, vCode) => fetch('/fore/advice/send', { content: content, vCode: vCode, }, 'POST', 'fetch', 'json', true);

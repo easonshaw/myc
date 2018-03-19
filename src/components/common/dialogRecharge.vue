@@ -101,6 +101,7 @@
                     });
                     this.payWays = payWays.result;
                 }
+                console.log(payWays);
             },
             //大写金额转化
             amountChange(){
@@ -146,12 +147,15 @@
                         confirmButtonText: '确定',
                     });
                 }
-                 //成功
-                if(res.code == 0){
-                    this.$alert('充值成功', '提示信息', {
-                        confirmButtonText: '确定',
-                    });
-                }
+                
+                console.log(res);
+
+                //成功
+                // if(res.code == 0){
+                //     this.$alert('充值成功', '提示信息', {
+                //         confirmButtonText: '确定',
+                //     });
+                // }
             },
             //请求线下充值接口
             async offline(){
@@ -169,11 +173,12 @@
                     });
                 }
                 //成功
-                if(res.code == 0){
-                    this.$alert('充值成功', '提示信息', {
-                        confirmButtonText: '确定',
-                    });
-                }
+                console.log(res);
+                // if(res.code == 0){
+                //     this.$alert('充值成功', '提示信息', {
+                //         confirmButtonText: '确定',
+                //     });
+                // }
             }
         }
     }

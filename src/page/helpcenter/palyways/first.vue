@@ -1,54 +1,114 @@
 <template>
-  <el-table
-    :data="tableData"
-    border
-    style="width: 100%">
-    <el-table-column
-      prop="name"
-      label="彩种名称"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="开奖号码"
-      width="220">
-    </el-table-column>
-    <el-table-column
-      prop="date"
-      label="彩种开奖时间">
-    </el-table-column>
-  </el-table>
+    <el-table :data="tableData" border style="width: 100%">
+        <el-table-column prop="name" label="彩种名称" width="180"></el-table-column>
+        <el-table-column prop="num" label="开奖号码" width="220"></el-table-column>
+        <el-table-column prop="date" label="彩种开奖时间"></el-table-column>
+    </el-table>
 </template>
 
 <script>
+
 export default {
-  data() {
-    return {
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ]
-    };
-  }
+    data() {
+        return {
+            tableData:[
+            {
+                name: "重庆时时彩",
+                num: "5个号码",
+                date:"10：00~22：00（每期10分钟）共計72期22：00~01：55（每期 5分钟）共計48期"
+            },{
+                name: "天津时时彩",
+                num: "5个号码",
+                date:"09：08~22：58（每期10分钟）共計84期"
+            },{
+                name: "新疆时时彩",
+                num: "5个号码",
+                date:"10：10~02：00（每期10分钟）共計96期"
+            },{
+                name: "广东11选5",
+                num: "5个号码",
+                date:"09：10~23：00（每期10分钟）共計84期"
+            },{
+                name: "江西11选5",
+                num: "5个号码",
+                date:"09：10~23：00（每期10分钟）共計84期"
+            },{
+                name: "上海11选5",
+                num: "5个号码",
+                date:"09：00~23：50（每期10分钟）共計90期"
+            },{
+                name: "山东11选5",
+                num: "5个号码",
+                date:"08：35~22：55（每期10分钟）共計87期"
+            },{
+                name: "江苏11选5",
+                num: "5个号码",
+                date:"08：35~22：05（每期10分钟）共计82期"
+            },{
+                name: "辽宁11选5",
+                num: "5个号码",
+                date:"08：50~22：30（每期10分钟）共计83期"
+            },{
+                name: "河北11选5",
+                num: "5个号码",
+                date:"08：30~22：30（每期10分钟）共计85期"
+            },{
+                name: "黑龙江11选5",
+                num: "5个号码",
+                date:"08：05~22：35（每期10分钟）共计88期"
+            },{
+                name: "两分11选5",
+                num: "5个号码",
+                date:"00：02~00：00[次日]（每期2分钟）共计720期"
+            },{
+                name: "江苏快三",
+                num: "3个号码",
+                date:"08：39~22：09（每期10分钟）共計82期"
+            },{
+                name: "安徽快三",
+                num: "3个号码",
+                date:"08：50~22：00（每期10分钟）共計80期"
+            },{
+                name: "北京快三",
+                num: "3个号码",
+                date:"09：10~23：50（每期10分钟）共計88期"
+            },{
+                name: "广西快三",
+                num: "3个号码",
+                date:"09：38~22：28（每期10分钟）共計77期"
+            },{
+                name: "湖北快三",
+                num: "3个号码",
+                date:"09：00~22：00（每期10分钟）共计78期"
+            },{
+                name: "河北快三",
+                num: "3个号码",
+                date:"08：30~22：00（每期10分钟）共计81期"
+            },{
+                name: "吉林快三",
+                num: "3个号码",
+                date:"08：30~22：50（每期10分钟）共計87期"
+            },{
+                name: "分分快三",
+                num: "3个号码",
+                date:"00:00~23:59 (每期1分钟) 共计1440期"
+            },{
+                name: "北京5分彩",
+                num: "3个号码",
+                date:"00:00~23:59 (每期1分钟) 共计1440期"
+            },{
+                name: "分分快三",
+                num: "3个号码",
+                date:"00:00~23:59 (每期1分钟) 共计1440期"
+            },{
+                name: "分分快三",
+                num: "3个号码",
+                date:"00:00~23:59 (每期1分钟) 共计1440期"
+            }]
+        };
+    }
 };
+
 </script>
 
 <style lang="scss" scoped>

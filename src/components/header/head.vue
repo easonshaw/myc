@@ -120,7 +120,7 @@
 <script>
     import {localapi, proapi, imgBaseUrl} from 'src/config/env'
     import {mapState, mapActions, mapMutations} from 'vuex'
-    import {signout, getUser, getBalance,getcaptchacode, getNotice, getGames, getVrLoginUrl, getAgLoginUrl} from '../../service/getData'
+    import {signout, getUser, getBalance,getcaptchacode,adviceSend,getNotice, getGames, getVrLoginUrl, getAgLoginUrl} from '../../service/getData'
     import dialogDownApp from 'src/components/common/dialogDownApp.vue'
     import dialogTestSpeed from 'src/components/common/dialogTestSpeed.vue'
     import dialogRecharge from 'src/components/common/dialogRecharge.vue'
@@ -277,10 +277,19 @@
             submitfeedbackForm(feedbackForm){
                 this.$refs.feedbackForm.validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                        this.sendAdvice();
                     } else {
                         return false;
                     }
+                });
+            },
+            async sendAdvice(){
+                let res = await adviceSend(
+                    this.feedbackForm.content,
+                    this.feedbackForm.code
+                );
+                this.$alert(res.msg, '提示信息', {
+                    confirmButtonText: '确定',
                 });
             },
             async notice_handleSizeChange(val) {
