@@ -1260,6 +1260,7 @@ color:#3ebcd1;
 }
 .GameWapper .WapperLeft .betMain .betWay{
     padding: 12px 20px;
+    position: relative;
 }
 
 .GameWapper .WapperLeft .betList{
@@ -1373,14 +1374,43 @@ color:#3ebcd1;
     color: #FFF;
 }
 
+.GameWapper .WapperLeft .betWay .el-tabs--card>.el-tabs__header .el-tabs__nav-prev,
+.GameWapper .WapperLeft .betWay .el-tabs--card>.el-tabs__header .el-tabs__nav-next{
+    top: 0px;
+}
+
+.GameWapper .WapperLeft .betWay .el-tabs--card>.el-tabs__header .el-tabs__nav-prev ,
+.GameWapper .WapperLeft .betWay .el-tabs--card>.el-tabs__header .el-tabs__nav-next i{
+    font-size: 20px;
+}
+
+.GameWapper .WapperLeft .bethelp{
+    position: absolute;
+    right: 20px;
+    top: 70px;
+    width: 120px;
+    text-align: right;
+    z-index: 9;
+}
+.GameWapper .WapperLeft .bethelp a{
+    font-size: 14px;
+    color: #3c3c3c;
+}
+.GameWapper .WapperLeft .bethelp i{
+    color: #ff6000;
+    font-size: 20px;
+    vertical-align: middle;
+}
 .GameWapper .WapperLeft .betWay .betPlay{
     width: 100%;
 }
 
 .GameWapper .WapperLeft .betWay .bonusAdj{
-    width: 250px;
+    width: 200px;
     height: 100px;
-    float: left;
+    margin-top: 35px;
+    margin-bottom: 10px;
+    float: right;
     position:relative;
 }
 .GameWapper .WapperLeft .betWay .bonusAdj .disMinRate{
@@ -1440,7 +1470,7 @@ color:#3ebcd1;
     bottom: 0;
 }
 .GameWapper .WapperLeft .betWay .bonusAdj .rateType .el-radio{
-    width: 125px;
+    width: 100px;
     float: left;
     margin: 0;
 }
@@ -1465,7 +1495,7 @@ color:#3ebcd1;
     border: 1px solid #f66;
 }
 .GameWapper .WapperLeft .betWay .betPlay .betPlaySel{
-    width: 670px;
+    width: 720px;
     float: left;
 }
 .GameWapper .WapperLeft .betWay .betPlay .betPlaySel .bet-type-button-group{
@@ -1473,7 +1503,7 @@ color:#3ebcd1;
     display: block;
 }
 .GameWapper .WapperLeft .betWay .betPlaySel .bet-type-button-group .span_text{
-    width: 100px;
+    width: 80px;
     float: left;
     text-align: right;
     font-weight: bold;
@@ -1483,7 +1513,7 @@ color:#3ebcd1;
     font-size: 14px;
 }
 .GameWapper .WapperLeft .betWay .betPlaySel .bet-type-button-group .text{
-    width: 570px;
+    width: 620px;
     float: left;
     font-size: 14px;
 }
@@ -1516,7 +1546,7 @@ color:#3ebcd1;
 .GameWapper .WapperLeft .betWay  .betSelList .listGroup .tz_dian .span_text{
     text-align: right;
     font-weight: bold;
-    width: 100px;
+    width: 80px;
     display: block;
     color: #6e7276;
     height: 35px;

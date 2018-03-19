@@ -352,8 +352,10 @@
             },
             onData() {
                 var dataObj = eval("(" + event.data + ")");
-                var dataContent = JSON.parse(dataObj.content);
                 console.log(dataObj, dataContent);
+                return false;
+                var dataContent = JSON.parse(dataObj.content);
+
                 if(dataObj.msgType == 1) {
                     this.$notify.info({
                         title: dataObj.title,
