@@ -202,10 +202,9 @@ export default {
                 amountchangeList: [], //账户变动
             },
             gameinfo:{},
-        }
-    },
+            }
+        },
 	mounted(){
-
     },
     components:{
         headTop,

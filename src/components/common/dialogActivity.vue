@@ -8,16 +8,20 @@
                     <div class="time">2018-3-13</div>             
                 </div>
             </div>
-            <!-- <div class="page"> 
-                <el-pagination
-                    layout="prev, pager, next"
-                    :total="50">
+            <div class="page"> 
+               <el-pagination
+                background
+                @current-change="handleCurrentChange"
+                layout="prev, pager, next"
+                :page-size="size"
+                :page-count="pagetotals"
+                :total="total">
                 </el-pagination>
-            </div> -->
+            </div>
         </el-dialog>
         <el-dialog title="优惠活动" :visible.sync="sodialogVisible" width="30%" :before-close="itemhandleClose">
             <div class="content">
-                <span>{{content}}</span>         
+                <span>{{content}}</span>
             </div>
         </el-dialog>
     </div>
@@ -31,6 +35,10 @@
                 sodialogVisible: false,
                 activityList:[],
                 content:"",
+                size:5,
+                page:1,
+                total:1,
+                pagetotals:1,
                 dialogVisible: this.activitydialogVisible
             }
         },
@@ -40,9 +48,14 @@
                 this.dialogVisible = false;
             },
             async getActivityList(){
-                let activityList = await getActivitys();
+                let activityList = await getActivitys(
+                    this.page,
+                    this.size
+                );
                 if (activityList.code==0) {
                     this.activityList = activityList.result.rows;
+                    this.total = activityList.result.total;
+                    this.pagetotals = activityList.result.totalPages;
                 }
             },
             itemhandleClose() {
@@ -51,7 +64,11 @@
             showactivityInfo(item){
                 this.content = item.content;
                 this.sodialogVisible = true;
-            }
+            },
+            handleCurrentChange(val) {
+                this.page = val;
+                this.getActivityList();
+            },
         },
         watch: {
             activitydialogVisible: function (value){
@@ -71,8 +88,8 @@
 }
 .activity-list{
     padding: 10px 20px;
-    height: 300px;
-    overflow-y: scroll;
+    min-height: 300px;
+    // overflow-y: scroll;
 }
 .activity-item{
     height: 30px;
@@ -90,6 +107,7 @@
 }
 .page{
     text-align: center;
+    padding: 15px 0;
 }
 .content{
     padding: 0px 15px;

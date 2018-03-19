@@ -5,6 +5,7 @@
                 <template slot="title">
                 <div class="icon">Q</div>没有网银怎么进行充值？
                 </template>
+                <div class="ask">A</div>
                 <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
                 <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
             </el-collapse-item>
@@ -72,5 +73,18 @@
     font-size: 1.8em;
     font-weight: bold;
     margin-right: 15px;
+}
+.ask{
+    width: 36px;
+    height: 36px;
+    background: #F39800;
+    border-radius: 50%;
+    text-align: center;
+    display: inline-block;
+    line-height: 36px;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-right: 15px;
+    color: #fff;
 }
 </style>

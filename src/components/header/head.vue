@@ -34,7 +34,6 @@
                     <a data-v-9d92c9cc="" href="javascript:;" @click="showActivity" class="router-link-active"><i data-v-9d92c9cc="" class="iconfont icon-youhuihuodong"></i> <p data-v-9d92c9cc="">优惠活动</p></a>
                     <!-- <router-link :to="{ name: 'activity' }"><i class="iconfont icon-youhuihuodong"></i> <p>优惠活动</p></router-link> -->
                 </li>
-
             </ul>
             <div class="menu-right">
                 <a href="javascript:;" class="button button-recharge" @click="rechargedialogVisible = true">充&nbsp;&nbsp;&nbsp;&nbsp;值</a>
@@ -83,14 +82,15 @@
              <div class="dialog-content">
                 <el-form :model="feedbackForm" :rules="rules" ref="feedbackForm" class="feedbackForm">
                     <el-form-item label="反馈内容" prop="content">
-                        <el-input type="textarea" :rows="5" v-model="feedbackForm.content"></el-input>
+                        <el-input type="textarea" :rows="5" placeholder="请输入反馈内容" v-model="feedbackForm.content"></el-input>
                     </el-form-item>
                     <p>*您可以透过【用户反馈】向我们汇报程序出现的问题，平台使用上的建议和客服服务品质，让玖富娱乐能够提供更好的平台体验度。</p>
                     <el-form-item label="验证码" prop="code">
-                        <el-input v-model="feedbackForm.code"></el-input>
+                        <el-input v-model="feedbackForm.code" class="code"></el-input>
+                        <img @click="getCaptchaCode" v-show="captchaCodeImg" :src="captchaCodeImg" alt="验证码">
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="danger" @click="submitfeedbackForm(feedbackForm)">反馈送出</el-button>
+                        <el-button type="danger" @click="submitfeedbackForm(feedbackForm)" class="feedbackbutton">反馈送出</el-button>
                     </el-form-item>
                 </el-form>
              </div>
@@ -120,7 +120,7 @@
 <script>
     import {localapi, proapi, imgBaseUrl} from 'src/config/env'
     import {mapState, mapActions, mapMutations} from 'vuex'
-    import {signout, getUser, getBalance, getNotice, getGames, getVrLoginUrl, getAgLoginUrl} from '../../service/getData'
+    import {signout, getUser, getBalance,getcaptchacode, getNotice, getGames, getVrLoginUrl, getAgLoginUrl} from '../../service/getData'
     import dialogDownApp from 'src/components/common/dialogDownApp.vue'
     import dialogTestSpeed from 'src/components/common/dialogTestSpeed.vue'
     import dialogRecharge from 'src/components/common/dialogRecharge.vue'
@@ -166,12 +166,14 @@
                 feedbackForm:{
                     content:"",
                     code:"",
-                }
+                },
+                 captchaCodeImg: '',
             }
         },
         mounted(){
             //获取用户信息
             this.checkLogin();
+            this.getCaptchaCode();
         },
         created() {
             this.websocket();
@@ -266,6 +268,11 @@
             },
             feedbackClose(){
                 this.feedbackDialogVisible = false;                
+            },
+            //获取验证吗
+            async getCaptchaCode(){
+                let res = await getcaptchacode();
+                this.captchaCodeImg = "data:image/png;base64,"+res;
             },
             submitfeedbackForm(feedbackForm){
                 this.$refs.feedbackForm.validate((valid) => {
@@ -430,5 +437,18 @@
        padding: 0  10px;
        color: red;
        font-size: 0.8em;
+    }
+    .dialog-content .code{
+        width: 50%;
+    }
+    .dialog-content img{
+        height: 40px;
+        vertical-align: middle;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    .dialog-content .feedbackbutton{
+        margin-left: 50px;
+        margin-top: 15px;
     }
 </style>
