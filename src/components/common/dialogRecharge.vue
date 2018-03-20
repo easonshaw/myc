@@ -87,12 +87,12 @@
                 if (data.rechargeName=='网银汇款') {
                     this.isBank = true;
                 }else{
-                    this.isBank = false;                    
+                    this.isBank = false;           
                 }
             },
             //获取支付方式
             async getpays(){
-                let payWays = await getPayWays(3,"1.0.0");
+                let payWays = await getPayWays(3,);
                 if (payWays.code==0) {
                     payWays.result.forEach(data => {
                         data.bankList.forEach(element => {
@@ -123,12 +123,12 @@
             },
             //提交表单
             onFilterSubmit(){
-                if (this.pay.rechargeName=='网银汇款' || this.pay.rechargeName=='支付宝转账') {
-                    //线下充值
-                    this.offline();
-                }else{
+                if (this.bank.isThirdPay==true) {
                     //第三方充值
                     this.online();
+                }else{
+                    //线下充值
+                    this.offline();
                 }
             },
             //请求第三方充值接口
@@ -151,11 +151,9 @@
                 console.log(res);
 
                 //成功
-                // if(res.code == 0){
-                //     this.$alert('充值成功', '提示信息', {
-                //         confirmButtonText: '确定',
-                //     });
-                // }
+                if(res.code == 0){
+                    window.open(res.result.postUrl);
+                }
             },
             //请求线下充值接口
             async offline(){
@@ -174,11 +172,9 @@
                 }
                 //成功
                 console.log(res);
-                // if(res.code == 0){
-                //     this.$alert('充值成功', '提示信息', {
-                //         confirmButtonText: '确定',
-                //     });
-                // }
+                if(res.code == 0){
+                    window.open(res.result.postUrl);
+                }
             }
         }
     }
