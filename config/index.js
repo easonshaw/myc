@@ -43,7 +43,7 @@ module.exports = {
             '/third-pay',
             '/vr',
         ],
-        proxypath: 'http://122.114.58.139:9090',
+        proxypath: 'http://132.148.153.214:9090',
         // CSS Sourcemaps off by default because relative paths are "buggy"
         // with this option, according to the CSS-Loader README
         // (https://github.com/webpack/css-loader#sourcemaps)

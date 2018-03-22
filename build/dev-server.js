@@ -37,8 +37,8 @@ compiler.plugin('compilation', function(compilation) {
 var context = config.dev.context
 
 switch(process.env.NODE_ENV){
-    case 'local': var proxypath = 'http://122.114.58.139:9090'; break;
-    case 'online': var proxypath = 'http://122.114.58.139:9090'; break;
+    case 'local': var proxypath = 'http://132.148.153.214:9090'; break;
+    case 'online': var proxypath = 'http://132.148.153.214:9090'; break;
     default:  var proxypath = config.dev.proxypath; 
 }
 var options = {
